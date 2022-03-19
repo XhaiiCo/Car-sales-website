@@ -51,6 +51,8 @@ create table if not exists sale
     car_color varchar(255) NOT NULL,
     car_state varchar(100) NOT NULL,
     model_name varchar(100) NOT NULL,
+    brand_name varchar(100) NOT NULL,
+    id_user int unsigned NOT NULL,
 
     primary key(id_sale)
 ) engine = innodb ;
@@ -58,7 +60,10 @@ create table if not exists sale
 alter table sale
 add constraint fk_salemodel_name
 foreign key(model_name)
-references car_model(model_name) ;
+references car_model(model_name),
+add constraint fk_saleid_user
+foreign key(id_user)
+references user(id_user) ;
 
 create table if not exists sale_like
 (
