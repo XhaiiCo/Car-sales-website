@@ -38,13 +38,13 @@ insert into car_model value
 ("R8", "Audi"),
 ("Autres", "Audi") ;
 
-insert into user (username, mail, user_password, isAdmin, isSeller, date_registration)
-values ("David", "david@david.be", "", 0, 1, now()) ;
+insert into user (user_mail, username, user_password, isAdmin, isSeller, date_registration)
+values ("david@david.be", "David", "", 0, 1, now()) ;
 
 insert into sale (price, publication_date, sale_description, car_kilometer, car_year, car_power,
-car_fuel, car_color, car_state,additional_info, model_name, brand_name, id_user)
+car_fuel, car_color, car_state,additional_info, model_name, brand_name, user_mail)
 values
-(80000, now(), 'Elle est bien jte jure', 23932, "1986", 130, "Essence", "Noir", "Occasion", "E30", "M3", "BMW", 1) ;
+(80000, now(), 'Elle est bien jte jure', 23932, "1986", 130, "Essence", "Noir", "Occasion", "E30", "M3", "BMW", "david@david.be") ;
 
 insert into car_picture
 (picture_name, picture_order, id_sale)

@@ -4,15 +4,14 @@ use projtm ;
 
 create table if not exists user 
 (
-    id_user int unsigned auto_increment,
+    user_mail varchar(255) NOT NULL,
     username varchar(100) NOT NULL,
-    mail varchar(255) NOT NULL,
     user_password varchar(255) NOT NULL,
     isAdmin boolean NOT NULL,
     isSeller boolean NOT NULL,
     date_registration date NOT NULL,
 
-    primary key(id_user)
+    primary key(user_mail)
 ) engine=innodb;
 
 
@@ -53,7 +52,7 @@ create table if not exists sale
     additional_info varchar(255),
     model_name varchar(100) NOT NULL,
     brand_name varchar(100) NOT NULL,
-    id_user int unsigned NOT NULL,
+    user_mail varchar(255) NOT NULL,
 
     primary key(id_sale)
 ) engine = innodb ;
@@ -62,23 +61,23 @@ alter table sale
 add constraint fk_salemodel_name
 foreign key(model_name)
 references car_model(model_name),
-add constraint fk_saleid_user
-foreign key(id_user)
-references user(id_user) ;
+add constraint fk_saleuser_mail
+foreign key(user_mail)
+references user(user_mail) ;
 
 create table if not exists sale_like
 (
-    id_user int unsigned,
+    user_mail varchar(255) NOT NULL,
     id_sale int unsigned NOT NULL,
 
-    primary key (id_user, id_sale),
+    primary key (user_mail, id_sale),
     key (id_sale)
 ) engine = innodb ;
 
 alter table sale_like
-add constraint fk_sale_likeid_user
-foreign key (id_user)
-references user (id_user),
+add constraint fk_sale_likeuser_mail
+foreign key (user_mail)
+references user (user_mail),
 add constraint fk_sale_likeid_sale
 foreign key (id_sale)
 references sale (id_sale) ;
@@ -101,7 +100,7 @@ create table if not exists message_sale
 (
     id_message int unsigned not null auto_increment,
     user_message text NOT NULL,
-    id_user int unsigned,
+    user_mail varchar(255) NOT NULL,
     id_sale int unsigned NOT NULL,
     
     primary key(id_message) 
@@ -109,9 +108,9 @@ create table if not exists message_sale
 ) engine = innodb ;
 
 alter table message_sale
-add constraint fk_message_saleid_user
-foreign key (id_user)
-references user(id_user),
+add constraint fk_message_saleuser_mail
+foreign key (user_mail)
+references user(user_mail),
 add constraint fk_message_saleid_sale
 foreign key (id_sale)
 references sale(id_sale) ;
