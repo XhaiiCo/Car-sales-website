@@ -96,3 +96,22 @@ alter table car_picture
 add constraint fk_car_pictureid_sale
 foreign key (id_sale)
 references sale (id_sale) ;
+
+create table if not exists message_sale
+(
+    id_message int unsigned not null auto_increment,
+    user_message text NOT NULL,
+    id_user int unsigned,
+    id_sale int unsigned NOT NULL,
+    
+    primary key(id_message) 
+
+) engine = innodb ;
+
+alter table message_sale
+add constraint fk_message_saleid_user
+foreign key (id_user)
+references user(id_user),
+add constraint fk_message_saleid_sale
+foreign key (id_sale)
+references sale(id_sale) ;

@@ -1,14 +1,14 @@
 <?php
-function getDB(){
-    $host = "localhost" ;
-    $dbname = "projtm" ;
-    $user = "root" ;
-    $pass = "" ;
+function getDB()
+{
+    $host = "localhost";
+    $dbname = "projtm";
+    $user = "root";
+    $pass = "";
 
-    try
-    {
-        $bdd = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $user, $pass) ;
+    try {
+        $bdd = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $user, $pass);
+    } catch (Exception $e) {
     }
-    catch(Exception $e){}
-    return $bdd ;
+    return $bdd;
 }
