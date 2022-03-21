@@ -9,7 +9,6 @@
 <header class="container">
     <h1>Annonces</h1>
 </header>
-
 <main class="container">
     <div class="row">
         <!-- filter form -->
@@ -35,7 +34,6 @@
         <!-- List of sales -->
         <div class="col-md-9 ">
             <ul class="list-group list-group-flush" id="ad-container">
-
             </ul>
         </div>
 </main>
@@ -57,24 +55,30 @@
     // - it filters the ads
     // - and displays the models in the select
     $("#brand_select").change(function() {
-        setAd();
+        $("#model_select").html("");
         if ($("#brand_select").val() != '%') {
             setModel();
         } else {
-            $("#model_select").html("");
             $("#model_select").prop("disabled", true);
         }
+        setAd();
+    });
 
+    $("#model_select").change(function() {
+        setAd();
     });
 
     // Get ads from the db
     function setAd() {
+        const brand = $("#brand_select").val();
+        const model = $("#model_select").val() === null ? '%' : $("#model_select").val();
         $.ajax({
             type: "POST",
             url: "../src/model/model_ad.php",
             dataType: "JSON",
             data: {
-                brand_select: $("#brand_select").val()
+                brand_select: brand,
+                model_select: model
             },
             success: function(data) {
                 displayAd(data);
@@ -87,8 +91,18 @@
 
     //Display the ads past in argument
     function displayAd(data) {
-        console.log(data);
         $("#ad-container").html("");
+        // <div class="alert alert-danger">
+        //             Erreur
+        // </div>
+
+        if (data.length === 0) {
+            divError = document.createElement("div");
+            $(divError).addClass("alert alert-danger");
+            $(divError).html("Il n'y a pas de voitures")
+            $("#ad-container").append(divError);
+
+        }
         for (var ad of data) {
             li = document.createElement("li");
             $(li).addClass("item list-group-item");
