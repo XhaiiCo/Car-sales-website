@@ -2,7 +2,7 @@
 
 require_once "..\util\db.php";
 
-$stmt = getDB()->query("
+$stmt = getDB()->prepare("
 select sale.*, 
 case 
 	when car_picture.picture_order = 1 
@@ -11,9 +11,12 @@ case
 		null 
 end as picture_name
 from sale
-left join car_picture using(id_sale);
+left join car_picture using(id_sale)
+where brand_name like :brand
 ");
-$stmt->execute();
+$stmt->execute([
+    "brand" => "%"
+]);
 
 $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
