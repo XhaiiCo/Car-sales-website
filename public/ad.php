@@ -19,7 +19,8 @@
                 <!-- List of brand -->
                 <div class="form-group">
                     <label for="brand_select">Marque</label>
-                    <select id="brand_select" class="form-select">
+                    <select id="brand_select" class="form-select" name="brand_select">
+                        <option value="%" selected>Toutes</option>
                     </select>
                 </div>
 
@@ -39,17 +40,7 @@
     $(document).ready(function() {
 
         // get all the ads
-        $.ajax({
-            type: "POST",
-            url: "../src/model/model_ad.php",
-            dataType: "JSON",
-            success: function(data) {
-                displayAd(data);
-            },
-            error: function() {
-                console.log("Error");
-            }
-        });
+        actuBrand();
 
         // get all the car brand
         $.ajax({
@@ -63,10 +54,15 @@
                 console.log("Error");
             }
         });
+
+        $("#brand_select").change(function() {
+            actuBrand();
+        });
     });
 
     function displayAd(data) {
         console.log(data);
+        $("#ad-container").html("");
         for (var ad of data) {
             li = document.createElement("li");
             $(li).addClass("item list-group-item");
@@ -123,5 +119,22 @@
             $("#brand_select").append(opt);
         }
 
+    }
+
+    function actuBrand() {
+        $.ajax({
+            type: "POST",
+            url: "../src/model/model_ad.php",
+            dataType: "JSON",
+            data: {
+                brand_select: $("#brand_select").val()
+            },
+            success: function(data) {
+                displayAd(data);
+            },
+            error: function() {
+                console.log("Error");
+            }
+        });
     }
 </script>

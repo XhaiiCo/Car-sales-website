@@ -2,6 +2,10 @@
 
 require_once "..\util\db.php";
 
+$brand = "%";
+if (isset($_POST['brand_select']))
+    $brand = $_POST['brand_select'];
+
 $stmt = getDB()->prepare("
 select sale.*, 
 case 
@@ -15,7 +19,7 @@ left join car_picture using(id_sale)
 where brand_name like :brand
 ");
 $stmt->execute([
-    "brand" => "%"
+    "brand" => $brand
 ]);
 
 $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
