@@ -10,7 +10,6 @@
     <h1>Annonces</h1>
 </header>
 
-
 <main class="container">
     <div class="row">
         <!-- filter form -->
@@ -19,8 +18,15 @@
                 <!-- List of brand -->
                 <div class="form-group">
                     <label for="brand_select">Marque</label>
-                    <select id="brand_select" class="form-select" name="brand_select">
+                    <select class="form-select" id="brand_select" name="brand_select">
                         <option value="%" selected>Toutes</option>
+                    </select>
+                </div>
+
+                <!-- List of model -->
+                <div class="form-group">
+                    <label for="model_select">Modèle</label>
+                    <select class="form-select" id="model_select" name="model_select" disabled>
                     </select>
                 </div>
 
@@ -38,28 +44,48 @@
 
 <script>
     $(document).ready(function() {
+        //Disable the model's select
+        $("#model_select").prop("disabled", true);
+        // display all the ads
+        setAd();
+        // put all the brand in the select
+        setBrand();
 
-        // get all the ads
-        actuBrand();
+    });
 
-        // get all the car brand
+    //When the user select a brand :
+    // - it filters the ads
+    // - and displays the models in the select
+    $("#brand_select").change(function() {
+        setAd();
+        if ($("#brand_select").val() != '%') {
+            setModel();
+        } else {
+            $("#model_select").html("");
+            $("#model_select").prop("disabled", true);
+        }
+
+    });
+
+    // Get ads from the db
+    function setAd() {
         $.ajax({
             type: "POST",
-            url: "../src/model/model_brand.php",
+            url: "../src/model/model_ad.php",
             dataType: "JSON",
+            data: {
+                brand_select: $("#brand_select").val()
+            },
             success: function(data) {
-                putBrand(data);
+                displayAd(data);
             },
             error: function() {
                 console.log("Error");
             }
         });
+    }
 
-        $("#brand_select").change(function() {
-            actuBrand();
-        });
-    });
-
+    //Display the ads past in argument
     function displayAd(data) {
         console.log(data);
         $("#ad-container").html("");
@@ -111,6 +137,22 @@
         }
     }
 
+    // get brands from the db
+    function setBrand() {
+        $.ajax({
+            type: "POST",
+            url: "../src/model/model_brand.php",
+            dataType: "JSON",
+            success: function(data) {
+                putBrand(data);
+            },
+            error: function() {
+                console.log("Error");
+            }
+        });
+    }
+
+    // Put brands in the select
     function putBrand(brands) {
         for (brand of brands) {
             opt = document.createElement('option');
@@ -118,23 +160,35 @@
             $(opt).attr("value", brand.brand_name);
             $("#brand_select").append(opt);
         }
-
     }
 
-    function actuBrand() {
+    // Get the list of model for the brand selected from the db
+    function setModel() {
         $.ajax({
             type: "POST",
-            url: "../src/model/model_ad.php",
+            url: "../src/model/model_car_model.php",
             dataType: "JSON",
             data: {
                 brand_select: $("#brand_select").val()
             },
             success: function(data) {
-                displayAd(data);
+                putModel(data);
             },
             error: function() {
                 console.log("Error");
             }
         });
+    }
+
+    // Put models in the select
+    function putModel(models) {
+        $("#model_select").prop("disabled", false);
+        $("#model_select").html("<option value='%' selected>Toutes</option>");
+        for (model of models) {
+            opt = document.createElement('option');
+            $(opt).html(model.model_name);
+            $(opt).attr("value", model.model_name);
+            $("#model_select").append(opt);
+        }
     }
 </script>
