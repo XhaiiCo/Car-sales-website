@@ -17,18 +17,11 @@
         <div class="col-md-3 border-right">
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label for="brand_select">Marque</label>
+                    <select id="brand_select" class="form-select">
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+
             </form>
         </div>
         <!-- List of sales -->
@@ -44,6 +37,7 @@
 <script>
     $(document).ready(function() {
 
+        // get all the ads
         $.ajax({
             type: "POST",
             url: "../src/model/model_ad.php",
@@ -52,7 +46,20 @@
                 displayAd(data);
             },
             error: function() {
-                console.log("Erroe");
+                console.log("Error");
+            }
+        });
+
+        // get all the car brand
+        $.ajax({
+            type: "POST",
+            url: "../src/model/model_brand.php",
+            dataType: "JSON",
+            success: function(data) {
+                putBrand(data);
+            },
+            error: function() {
+                console.log("Error");
             }
         });
     });
@@ -105,27 +112,15 @@
 
             $("#ad-container").append(li);
         }
+    }
 
-
-
-        //Template
-        // <li class="item list-group-item">
-        //     <div class="row">
-        //         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-        //             <img class="img-fluid rounded img-responsive" src="https://cdn.motor1.com/images/mgl/1ALLW/s3/2019-mercedes-amg-g63-edition-1.jpg">
-        //         </div>
-        //         <div class="col">
-        //             <div class="col">
-        //                 <div class="row">
-        //                     <h1>Mercedes G 63 AMG</h1>
-        //                 </div>
-        //                 <div class="row">
-        //                     <p class="text-warning">109 000 €</p>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </li>
+    function putBrand(brands) {
+        for (brand of brands) {
+            opt = document.createElement('option');
+            $(opt).html(brand.brand_name);
+            $(opt).attr("value", brand.brand_name);
+            $("#brand_select").append(opt);
+        }
 
     }
 </script>
