@@ -577,8 +577,11 @@ values ("david@david.be", "David", "", 0, 1, now()) ;
 insert ignore into  sale (price, publication_date, sale_description, car_kilometer, car_year, car_power,
 car_fuel, car_color, car_state,additional_info, model_name, brand_name, user_mail)
 values
-(80000, date(now()), 'Elle est bien jte jure', 23932, "2010", 130, "Essence", "Noir", "Occasion", "", "G 63 AMG", "Mercedes-Benz", "david@david.be") ;
+(80000, date(now()), 'Elle est bien jte jure', 23932, "2010", 130, "Essence", "Noir", "Occasion", "", "G 63 AMG", "Mercedes-Benz", "david@david.be"),
+(1500000, date(now()), 'Elle est bien jte jure', 23932, "1992", 350, "Essence", "Rouge", "Occasion", "", "F40", "Ferrari", "david@david.be") ;
 
 insert ignore into  car_picture
 (picture_name, picture_order, id_sale)
-values ("1.jpg", 1, 1) ;
+values
+("1.jpg", 1, 1),
+("2.jpg", 1, 2) ;

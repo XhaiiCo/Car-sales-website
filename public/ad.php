@@ -92,9 +92,6 @@
     //Display the ads past in argument
     function displayAd(data) {
         $("#ad-container").html("");
-        // <div class="alert alert-danger">
-        //             Erreur
-        // </div>
 
         if (data.length === 0) {
             divError = document.createElement("div");
@@ -103,6 +100,7 @@
             $("#ad-container").append(divError);
 
         }
+
         for (var ad of data) {
             li = document.createElement("li");
             $(li).addClass("item list-group-item");
@@ -144,7 +142,7 @@
 
             pPrice = document.createElement("p");
             $(pPrice).addClass("text-warning");
-            $(pPrice).html(ad.price + " €");
+            $(pPrice).html(euro.format(ad.price));
             $(divPriceContainer).append(pPrice);
 
             $("#ad-container").append(li);
@@ -205,4 +203,10 @@
             $("#model_select").append(opt);
         }
     }
+
+    const euro = new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2
+    });
 </script>
