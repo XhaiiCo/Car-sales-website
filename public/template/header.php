@@ -23,7 +23,7 @@
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ad.php">Annonces</a>
+                            <a class="nav-link" href="ads.php">Annonces</a>
                         </li>
                     </ul>
                 </div>
