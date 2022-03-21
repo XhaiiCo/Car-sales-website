@@ -14,8 +14,9 @@
 <main class="container">
     <div class="row">
         <!-- filter form -->
-        <div class="col-md-3 border-right">
+        <div class="col-md-3 border-end">
             <form>
+                <!-- List of brand -->
                 <div class="form-group">
                     <label for="brand_select">Marque</label>
                     <select id="brand_select" class="form-select">
