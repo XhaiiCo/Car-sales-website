@@ -36,6 +36,7 @@
             <ul class="list-group list-group-flush" id="ads-container">
             </ul>
         </div>
+    </div>
 </main>
 
 <?php require_once "./template/footer.php" ?>
