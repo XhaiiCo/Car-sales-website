@@ -3,17 +3,10 @@
     <div class="row">
         <div class="col-md-7">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <div id="carousel-btn" class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true"></button>
                 </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="../src/assets/img/car_on_sale/1.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../src/assets/img/car_on_sale/2.jpg" class="d-block w-100" alt="...">
-                    </div>
+                <div id="carousel-img" class="carousel-inner">
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -27,10 +20,10 @@
         </div>
         <div class="col-md-5">
             <div class="row">
-                <h1>Mercedes-Benz G 63 AMG</h1>
+                <h1 id="car_name"></h1>
             </div>
             <div class="row p-2">
-                <h2 class="text-warning">80 000 €</h2>
+                <h2 id="car_price" class="text-warning">80 000 €</h2>
             </div>
             <div>
                 <input class="btn btn-secondary" type="button" value="Contacter le vendeur">
@@ -51,32 +44,32 @@
 
                     <tr>
                         <th scope="row">date de publication</th>
-                        <td>2022-03-22</td>
+                        <td id="publication_date"></td>
 
                     </tr>
                     <tr>
                         <th scope="row">Kilométrage</th>
-                        <td>23 932</td>
+                        <td id="car_kilometer"></td>
                     </tr>
                     <tr>
                         <th scope="row">Année</th>
-                        <td>2010</td>
+                        <td id="car_year"></td>
                     </tr>
                     <tr>
                         <th scope="row">Puissance</th>
-                        <td>544 CH</td>
+                        <td id="car_power"></td>
                     </tr>
                     <tr>
-                        <th scope="row">Carburant</th>
-                        <td>Essence</td>
+                        <th scope=" row">Carburant</th>
+                        <td id="car_fuel"></td>
                     </tr>
                     <tr>
                         <th scope="row">État</th>
-                        <td>Occasion</td>
+                        <td id="car_state"></td>
                     </tr>
                     <tr>
                         <th scope="row">Couleur extérieure</th>
-                        <td>Noir</td>
+                        <td id="car_color"></td>
                     </tr>
                 </tbody>
 
@@ -93,9 +86,73 @@
     if (!searchParams.has('id')) {
         window.location = " index.php";
     }
-</script>
 
-<script>
-    console.log(id);
+    $(document).ready(function() {
+        $.ajax({
+            type: "POST",
+            url: "../src/model/model_ad.php",
+            dataType: "JSON",
+            data: {
+                id: id
+            },
+            success: function(datas) {
+                putData(datas);
+            },
+            error: function() {
+                console.log("Error");
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "../src/model/model_car_picture.php",
+            dataType: "JSON",
+            data: {
+                id: id
+            },
+            success: function(datas) {
+                putPicture(datas);
+            },
+            error: function() {
+                console.log("Error");
+            }
+        });
+    });
+
+    function putData(datas) {
+        data = datas[0];
+        //Car name
+        $("#car_name").html(data.brand_name + " " + data.model_name);
+        $("#car_price").html(euro.format(data.price))
+
+        $("#publication_date").html(data.publication_date)
+        $("#car_kilometer").html(data.car_kilometer + " km");
+        $("#car_year").html(data.car_year);
+        $("#car_power").html(data.car_power + " CH");
+        $("#car_fuel").html(data.car_fuel);
+        $("#car_state").html(data.car_state);
+        $("#car_color").html(data.car_color);
+    }
+
+    function putPicture(datas) {
+        for (var i = 1; i < datas.length; i++) {
+            $("#carousel-btn").append("<button type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='" + i + "'></button>");
+        }
+        var i = 1;
+        for (data of datas) {
+            if (i === 1) {
+                $("#carousel-img").append("<div class='carousel-item active'> <img src = '../src/assets/img/car_on_sale/" + data.picture_name + "'class = 'd-block w-100'></div>");
+                i++;
+            } else {
+                $("#carousel-img").append("<div class='carousel-item'> <img src = '../src/assets/img/car_on_sale/" + data.picture_name + "'class = 'd-block w-100'></div>");
+            }
+        }
+    }
+
+    const euro = new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2
+    });
 </script>
 <?php require_once "./template/footer.php" ?>

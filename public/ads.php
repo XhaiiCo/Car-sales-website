@@ -97,7 +97,7 @@
         if (data.length === 0) {
             divError = document.createElement("div");
             $(divError).addClass("alert alert-danger");
-            $(divError).html("Il n'y a pas de voitures")
+            $(divError).html("Il n'y a pas de voiture")
             $("#ads-container").append(divError);
 
         }

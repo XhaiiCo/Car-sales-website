@@ -21,6 +21,7 @@ end as picture_name
 from sale
 left join car_picture using(id_sale)
 where brand_name like :brand and model_name like :model
+and car_picture.picture_order = 1 
 ");
 $stmt->execute([
 	"brand" => $brand,
