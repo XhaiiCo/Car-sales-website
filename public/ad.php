@@ -25,6 +25,17 @@
             <div class="row p-2">
                 <h2 id="car_price" class="text-warning">80 000 €</h2>
             </div>
+            <div class="row">
+                <p id="sale_description"></p>
+            </div>
+
+            <div class="row">
+                <hr>
+                <p>Vendu par</p>
+                <p id="seller"></p>
+                <hr>
+            </div>
+
             <div>
                 <input class="btn btn-secondary" type="button" value="Contacter le vendeur">
             </div>
@@ -132,6 +143,8 @@
         $("#car_fuel").html(data.car_fuel);
         $("#car_state").html(data.car_state);
         $("#car_color").html(data.car_color);
+        $("#sale_description").html(data.sale_description);
+        $("#seller").html(data.username);
     }
 
     function putPicture(datas) {

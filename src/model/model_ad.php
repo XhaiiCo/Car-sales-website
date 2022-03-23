@@ -11,6 +11,7 @@ $id = $_POST['id'];
 
 $stmt = getDB()->prepare("
 select * from sale
+inner join user using(user_mail)
 where sale.id_sale = :id
 ");
 
