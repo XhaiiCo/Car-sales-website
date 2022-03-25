@@ -1,4 +1,4 @@
-<?php require_once "./template/header.php" ?>
+<?php require_once "./elements/header.php" ?>
 <style>
     .item:hover {
         cursor: pointer;
@@ -39,7 +39,7 @@
     </div>
 </main>
 
-<?php require_once "./template/footer.php" ?>
+<?php require_once "./elements/footer.php" ?>
 
 <script>
     $(document).ready(function() {

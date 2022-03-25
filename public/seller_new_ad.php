@@ -1,5 +1,5 @@
-<?php require_once "./template/header.php"; ?>
+<?php require_once "./elements/header.php"; ?>
 
 <h1>New ad</h1>
 
-<?php require_once "./template/footer.php"; ?>
+<?php require_once "./elements/footer.php"; ?>

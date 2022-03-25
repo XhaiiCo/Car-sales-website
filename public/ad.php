@@ -1,4 +1,4 @@
-<?php require_once "./template/header.php" ?>
+<?php require_once "./elements/header.php" ?>
 <div class="container p-2">
     <div class="row">
         <div class="col-md-7">
@@ -168,4 +168,4 @@
         minimumFractionDigits: 2
     });
 </script>
-<?php require_once "./template/footer.php" ?>
+<?php require_once "./elements/footer.php" ?>
