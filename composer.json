@@ -1,0 +1,15 @@
+{
+    "name": "david/proj-tm-2022",
+    "autoload": {
+        "psr-4": {
+            "David\\ProjTm2022\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leclercq David",
+            "email": "davidleclercq2002@gmail.com"
+        }
+    ],
+    "require": {}
+}
