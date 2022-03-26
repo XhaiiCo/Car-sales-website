@@ -11,5 +11,7 @@
             "email": "davidleclercq2002@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
 }

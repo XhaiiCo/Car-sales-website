@@ -21,6 +21,7 @@ class ComposerStaticInitbb03f3d98f861a15c9603fad3a6ec277
     );
 
     public static $classMap = array (
+        'AltoRouter' => __DIR__ . '/..' . '/altorouter/altorouter/AltoRouter.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
