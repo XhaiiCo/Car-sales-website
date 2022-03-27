@@ -33,6 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./seller_new_ad.php">Créer une annonce</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="connexion">Se connecter</a>
+                        </li>
                     </ul>
                 </div>
             </div>
