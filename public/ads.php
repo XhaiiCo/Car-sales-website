@@ -150,7 +150,7 @@
         }
 
         $(".item").click(function() {
-            window.location = "ad.php?id=" + this.id;
+            window.location = "annonce?id=" + this.id;
         });
     }
 

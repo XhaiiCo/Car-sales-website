@@ -1,0 +1,7 @@
+Options -MultiViews
+
+RewriteEngine On
+
+RewriteRule ^accueil$ index.php
+RewriteRule ^annonces$ ads.php
+RewriteRule ^annonce$ ad.php
