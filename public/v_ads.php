@@ -82,6 +82,9 @@
             },
             error: function() {
                 console.log("Error");
+            },
+            beforeSend: function() { //Loader
+                $("#ads-container").html(" <div class = 'd-flex justify-content-center' ><div class = 'spinner-border' role = 'status' ><span class = 'visually-hidden'>Loading...< /span></div></div>");
             }
         });
     }
