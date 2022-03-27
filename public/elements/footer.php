@@ -1,4 +1,6 @@
+</main>
 <!-- Footer -->
 
 </body>
+
 </html>
