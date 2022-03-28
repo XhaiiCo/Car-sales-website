@@ -1,5 +1,5 @@
 {
-    "name": "david/test",
+    "name": "david/proj-tm-2002",
     "autoload": {
         "psr-4": {
             "David\\Test\\": "src/"
