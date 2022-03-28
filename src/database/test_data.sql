@@ -572,7 +572,7 @@ insert ignore into  car_model value
 
 
 insert ignore into  user (user_mail, username, user_password, isAdmin, isSeller, date_registration)
-values ("david@david.be", "David", "", 0, 1, now()) ;
+values ("david@david.be", "David", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 0, 1, now()) ;
 
 insert ignore into  sale (price, publication_date, sale_description, car_kilometer, car_year, car_power,
 car_fuel, car_color, car_state,additional_info, model_name, brand_name, user_mail)
