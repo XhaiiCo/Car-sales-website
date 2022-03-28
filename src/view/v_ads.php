@@ -1,4 +1,3 @@
-<?php require_once "./elements/header.php" ?>
 <style>
     .item:hover {
         cursor: pointer;
@@ -35,7 +34,6 @@
         </ul>
     </div>
 </div>
-<?php require_once "./elements/footer.php" ?>
 
 <script>
     $(document).ready(function() {
@@ -149,7 +147,7 @@
         }
 
         $(".item").click(function() {
-            window.location = "annonce?id=" + this.id;
+            window.location = "annonce-" + this.id;
         });
     }
 

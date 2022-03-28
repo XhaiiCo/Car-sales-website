@@ -1,4 +1,3 @@
-<?php require_once "./elements/header.php" ?>
 <div class="p-2">
     <div class="row">
         <div class="col-md-7">
@@ -92,11 +91,9 @@
 </div>
 
 <script>
-    let searchParams = new URLSearchParams(window.location.search);
-    const id = searchParams.get('id');
-    if (!searchParams.has('id')) {
-        window.location = " index.php";
-    }
+    const id = <?= $id ?>;
+    console.log(id);
+
 
     $(document).ready(function() {
         $.ajax({
@@ -109,7 +106,7 @@
             success: function(datas) {
                 putData(datas);
             },
-            error: function() {
+            error: function(e) {
                 console.log("Error");
             }
         });
@@ -168,4 +165,3 @@
         minimumFractionDigits: 2
     });
 </script>
-<?php require_once "./elements/footer.php" ?>

@@ -1,0 +1,17 @@
+{
+    "name": "david/test",
+    "autoload": {
+        "psr-4": {
+            "David\\Test\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David Leclercq",
+            "email": "davidleclercq2002@gmail.com"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}

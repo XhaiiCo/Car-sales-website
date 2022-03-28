@@ -1,4 +1,3 @@
-<?php require_once "./elements/header.php" ?>
 <div id="feedback"></div>
 <form id="form" class="">
     <h2>Inscription</h2>
@@ -18,8 +17,6 @@
         <input required type="submit" name="register" class="register" value="S'inscrire">
     </div>
 </form>
-
-<?php require_once "./elements/footer.php" ?>
 
 <script>
     $("#form").submit(function(e) {

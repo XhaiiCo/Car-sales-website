@@ -1,5 +1,3 @@
-<?php require_once "./elements/header.php" ?>
-
 <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -9,7 +7,7 @@
                     <div class="mb-md-5 mt-md-3 pb-3">
                         <h2 class="fw-bold mb-3 text-uppercase">Connexion</h2>
                         <p class="text-white-30 mb-2">Veuillez saisir votre identifiant et mot de passe</p>
-                        <form id="form">
+                        <form id="form" method="POST">
                             <div class="form-outline form-white mb-4">
                                 <input name="mail" type="email" id="typeEmailX" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX">Email</label>
@@ -23,7 +21,7 @@
                         </form>
                     </div>
                     <div>
-                        <p class="mb-0">Pas encore de compte? <a href="inscription" class="text-white-50 fw-bold">Créer un compte</a></p>
+                        <p class="mb-0">Pas encore de compte? <a href="<?= $router->generate('inscription') ?>" class="text-white-50 fw-bold">Créer un compte</a></p>
                     </div>
 
                 </div>
@@ -31,7 +29,6 @@
         </div>
     </div>
 </div>
-<?php require_once "./elements/footer.php" ?>
 
 <script>
     $("#form").submit(function(e) {
@@ -44,7 +41,7 @@
             data: $(this).serialize(),
             success: function(data) {
                 if (data === "1") {
-                    window.location = "accueil";
+                    window.location = "<?= $router->generate('home') ?>";
                 } else {
                     divError = document.createElement("div");
                     $(divError).addClass("alert alert-danger");

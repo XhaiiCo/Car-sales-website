@@ -1,9 +1,6 @@
 Options -MultiViews
 
-RewriteEngine On
-
-RewriteRule ^accueil$ index.php
-RewriteRule ^annonces$ v_ads.php
-RewriteRule ^annonce$ v_ad.php
-RewriteRule ^connexion$ v_login.php
-RewriteRule ^inscription$ v_signup.php
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]
