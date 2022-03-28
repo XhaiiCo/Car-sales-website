@@ -26,6 +26,8 @@ if (empty($rs)) {
 }
 
 if (password_verify($password, $rs[0]['user_password'])) {
+    require_once '../controller/authController.php';
+    login($rs[0]['username'], $rs[0]['isAdmin'], $rs[0]['isSeller']);
     echo 1;
     exit();
 }
