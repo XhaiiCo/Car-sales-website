@@ -572,13 +572,16 @@ insert ignore into  car_model value
 
 
 insert ignore into  user (user_mail, username, user_password, isAdmin, isSeller, date_registration)
-values ("david@david.be", "David", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 0, 1, now()) ;
+values 
+("seller@seller.be", "Seller", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 0, 1, now()),
+("admin@admin.be", "Admin", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 1, 0, now()),
+("user@user.be", "User", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 0, 0, now()) ;
 
 insert ignore into  sale (price, publication_date, sale_description, car_kilometer, car_year, car_power,
 car_fuel, car_color, car_state,additional_info, model_name, brand_name, user_mail)
 values
-(80000, date(now()), 'Elle est bien jte jure', 0, "2010", 417, "Essence", "Noir", "Neuve", "", "G 63 AMG", "Mercedes-Benz", "david@david.be"),
-(1500000, date(now()), 'Elle est bien jte jure', 23932, "1992", 350, "Essence", "Rouge", "Occasion", "", "F40", "Ferrari", "david@david.be") ;
+(80000, date(now()), 'Elle est bien jte jure', 0, "2010", 417, "Essence", "Noir", "Neuve", "", "G 63 AMG", "Mercedes-Benz", "seller@seller.be"),
+(1500000, date(now()), 'Elle est bien jte jure', 23932, "1992", 350, "Essence", "Rouge", "Occasion", "", "F40", "Ferrari", "seller@seller.be") ;
 
 insert ignore into  car_picture
 (picture_name, picture_order, id_sale)

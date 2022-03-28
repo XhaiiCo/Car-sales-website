@@ -1,7 +1,14 @@
+<?php require_once "../src/controller/authController.php" ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <style>
+        .dropdown-item {
+            cursor: pointer;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,15 +37,50 @@
                         <li class="nav-item">
                             <a class="nav-link" href="annonces">Annonces</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./seller_new_ad.php">Créer une annonce</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="connexion">Se connecter</a>
-                        </li>
+                        <?php if (isSeller()) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./seller_new_ad.php">Créer une annonce</a>
+                            </li>
+                        <?php endif; ?>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <?php if (isConnected()) : ?>
+                            <li class="dropdown">
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <?= getUsername() ?>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Profil</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li id="logout" class="dropdown-item">Se déconnecter</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        <?php else : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="connexion">Se connecter</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
         </nav>
+
     </header>
     <main class="container">
+
+
+        <script>
+            $("#logout").click(function() {
+                $.ajax({
+                    url: "../src/model/model_logout.php",
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            });
+        </script>

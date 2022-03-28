@@ -23,7 +23,7 @@
                         </form>
                     </div>
                     <div>
-                        <p class="mb-0">Pas encore de compte? <a href="#!" class="text-white-50 fw-bold">Créer un compte</a></p>
+                        <p class="mb-0">Pas encore de compte? <a href="inscription" class="text-white-50 fw-bold">Créer un compte</a></p>
                     </div>
 
                 </div>

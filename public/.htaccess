@@ -6,3 +6,4 @@ RewriteRule ^accueil$ index.php
 RewriteRule ^annonces$ v_ads.php
 RewriteRule ^annonce$ v_ad.php
 RewriteRule ^connexion$ v_login.php
+RewriteRule ^inscription$ v_signup.php
