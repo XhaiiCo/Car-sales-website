@@ -32,14 +32,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="<?= $router->generate('annonces') ?>">Annonces</a>
                         </li>
-                        <?php if (isSeller()) : ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?= $router->generate('new-ad') ?>">Créer une annonce</a>
-                            </li>
-                        <?php endif; ?>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <?php if (isSeller()) : ?>
+                            <li class="nav-item mx-lg-2 my-2 my-lg-0">
+                                <a class="btn btn-info" href="<?= $router->generate('new-ad') ?>">Créer une annonce</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isAdmin()) : ?>
+                            <li class="nav-item mx-lg-2 my-2 my-lg-0">
+                                <a class="btn btn-info" href="<?= $router->generate('admin_user') ?>">Gestion</a>
+                            </li>
+                        <?php endif; ?>
                         <?php if (isConnected()) : ?>
                             <li class="dropdown">
                                 <div class="dropdown-toggle" data-toggle="dropdown">

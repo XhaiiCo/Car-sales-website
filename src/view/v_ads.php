@@ -106,6 +106,7 @@
             li = document.createElement("li");
             $(li).addClass("item list-group-item");
             $(li).attr("id", ad.id_sale);
+            $(li).attr("style", "max-height: 250px");
 
             divContainer = document.createElement("div");
             $(divContainer).addClass("row");
@@ -118,7 +119,7 @@
             img = document.createElement("img");
             $(img).addClass("img-fluid rounded img-responsive");
             $(img).attr("src", "../src/assets/img/car_on_sale/" + ad.picture_name);
-            $(img).attr("alt", "Photo de " + ad.brand_name + " " + ad.model_name)
+            $(img).attr("alt", "Photo de " + ad.brand_name + " " + ad.model_name);
             $(divImgContainer).append(img);
 
             divInfoContainer = document.createElement("div");
