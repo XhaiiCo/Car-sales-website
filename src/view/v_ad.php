@@ -1,4 +1,4 @@
-<div class="p-2">
+<div class="p-2 container">
     <div class="row">
         <div class="col-md-7">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">

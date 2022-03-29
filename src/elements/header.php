@@ -44,6 +44,7 @@
                             <li class="dropdown">
                                 <div class="dropdown-toggle" data-toggle="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi-person-circle h6"></i>
                                         <?= getUsername() ?>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
@@ -66,16 +67,15 @@
         </nav>
 
     </header>
-    <main class="container">
 
 
-        <script>
-            $("#logout").click(function() {
-                $.ajax({
-                    url: "../src/model/model_logout.php",
-                    success: function() {
-                        window.location.reload();
-                    }
-                });
+    <script>
+        $("#logout").click(function() {
+            $.ajax({
+                url: "../src/model/model_logout.php",
+                success: function() {
+                    window.location.reload();
+                }
             });
-        </script>
+        });
+    </script>

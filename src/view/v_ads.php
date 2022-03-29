@@ -4,37 +4,40 @@
         background-color: #f1eceb;
     }
 </style>
-<h1>
-    Annonces
-</h1>
-<div class="row">
-    <!-- filter form -->
-    <div class="col-md-3 border-end">
-        <form>
-            <!-- List of brand -->
-            <div class="form-group">
-                <label for="brand_select">Marque</label>
-                <select class="form-select" id="brand_select" name="brand_select">
-                    <option value="%" selected>Toutes</option>
-                </select>
-            </div>
+<div class="container">
 
-            <!-- List of model -->
-            <div class="form-group">
-                <label for="model_select">Modèle</label>
-                <select class="form-select" id="model_select" name="model_select" disabled>
-                </select>
-            </div>
 
-        </form>
-    </div>
-    <!-- List of sales -->
-    <div class="col-md-9 ">
-        <ul class="list-group list-group-flush" id="ads-container">
-        </ul>
+    <h1>
+        Annonces
+    </h1>
+    <div class="row">
+        <!-- filter form -->
+        <div class="col-md-3 border-end">
+            <form>
+                <!-- List of brand -->
+                <div class="form-group">
+                    <label for="brand_select">Marque</label>
+                    <select class="form-select" id="brand_select" name="brand_select">
+                        <option value="%" selected>Toutes</option>
+                    </select>
+                </div>
+
+                <!-- List of model -->
+                <div class="form-group">
+                    <label for="model_select">Modèle</label>
+                    <select class="form-select" id="model_select" name="model_select" disabled>
+                    </select>
+                </div>
+
+            </form>
+        </div>
+        <!-- List of sales -->
+        <div class="col-md-9 ">
+            <ul class="list-group list-group-flush" id="ads-container">
+            </ul>
+        </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function() {
         //Disable the model's select
