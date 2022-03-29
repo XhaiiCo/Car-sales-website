@@ -27,12 +27,22 @@ $router->map('GET', $racine . '/inscription', function () {
     require "../src/view/v_signup.php";
 }, 'inscription');
 
+$router->map('GET', $racine . '/nouvelle-annonce', function () {
+    global $router;
+    if (isSeller()) {
+        require "../src/view/v_seller_new_ad.php";
+    } else {
+        header("Location: " . $router->generate('home'));
+    }
+}, 'new-ad');
+
 $match = $router->match();
 
 require_once "../src/elements/header.php";
 if ($match !== false) {
     call_user_func_array($match['target'], $match['params']); //Passe les argument à la fonction
-
+} else {
+    echo "404";
 }
 
 require_once "../src/elements/footer.php";
