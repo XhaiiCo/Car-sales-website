@@ -4,7 +4,8 @@ insert ignore into car_brand value
 ("Porsche", "Porsche.png"),
 ("Ferrari", "ferrari.png"),
 ("Lamborghini", "lamborghini.png"),
-("Audi", "audi.png") ;
+("Audi", "audi.png"),
+("Toyota", "toyota.png") ;
 
 insert ignore into  car_model value 
 ("2002","BMW"),
@@ -511,6 +512,57 @@ insert ignore into  car_model value
 ("Veneno","Lamborghini"),
 ("Autres","Lamborghini"),
 
+("Dyna","Toyota"),
+("Estima","Toyota"),
+("FJ Cruiser","Toyota"),
+("FJ40","Toyota"),
+("Fortuner","Toyota"),
+("Fun Cruiser","Toyota"),
+("Funcargo","Toyota"),
+("Gaia","Toyota"),
+("GT86","Toyota"),
+("Harrier","Toyota"),
+("HDJ","Toyota"),
+("Hiace","Toyota"),
+("Highlander","Toyota"),
+("Hilux","Toyota"),
+("Ipsum","Toyota"),
+("iQ","Toyota"),
+("Ist","Toyota"),
+("KJ","Toyota"),
+("Land Cruiser","Toyota"),
+("Land Cruiser Prado","Toyota"),
+("Lite-Ace","Toyota"),
+("Mark II","Toyota"),
+("Matrix","Toyota"),
+("Mirai","Toyota"),
+("Model F","Toyota"),
+("MR 2","Toyota"),
+("Nadia","Toyota"),
+("Noah","Toyota"),
+("Opa","Toyota"),
+("Paseo","Toyota"),
+("Passo","Toyota"),
+("Pick up","Toyota"),
+("Picnic","Toyota"),
+("Platz","Toyota"),
+("Premio","Toyota"),
+("Previa","Toyota"),
+("Prius","Toyota"),
+("Prius+","Toyota"),
+("Proace","Toyota"),
+("Ractis","Toyota"),
+("Raum","Toyota"),
+("RAV 4","Toyota"),
+("Sequoia","Toyota"),
+("Sienna","Toyota"),
+("Solara","Toyota"),
+("Sprinter","Toyota"),
+("Starlet","Toyota"),
+("Supra","Toyota"),
+("Tacoma","Toyota"),
+("Tercel","Toyota"),
+("Town Ace","Toyota"),
 
 ("100","Audi"),
 ("200","Audi"),
@@ -580,8 +632,10 @@ values
 insert ignore into  sale (price, publication_date, sale_description, car_kilometer, car_year, car_power,
 car_fuel, car_color, car_state,additional_info, model_name, brand_name, user_mail)
 values
-(80000, date(now()), 'Elle est bien jte jure', 0, "2010", 417, "Essence", "Noir", "Neuve", "", "G 63 AMG", "Mercedes-Benz", "seller@seller.be"),
+(180000, date(now()), 'Elle est bien jte jure', 0, "2010", 417, "Essence", "Noir", "Neuve", "", "G 63 AMG", "Mercedes-Benz", "seller@seller.be"),
+(100000, date(now()), 'Trop belle <3', 75000, "1994", 238, "Essence", "Bleu", "Occasion", "3.0 Turbo", "Supra", "Toyota", "seller@seller.be"),
 (1500000, date(now()), 'Elle est bien jte jure', 23932, "1992", 350, "Essence", "Rouge", "Occasion", "", "F40", "Ferrari", "seller@seller.be") ;
+
 
 insert ignore into  car_picture
 (picture_name, picture_order, id_sale)
@@ -591,4 +645,9 @@ values
 ("3.jpeg", 3, 1),
 ("4.jpeg", 4, 1),
 ("5.jpeg", 5, 1),
-("6.jpg", 1, 2) ;
+("7.jpg", 1, 2),
+("8.jpg", 2, 2),
+("9.jpg", 3, 2),
+("10.jpg", 4, 2),
+("11.jpg", 5, 2),
+("6.jpg", 1, 3) ;

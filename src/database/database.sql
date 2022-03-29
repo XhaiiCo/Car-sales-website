@@ -49,7 +49,7 @@ create table if not exists sale
     car_fuel varchar(50) NOT NULL,
     car_color varchar(255) NOT NULL,
     car_state varchar(100) NOT NULL,
-    additional_info varchar(255),
+    additional_info varchar(50),
     model_name varchar(100) NOT NULL,
     brand_name varchar(100) NOT NULL,
     user_mail varchar(255) NOT NULL,

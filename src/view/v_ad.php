@@ -21,6 +21,9 @@
             <div class="row">
                 <h1 id="car_name"></h1>
             </div>
+            <div class="row">
+                <h3 id="additional_info"></h3>
+            </div>
             <div class="row p-2">
                 <h2 id="car_price" class="text-warning"></h2>
             </div>
@@ -131,6 +134,7 @@
         data = datas[0];
         //Car name
         $("#car_name").html(data.brand_name + " " + data.model_name);
+        $("#additional_info").html(data.additional_info);
         $("#car_price").html(euro.format(data.price))
 
         $("#publication_date").html(data.publication_date)
