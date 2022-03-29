@@ -22,7 +22,7 @@
                 <h1 id="car_name"></h1>
             </div>
             <div class="row p-2">
-                <h2 id="car_price" class="text-warning">80 000 €</h2>
+                <h2 id="car_price" class="text-warning"></h2>
             </div>
             <div class="row">
                 <p id="sale_description"></p>
