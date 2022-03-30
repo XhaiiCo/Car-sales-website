@@ -2,17 +2,37 @@
 
 require_once "..\util\db.php";
 
-$stmt = getDB()->prepare("
-select 
-user.user_mail,
-user.username,
-user.isAdmin,
-user.isSeller,
-date_format(user.date_registration, '%d-%m-%Y') as date_registration
-from user
-");
+if (!isset($_POST))
+    exit();
 
-$stmt->execute();
+$q = $_POST['q'];
+$role = $_POST['role'];
+
+$sql = "
+select 
+    user.user_mail,
+    user.username,
+    user.isAdmin,
+    user.isSeller,
+    date_format(user.date_registration, '%d-%m-%Y') as date_registration
+from user where 
+    (user.user_mail like :q ||
+    user.username like :q)
+";
+
+if ($role === 'admin') {
+    $sql .= "and isAdmin = 1";
+} else if ($role === 'seller') {
+    $sql .= "and isSeller = 1";
+} else if ($role === 'user') {
+    $sql .= "and (isSeller = 0 and isAdmin = 0)";
+}
+
+$stmt = getDB()->prepare($sql);
+
+$stmt->execute([
+    "q" => "%" . $q . "%"
+]);
 
 $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

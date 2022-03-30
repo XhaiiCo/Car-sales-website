@@ -1,60 +1,49 @@
 <?php require_once "../src/view/admin/elements/v_admin_sidebar.php"; ?>
 
-<style>
-    .table a.table-link.danger {
-        color: #e74c3c;
-    }
 
-    .label {
-        font-size: 0.875em;
-        font-weight: 600;
-    }
+<!-- Form -->
+<h3 class="text-center my-3">Gestion des utilisateurs</h3>
+<div class="container my-4">
+    <div class="row">
+        <form id="form">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="input-group">
+                    <input id="q" type="text" class="form-control" name="q" placeholder="Rechercher...">
+                    <div class="input-group-btn search-panel">
+                        <select id="role" name="role" class="form-select" aria-label="Default select example">
+                            <option selected value="all">Tous</option>
+                            <option value="user">Utilisateurs</option>
+                            <option value="seller">Vendeurs</option>
+                            <option value="admin">Admins</option>
+                        </select>
+                    </div>
+                    <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Rechercher</span></button>
 
-    .user-list tbody td .user-link {
-        display: block;
-        font-size: 1.25em;
-        padding-top: 3px;
-    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-    .table thead tr th {
-        text-transform: uppercase;
-        font-size: 0.875em;
-    }
-
-    .table thead tr th {
-        border-bottom: 2px solid #e7ebee;
-    }
-
-
-    .table tbody tr td {
-        font-size: 0.875em;
-        vertical-align: middle;
-        border-top: 1px solid #e7ebee;
-        padding: 12px 8px;
-    }
-</style>
-
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<!-- Users table -->
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="main-box no-header clearfix">
-                <div class="main-box-body clearfix">
-                    <div class="table-responsive">
-                        <table class="table user-list">
-                            <thead>
-                                <tr>
-                                    <th><span>Utilisateur</span></th>
-                                    <th><span>Creation</span></th>
-                                    <th><span>Rôle</span></th>
-                                    <th><span>Email</span></th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody id="user-container">
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="main-box no-header clearfix">
+            <div class="main-box-body clearfix">
+                <div class="table-responsive">
+                    <table class="table user-list">
+                        <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Creation</th>
+                                <th>Rôle</th>
+                                <th>Email</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-container">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -65,10 +54,21 @@
 
 <script>
     $(document).ready(function() {
+        actuUser();
+    });
+
+    function actuUser() {
+        const q = $("#q").val();
+        const role = $("#role").val();
+
         $.ajax({
             type: "POST",
             url: "../src/model/model_user.php",
             dataType: "json",
+            data: {
+                q: q,
+                role: role
+            },
             success: function(datas) {
                 displayUser(datas);
             }
@@ -77,11 +77,12 @@
         $(".remove").click(function() {
             console.log("here");
         });
-    });
-
+    }
 
     function displayUser(datas) {
-        for (data of datas) {
+        $("#user-container").html("");
+
+        for (var data of datas) {
             var role = "Utilisateur";
             if (data.isAdmin === "1") {
                 role += ", Admin";
@@ -112,33 +113,55 @@
             $(tdBtnContainer).attr("style", "width:20%");
 
             spanModif = document.createElement("span");
-            $(spanModif).attr("style", "table-link text-info fa-stack");
+            $(spanModif).attr("class", "btn-modif table-link text-info fa-stack");
             $(spanModif).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-pencil fa-stack-1x fa-inverse'></i> ");
+            $(spanModif).attr("id", data.user_mail);
 
             tdBtnContainer.append(spanModif);
-            tr.append(tdBtnContainer);
 
-            const html =
-                "                    <tr> \
-                                    <td> " + data.username + "</td> \
-                                    <td> " + data.date_registration + "</td> \
-                                    <td> " + role + "</td> \
-                                    <td>" + data.user_mail + "</td> \
-                                    <td style='width: 20%;'> \
-                                        <span class='table-link text-info fa-stack'> \
-                                            <i class='fa fa-square fa-stack-2x'></i> \
-                                            <i class='fa fa-pencil fa-stack-1x fa-inverse'></i> \
-                                        </span> \
-                                        <span class='table-link text-danger fa-stack'> \
-                                            <i class='fa fa-square fa-stack-2x'></i> \
-                                            <i class='fa fa-trash-o fa-stack-1x fa-inverse'></i> \
-                                        </span> \
-                                    </td> \
-                                </tr> \
-                                ";
+            spanDelete = document.createElement("span");
+            $(spanDelete).attr("class", "btn-delete table-link text-danger fa-stack");
+            $(spanDelete).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-trash-o fa-stack-1x fa-inverse'></i> ");
+            $(spanDelete).attr("id", data.user_mail);
+
+            tdBtnContainer.append(spanDelete);
+            tr.append(tdBtnContainer);
             $("#user-container").append(tr);
 
+            $(".btn-modif").click(function() {
+                console.log("modif : " + this.id);
+            });
+
+            $(".btn-delete").click(function() {
+                console.log("delete : " + this.id);
+            });
         }
 
+        $("#form").submit(function(e) {
+            e.preventDefault();
+            actuUser();
+        });
     }
 </script>
+
+<style>
+    .table thead tr th {
+        text-transform: uppercase;
+        font-size: 0.875em;
+    }
+
+    .table thead tr th {
+        border-bottom: 2px solid #e7ebee;
+    }
+
+    .table tbody tr td {
+        font-size: 0.875em;
+        vertical-align: middle;
+        border-top: 1px solid #e7ebee;
+        padding: 12px 8px;
+    }
+
+    span {
+        cursor: pointer;
+    }
+</style>
