@@ -69,7 +69,6 @@ $router->map('GET', $racine . '/admin-annonces', function () {
 
 $match = $router->match();
 
-
 if ($match !== false) {
     require_once "../src/elements/header.php";
     call_user_func_array($match['target'], $match['params']); //Passe les argument à la fonction

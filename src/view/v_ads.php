@@ -106,7 +106,6 @@
             li = document.createElement("li");
             $(li).addClass("item list-group-item");
             $(li).attr("id", ad.id_sale);
-            $(li).attr("style", "max-height: 250px");
 
             divContainer = document.createElement("div");
             $(divContainer).addClass("row");
