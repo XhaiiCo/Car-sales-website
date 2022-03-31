@@ -1,11 +1,11 @@
 <?php require_once "../src/view/admin/elements/v_admin_sidebar.php"; ?>
 
-<!-- Modal -->
+<!-- remove modal -->
 <div class="modal fade" id="validModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                <h5 class="modal-title">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div id="modal-text" class="modal-body">
@@ -17,6 +17,33 @@
         </div>
     </div>
 </div>
+
+<!-- update modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modal-update-text" &class="modal-title">Modification du rôle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal-text" class="modal-body">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="sellerCheck">
+                    <label class="form-check-label" for="sellerCheck">Vendeur</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="adminCheck">
+                    <label class="form-check-label" for="adminCheck">Admin</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="btn-confirm-update-modal" type="button" class="btn btn-success" data-bs-dismiss="modal">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Form -->
@@ -129,6 +156,8 @@
             $(tdBtnContainer).attr("style", "width:20%");
 
             spanModif = document.createElement("span");
+            $(spanModif).attr("data-bs-toggle", "modal");
+            $(spanModif).attr("data-bs-target", "#updateModal");
             $(spanModif).attr("class", "btn-modif table-link text-info fa-stack");
             $(spanModif).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-pencil fa-stack-1x fa-inverse'></i> ");
             $(spanModif).attr("id", data.user_mail);
@@ -146,7 +175,8 @@
             $("#user-container").append(tr);
 
             $(".btn-modif").click(function() {
-                console.log("modif : " + this.id);
+                $("#modal-update-text").html("Modification des rôles de " + this.id);
+                $("#validModal").attr("user", this.id);
             });
 
             $(".btn-delete").click(function() {
