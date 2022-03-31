@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button id="btn-delete-modal" type="button" class="btn btn-danger">Supprimer</button>
+                <button id="btn-delete-modal" type="button" class="btn btn-danger" data-bs-dismiss="modal">Supprimer</button>
             </div>
         </div>
     </div>
@@ -92,9 +92,6 @@
             }
         });
 
-        $(".remove").click(function() {
-            console.log("here");
-        });
     }
 
     function displayUser(datas) {
@@ -156,11 +153,20 @@
                 $("#modal-text").html("Êtes-vous sur de vouloir supprimer l'utilisateur " + this.id + " ?");
                 $("#validModal").attr("user", this.id);
             });
-
-            $("#btn-delete-modal").click(function() {
-                console.log($("#validModal").attr("user"));
-            });
         }
+
+        $("#btn-delete-modal").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "../src/model/model_remove_user.php",
+                data: {
+                    user: $("#validModal").attr("user")
+                },
+                success: function() {
+                    actuUser();
+                }
+            });
+        });
 
         $("#form").submit(function(e) {
             e.preventDefault();
