@@ -102,11 +102,12 @@
 
         for (var data of datas) {
             var role = "Utilisateur";
-            if (data.isAdmin === "1") {
-                role += ", Admin";
-            }
-            if (data.isSeller === "1") {
-                role += ", Vendeur"
+            if (data.isAdmin === "1" && data.isSeller === "0") {
+                role = "Admin";
+            } else if (data.isSeller === "1" && data.isAdmin === "0") {
+                role = "Vendeur"
+            } else if (data.isSeller === "1" && data.isAdmin === "1") {
+                role = "Admin et vendeur"
             }
 
             tr = document.createElement("tr");
