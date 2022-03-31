@@ -1,5 +1,23 @@
 <?php require_once "../src/view/admin/elements/v_admin_sidebar.php"; ?>
 
+<!-- Modal -->
+<div class="modal fade" id="validModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal-text" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="btn-delete-modal" type="button" class="btn btn-danger">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Form -->
 <h3 class="text-center my-3">Gestion des utilisateurs</h3>
@@ -118,8 +136,9 @@
             $(spanModif).attr("id", data.user_mail);
 
             tdBtnContainer.append(spanModif);
-
             spanDelete = document.createElement("span");
+            $(spanDelete).attr("data-bs-toggle", "modal");
+            $(spanDelete).attr("data-bs-target", "#validModal");
             $(spanDelete).attr("class", "btn-delete table-link text-danger fa-stack");
             $(spanDelete).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-trash-o fa-stack-1x fa-inverse'></i> ");
             $(spanDelete).attr("id", data.user_mail);
@@ -133,7 +152,12 @@
             });
 
             $(".btn-delete").click(function() {
-                console.log("delete : " + this.id);
+                $("#modal-text").html("Êtes-vous sur de vouloir supprimer l'utilisateur " + this.id + " ?");
+                $("#validModal").attr("user", this.id);
+            });
+
+            $("#btn-delete-modal").click(function() {
+                console.log($("#validModal").attr("user"));
             });
         }
 
