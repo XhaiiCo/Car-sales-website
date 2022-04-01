@@ -28,11 +28,11 @@
             </div>
             <div id="modal-text" class="modal-body">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="sellerCheck">
+                    <input id="sellerCheck" class="form-check-input" type="checkbox">
                     <label class="form-check-label" for="sellerCheck">Vendeur</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="adminCheck">
+                    <input id="adminCheck" class="form-check-input" type="checkbox">
                     <label class="form-check-label" for="adminCheck">Admin</label>
                 </div>
             </div>
@@ -173,17 +173,35 @@
             tdBtnContainer.append(spanDelete);
             tr.append(tdBtnContainer);
             $("#user-container").append(tr);
-
-            $(".btn-modif").click(function() {
-                $("#modal-update-text").html("Modification des rôles de " + this.id);
-                $("#validModal").attr("user", this.id);
-            });
-
-            $(".btn-delete").click(function() {
-                $("#modal-text").html("Êtes-vous sur de vouloir supprimer l'utilisateur " + this.id + " ?");
-                $("#validModal").attr("user", this.id);
-            });
         }
+
+        $(".btn-modif").click(function() {
+
+            for (data of datas) {
+                if (data['user_mail'] === this.id) {
+                    if (data['isAdmin'] === "1") {
+                        $("#adminCheck").attr("checked", "");
+                    } else {
+                        $("#adminCheck").removeAttr("checked");
+                    }
+                    if (data['isSeller'] === "1") {
+                        $("#sellerCheck").attr("checked", "");
+                    } else {
+                        $("#sellerCheck").removeAttr("checked");
+                    }
+
+
+                    break;
+                }
+            }
+            $("#modal-update-text").html("Modification des rôles de " + this.id);
+            $("#validModal").attr("user", this.id);
+        });
+
+        $(".btn-delete").click(function() {
+            $("#modal-text").html("Êtes-vous sur de vouloir supprimer l'utilisateur " + this.id + " ?");
+            $("#validModal").attr("user", this.id);
+        });
 
         $("#btn-delete-modal").click(function() {
             $.ajax({
