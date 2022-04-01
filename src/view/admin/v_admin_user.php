@@ -179,19 +179,19 @@
 
             for (data of datas) {
                 if (data['user_mail'] === this.id) {
-                    $("#adminCheck").removeAttr("checked");
-                    $("#sellerCheck").removeAttr("checked");
+                    $("#sellerCheck").prop("checked", false);
+                    $("#adminCheck").prop("checked", false);
                     if (data['isAdmin'] === "1") {
-                        $("#adminCheck").attr("checked", "");
+                        $("#adminCheck").prop("checked", true);
                     }
                     if (data['isSeller'] === "1") {
-                        $("#sellerCheck").attr("checked", "");
+                        $("#sellerCheck").prop("checked", true);
                     }
                     break;
                 }
             }
             $("#modal-update-text").html("Modification des rôles de " + this.id);
-            $("#validModal").attr("user", this.id);
+            $("#btn-confirm-update-modal").attr("user", this.id);
         });
 
         $(".btn-delete").click(function() {
@@ -205,6 +205,21 @@
                 url: "../src/model/model_remove_user.php",
                 data: {
                     user: $("#validModal").attr("user")
+                },
+                success: function() {
+                    actuUser();
+                }
+            });
+        });
+
+        $("#btn-confirm-update-modal").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "../src/model/model_update_user.php",
+                data: {
+                    user: $("#btn-confirm-update-modal").attr("user"),
+                    isAdmin: $("#adminCheck").prop("checked"),
+                    isSeller: $("#sellerCheck").prop("checked")
                 },
                 success: function() {
                     actuUser();
