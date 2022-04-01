@@ -179,18 +179,14 @@
 
             for (data of datas) {
                 if (data['user_mail'] === this.id) {
+                    $("#adminCheck").removeAttr("checked");
+                    $("#sellerCheck").removeAttr("checked");
                     if (data['isAdmin'] === "1") {
                         $("#adminCheck").attr("checked", "");
-                    } else {
-                        $("#adminCheck").removeAttr("checked");
                     }
                     if (data['isSeller'] === "1") {
                         $("#sellerCheck").attr("checked", "");
-                    } else {
-                        $("#sellerCheck").removeAttr("checked");
                     }
-
-
                     break;
                 }
             }
