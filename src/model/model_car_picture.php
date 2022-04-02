@@ -1,7 +1,6 @@
 <?php
 
-require_once "..\util\db.php";
-
+require_once "../util/db.php";
 
 if (!isset($_POST['id']))
     exit;

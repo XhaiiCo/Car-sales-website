@@ -1,6 +1,6 @@
 <?php
 
-require_once "..\util\db.php";
+require_once "../util/db.php";
 
 $stmt = getDB()->query("select brand_name from car_brand");
 $stmt->execute();

@@ -5,7 +5,7 @@ if (!isset($_POST['mail']) && !isset($_POST['password'])) {
     exit();
 }
 
-require_once "..\util\db.php";
+require_once "../util/db.php";
 
 $mail = $_POST['mail'];
 $password = $_POST['password'];
