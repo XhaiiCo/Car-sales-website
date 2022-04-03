@@ -101,7 +101,7 @@
     $(document).ready(function() {
         $.ajax({
             type: "POST",
-            url: "../src/model/model_ad.php",
+            url: "./model/model_ad.php",
             dataType: "JSON",
             data: {
                 id: id
@@ -116,7 +116,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../src/model/model_car_picture.php",
+            url: "./model/model_car_picture.php",
             dataType: "JSON",
             data: {
                 id: id
@@ -155,10 +155,10 @@
         var i = 1;
         for (data of datas) {
             if (i === 1) {
-                $("#carousel-img").append("<div class='carousel-item active'> <img src = '../src/assets/img/car_on_sale/" + data.picture_name + "'class = 'd-block w-100'></div>");
+                $("#carousel-img").append("<div class='carousel-item active'> <img src = './assets/img/car_on_sale/" + data.picture_name + "'class = 'd-block w-100'></div>");
                 i++;
             } else {
-                $("#carousel-img").append("<div class='carousel-item'> <img src = '../src/assets/img/car_on_sale/" + data.picture_name + "'class = 'd-block w-100'></div>");
+                $("#carousel-img").append("<div class='carousel-item'> <img src = './assets/img/car_on_sale/" + data.picture_name + "'class = 'd-block w-100'></div>");
             }
         }
     }

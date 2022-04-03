@@ -21,8 +21,7 @@ if (strlen($password) < $MINLENGHT_PASSWORD) {
     exit();
 }
 
-
-require_once "..\util\db.php";
+require_once "../../src/util/db.php";
 
 //Check if the username not already exists
 $stmt = getDB()->prepare("SELECT * FROM user where username like :username");

@@ -108,7 +108,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../src/model/model_user.php",
+            url: "./model/model_user.php",
             dataType: "json",
             data: {
                 q: q,
@@ -202,7 +202,7 @@
         $("#btn-delete-modal").click(function() {
             $.ajax({
                 type: "POST",
-                url: "../src/model/model_remove_user.php",
+                url: "./model/model_remove_user.php",
                 data: {
                     user: $("#validModal").attr("user")
                 },
@@ -215,7 +215,7 @@
         $("#btn-confirm-update-modal").click(function() {
             $.ajax({
                 type: "POST",
-                url: "../src/model/model_update_user.php",
+                url: "./model/model_update_user.php",
                 data: {
                     user: $("#btn-confirm-update-modal").attr("user"),
                     isAdmin: $("#adminCheck").prop("checked"),

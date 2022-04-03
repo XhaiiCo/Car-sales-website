@@ -1,6 +1,6 @@
 <?php
 
-require_once "../util/db.php";
+require_once "../../src/util/db.php";
 
 if (!isset($_POST))
     exit();

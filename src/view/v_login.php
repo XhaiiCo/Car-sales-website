@@ -36,7 +36,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../src/model/model_login.php",
+            url: "./model/model_login.php",
             dataType: "text",
             data: $(this).serialize(),
             success: function(data) {

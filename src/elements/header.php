@@ -76,7 +76,7 @@
     <script>
         $("#logout").click(function() {
             $.ajax({
-                url: "../src/model/model_logout.php",
+                url: "./model/model_logout.php",
                 success: function() {
                     window.location.reload();
                 }

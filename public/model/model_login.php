@@ -5,7 +5,7 @@ if (!isset($_POST['mail']) && !isset($_POST['password'])) {
     exit();
 }
 
-require_once "../util/db.php";
+require_once "../../src/util/db.php";
 
 $mail = $_POST['mail'];
 $password = $_POST['password'];
@@ -26,7 +26,7 @@ if (empty($rs)) {
 }
 
 if (password_verify($password, $rs[0]['user_password'])) {
-    require_once '../controller/authController.php';
+    require_once "../../src/controller/authController.php";
     login($rs[0]['username'], $rs[0]['isAdmin'], $rs[0]['isSeller']);
     echo 1;
     exit();

@@ -1,6 +1,6 @@
 <?php
 
-require_once "../util/db.php";
+require_once "../../src/util/db.php";
 
 $brand = "%";
 if (isset($_POST['brand_select']))

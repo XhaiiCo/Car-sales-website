@@ -72,7 +72,7 @@
         const model = $("#model_select").val() === null ? '%' : $("#model_select").val();
         $.ajax({
             type: "POST",
-            url: "../src/model/model_ads.php",
+            url: "./model/model_ads.php",
             dataType: "JSON",
             data: {
                 brand_select: brand,
@@ -117,7 +117,7 @@
 
             img = document.createElement("img");
             $(img).addClass("img-fluid rounded img-responsive");
-            $(img).attr("src", "../src/assets/img/car_on_sale/" + ad.picture_name);
+            $(img).attr("src", "./assets/img/car_on_sale/" + ad.picture_name);
             $(img).attr("alt", "Photo de " + ad.brand_name + " " + ad.model_name);
             $(divImgContainer).append(img);
 
@@ -158,7 +158,7 @@
     function setBrand() {
         $.ajax({
             type: "POST",
-            url: "../src/model/model_brand.php",
+            url: "./model/model_brand.php",
             dataType: "JSON",
             success: function(data) {
                 putBrand(data);
@@ -183,7 +183,7 @@
     function setModel() {
         $.ajax({
             type: "POST",
-            url: "../src/model/model_car_model.php",
+            url: "./model/model_car_model.php",
             dataType: "JSON",
             data: {
                 brand_select: $("#brand_select").val()
