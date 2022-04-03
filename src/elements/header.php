@@ -36,7 +36,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isSeller()) : ?>
                             <li class="nav-item mx-lg-2 my-2 my-lg-0">
-                                <a class="btn btn-info" href="<?= $router->generate('new-ad') ?>">Créer une annonce</a>
+                                <a class="btn btn-info" href="<?= $router->generate('seller_ads') ?>">Mes annonces</a>
                             </li>
                         <?php endif; ?>
                         <?php if (isAdmin()) : ?>
@@ -62,7 +62,7 @@
                             </li>
                         <?php else : ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= $router->generate('connexion') ?>">Se connecter</a>
+                                <a class="nav-link" href="<?= $router->generate('connexion') ?>">Connexion/inscription</a>
                             </li>
                         <?php endif; ?>
                     </ul>

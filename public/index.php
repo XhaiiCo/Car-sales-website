@@ -33,14 +33,14 @@ $router->map('GET', $racine . '/inscription', function () {
 // ****************************************************************
 //                              SELLER
 // ****************************************************************
-$router->map('GET', $racine . '/nouvelle-annonce', function () {
+$router->map('GET', $racine . '/mes-annonces', function () {
     global $router;
     if (isSeller()) {
-        require "../src/view/v_seller_new_ad.php";
+        require "../src/view/seller/v_seller_ads.php";
     } else {
         header("Location: " . $router->generate('home'));
     }
-}, 'new-ad');
+}, 'seller_ads');
 
 
 // ****************************************************************
