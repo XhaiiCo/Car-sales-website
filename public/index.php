@@ -2,7 +2,7 @@
 require_once "../src/controller/authController.php";
 require '../vendor/autoload.php';
 
-$racine = "/proj-tm-2022/public";
+$racine = "/Proj-tm-2022/public";
 
 $router = new AltoRouter();
 
@@ -27,6 +27,7 @@ $router->map('GET', $racine . '/connexion', function () {
 }, 'connexion');
 
 $router->map('GET', $racine . '/inscription', function () {
+    global $router;
     require "../src/view/v_signup.php";
 }, 'inscription');
 

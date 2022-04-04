@@ -1,7 +1,7 @@
 <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card text-white" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">
                     <div id="error-container"></div>
                     <div class="mb-md-5 mt-md-3 pb-3">
@@ -9,13 +9,12 @@
                         <p class="text-white-30 mb-2">Veuillez saisir votre identifiant et mot de passe</p>
                         <form id="form" method="POST">
                             <div class="form-outline form-white mb-4">
-                                <input name="mail" type="text" id="typeEmailX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX">Email ou identifiant</label>
+                                <input name="mail" type="text" id="mail" class="form-control form-control-lg" />
+                                <label class="form-label" for="mail">Email ou identifiant</label>
                             </div>
-
-                            <div class="form-outline form-white mb-3">
-                                <input name="password" type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Mot de passe</label>
+                            <div class="form-outline form-white mb-4">
+                                <input name="password" type="password" id="password" class="form-control form-control-lg" />
+                                <label class="form-label" for="password">Mot de passe</label>
                             </div>
                             <input class="btn btn-outline-light btn-lg px-5" type="submit" value="Se connecter">
                         </form>
@@ -55,3 +54,21 @@
         });
     });
 </script>
+
+<style>
+    body {
+        background-image: url("./assets/img/site_elements/background/login.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-color: darkgrey;
+    }
+
+    .card {
+        backdrop-filter: blur(25px) saturate(200%);
+        -webkit-backdrop-filter: blur(25px) saturate(200%);
+        background-color: rgba(17, 25, 40, 0.76);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+</style>

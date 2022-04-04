@@ -4,11 +4,18 @@ if (!isset($_POST)) {
     exit();
 }
 $MINLENGHT_PASSWORD = 6;
+$MINLENGHT_USERNAME = 3;
 
 $username = $_POST['username'];
 $mail = $_POST['email'];
 $password = $_POST['password'];
-$confirmPassword = $_POST['comfirm-password'];
+$confirmPassword = $_POST['confirm-password'];
+
+
+if (strlen($username) < $MINLENGHT_USERNAME || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+    echo "Nom d'utilisateur incorrect (min: " . $MINLENGHT_USERNAME . " caractères, sans espace, et sans caractères spéciaux)";
+    exit();
+}
 
 // Check if the password is equals
 if ($password != $confirmPassword) {
@@ -16,8 +23,8 @@ if ($password != $confirmPassword) {
     exit();
 }
 
-if (strlen($password) < $MINLENGHT_PASSWORD) {
-    echo "Mot de passe incorrect (min: " . $MINLENGHT_PASSWORD . " caractères)";
+if (strlen($password) < $MINLENGHT_PASSWORD || !preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{" . $MINLENGHT_PASSWORD . ",}$/", $password)) {
+    echo "Mot de passe incorrect (min: " . $MINLENGHT_PASSWORD . " caractères et au moins 1 lettre et 1 chiffre)";
     exit();
 }
 
