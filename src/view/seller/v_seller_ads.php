@@ -67,8 +67,7 @@
 
     function actuAds() {
         const q = $("#q").val();
-        const seller = "<?= getUsername() ?>";
-
+        const seller = "<?= getEmail() ?>";
         $.ajax({
             type: "POST",
             url: "./model/model_seller_ads.php",

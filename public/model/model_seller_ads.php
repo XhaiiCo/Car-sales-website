@@ -20,9 +20,8 @@ case
 end as picture_name
 from sale
 left join car_picture using(id_sale)
-inner join user using(user_mail)
 where 
-username like :seller
+user_mail like :seller
 and (brand_name like :q or model_name like :q or car_year like :q or publication_date like :q)
 and car_picture.picture_order = 1 
 ");

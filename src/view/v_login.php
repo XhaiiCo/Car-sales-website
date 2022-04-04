@@ -9,8 +9,8 @@
                         <p class="text-white-30 mb-2">Veuillez saisir votre identifiant et mot de passe</p>
                         <form id="form" method="POST">
                             <div class="form-outline form-white mb-4">
-                                <input name="mail" type="email" id="typeEmailX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX">Email</label>
+                                <input name="mail" type="text" id="typeEmailX" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeEmailX">Email ou identifiant</label>
                             </div>
 
                             <div class="form-outline form-white mb-3">

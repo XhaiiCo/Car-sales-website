@@ -1,11 +1,12 @@
 <?php
 
-function login($username, $isAdmin, $isSeller)
+function login($username, $email, $isAdmin, $isSeller)
 {
     startSession();
-    $_SESSION['username'] = $username;
-    $_SESSION['isAdmin'] = $isAdmin;
-    $_SESSION['isSeller'] = $isSeller;
+    $_SESSION['user']['username'] = $username;
+    $_SESSION['user']['mail'] = $email;
+    $_SESSION['user']['isAdmin'] = $isAdmin;
+    $_SESSION['user']['isSeller'] = $isSeller;
 }
 
 function logout()
@@ -24,7 +25,7 @@ function startSession()
 function isConnected()
 {
     startSession();
-    if (isset($_SESSION['username'])) {
+    if (isset($_SESSION['user']['username'])) {
         return true;
     }
 
@@ -34,7 +35,7 @@ function isConnected()
 function isAdmin()
 {
     startSession();
-    if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === "1") {
+    if (isset($_SESSION['user']['isAdmin']) && $_SESSION['user']['isAdmin'] === "1") {
         return true;
     }
 
@@ -44,7 +45,7 @@ function isAdmin()
 function isSeller()
 {
     startSession();
-    if (isset($_SESSION['isSeller']) && $_SESSION['isSeller'] === "1") {
+    if (isset($_SESSION['user']['isSeller']) && $_SESSION['user']['isSeller'] === "1") {
         return true;
     }
 
@@ -54,8 +55,18 @@ function isSeller()
 function getUsername()
 {
     startSession();
-    if (isset($_SESSION['username'])) {
-        return $_SESSION['username'];
+    if (isset($_SESSION['user']['username'])) {
+        return $_SESSION['user']['username'];
+    }
+
+    return null;
+}
+
+function getEmail()
+{
+    startSession();
+    if (isset($_SESSION['user']['mail'])) {
+        return $_SESSION['user']['mail'];
     }
 
     return null;
