@@ -22,7 +22,7 @@
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "../src/model/model_signup.php",
+            url: "./model/model_signup.php",
             dataType: "text",
             data: $(this).serialize(),
             success: function(response) {
