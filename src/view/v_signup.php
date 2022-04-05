@@ -27,7 +27,7 @@
                         </form>
                     </div>
                     <div>
-                        <p class="mb-0">Déjà un compte? <a href="<?= $router->generate('connexion') ?>" class="text-white-50 fw-bold">Créer un compte</a></p>
+                        <p class="mb-0">Déjà un compte? <a href="<?= $router->generate('connexion') ?>" class="text-white-50 fw-bold">Se connecter</a></p>
                     </div>
 
                 </div>

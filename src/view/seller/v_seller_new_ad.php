@@ -90,7 +90,7 @@
         <div class="form-group">
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label">Entrez les images de votre voiture (max: 7 images)</label>
-                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                <input class="form-control" type="file" id="formFileMultiple" name="car_img">
             </div>
         </div>
         <input type="submit" value="Ajouter" class="btn btn-primary">
@@ -105,11 +105,15 @@
     $(document).ready(function() {
         $("#form").submit(function(e) {
             e.preventDefault();
+
+            let form_data = new FormData(this);
             $.ajax({
                 type: "POST",
                 url: "./model/model_new_ad.php",
                 dataType: "JSON",
-                data: $(this).serialize(),
+                data: form_data,
+                contentType: false,
+                processData: false,
                 success: function(response) {
                     if (response.error === 1) {
                         divError = document.createElement("div");

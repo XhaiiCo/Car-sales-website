@@ -9,6 +9,10 @@ if (!isset($_POST)) {
     leave(["error" => 1, "em" => "Erreur"]);
 }
 
+if (!isset($_FILES['car_img']) || $_FILES['car_img']['name'] === "") {
+    leave(["error" => 1, "em" => "Veuillez ajouter au moins une image"]);
+}
+
 $car = array(
     "price" => floatval(str_replace(",", ".", $_POST["price"])),
     "additional_info" => $_POST["additional_info"],
@@ -49,25 +53,37 @@ if (!is_int($car['car_kilometer']) ||  $car['car_kilometer'] === 0) {
     leave(["error" => 1, "em" => "kilométrage incorrect"]);
 }
 
-// Added the car in the db
+$img_name = $_FILES['car_img']['name'];
+$img_size = $_FILES['car_img']['size'];
+$tmp_name = $_FILES['car_img']['tmp_name'];
+$error = $_FILES['car_img']['error'];
 
+if ($error !== 0) {
+    leave(["error" => 1, "em" => "Erreur inconue"]);
+}
+
+// Check image size
+if ($img_size > 1000000) {
+    leave(["error" => 1, "em" => "Désolé, votre image est trop grande"]);
+}
+
+// Check the extension
+$allowed_exs = array("jpg", "jpeg", "png");
+$img_ex = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
+
+if (!in_array($img_ex, $allowed_exs)) {
+    leave(["error" => 1, "em" => "Ce format de fichier n'est pas accepté"]);
+}
+
+//Move the img
+$new_img_name = uniqid("IMG-", true) . "." . $img_ex;
+$img_upload_path = "../../public/assets/img/car_on_sale/" . $new_img_name;
+
+move_uploaded_file($tmp_name, $img_upload_path);
+
+// Added the car in the db
 require_once "../../src/util/db.php";
 
-
-$car = array(
-    "price" => floatval(str_replace(",", ".", $_POST["price"])),
-    "additional_info" => $_POST["additional_info"],
-    "sale_description" => $_POST["sale_description"],
-    "brand_name" => $_POST["brand_select"],
-    "model_name" => $_POST["model_select"],
-    "car_power" => intval($_POST["car_power"]),
-    "car_fuel" => $_POST["car_fuel"],
-    "car_state" => $_POST["car_state"],
-    "car_color" => $_POST["car_color"],
-    "car_year" => $_POST["car_year"],
-    "car_kilometer" => intval($_POST["car_kilometer"]),
-    "user" => getEmail()
-);
 $sql = "
 insert ignore into sale 
 (price, publication_date, sale_description, car_kilometer, car_year, car_power,
@@ -77,11 +93,26 @@ values
 ";
 
 $db = getDB();
+
+$db->beginTransaction();
 $stmt = $db->prepare($sql);
 
 $stmt->execute($car);
 
 $lastInsert = $db->lastInsertId();
+
+$sql = "insert ignore into car_picture
+(picture_name, picture_order, id_sale)
+values
+(:img_name, 1, :id)";
+
+$stmt = $db->prepare($sql);
+$stmt->execute([
+    "img_name" => $new_img_name,
+    "id" => $lastInsert
+]);
+
+$db->commit();
 
 leave(["success" => 1, "sm" => "Voiture ajouté avec succès"]);
 
