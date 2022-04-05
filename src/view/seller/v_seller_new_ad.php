@@ -2,7 +2,8 @@
 <h3 class="text-center my-3">Nouvelle annonce</h3>
 
 <div class="container">
-    <form>
+    <div id="feedback"></div>
+    <form id="form">
         <!-- List of brand -->
         <div class="form-group">
             <label for="brand_select">Marque</label>
@@ -24,10 +25,16 @@
             <input class="form-control" type="text" id="additional_info" name="additional_info" placeholder="Ex: sièges sport, ABS...">
         </div>
 
+        <!-- price -->
+        <div class="form-group">
+            <label for="price">Prix de vente</label>
+            <input class="form-control" type="text" id="price" name="price" min="0">
+        </div>
+
         <!-- sale_description -->
         <div class="form-group">
             <label for="sale_description">Description</label>
-            <textarea class="form-control" id="sale_description"></textarea>
+            <textarea class="form-control" name="sale_description" id="sale_description"></textarea>
         </div>
 
         <div class="form-group">
@@ -40,13 +47,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">date de publication</th>
-                        <td>
-                            <input class="form-control" type="text" id="publication_date" name="publication_date">
-                        </td>
-
-                    </tr>
                     <tr>
                         <th scope="row">Kilométrage</th>
                         <td>
@@ -93,11 +93,42 @@
                 <input class="form-control" type="file" id="formFileMultiple" multiple>
             </div>
         </div>
+        <input type="submit" value="Ajouter" class="btn btn-primary">
     </form>
 </div>
 
 <?php require_once "../src/view/seller/elements/v_seller_ender.php"; ?>
 
+
+<!-- add the ad -->
+<script>
+    $(document).ready(function() {
+        $("#form").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "./model/model_new_ad.php",
+                dataType: "JSON",
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.error === 1) {
+                        divError = document.createElement("div");
+                        $(divError).addClass("alert alert-danger");
+                        $(divError).html(response.em)
+                        $("#feedback").html(divError);
+                    } else if (response.success === 1) {
+                        divSuccess = document.createElement("div");
+                        $(divSuccess).addClass("alert alert-success");
+                        $(divSuccess).html(response.sm)
+                        $("#feedback").html(divSuccess);
+                    }
+                }
+            });
+        })
+    })
+</script>
+
+<!-- Set the data -->
 <script>
     $(document).ready(function() {
         // put all the brand in the select
