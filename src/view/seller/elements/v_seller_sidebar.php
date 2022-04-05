@@ -5,6 +5,10 @@
                 <span class="fs-5 d-none d-sm-inline">Gestion</span>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
+                        <a href="<?= $router->generate('seller_new_ad') ?>" class="text-white nav-link px-0 align-middle">
+                            <i class="fs-4 bi-cart-plus"></i> <span class="ms-1 d-none d-sm-inline">Nouvelle annonce</span> </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="<?= $router->generate('seller_ads') ?>" class="text-white nav-link px-0 align-middle">
                             <i class="fs-4 bi-cart"></i> <span class="ms-1 d-none d-sm-inline">Mes annonces</span> </a>
                     </li>

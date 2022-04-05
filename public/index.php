@@ -43,6 +43,15 @@ $router->map('GET', $racine . '/mes-annonces', function () {
     }
 }, 'seller_ads');
 
+$router->map('GET', $racine . '/nouvelle-annonce', function () {
+    global $router;
+    if (isSeller()) {
+        require "../src/view/seller/v_seller_new_ad.php";
+    } else {
+        header("Location: " . $router->generate('home'));
+    }
+}, 'seller_new_ad');
+
 
 // ****************************************************************
 //                              ADMIN
