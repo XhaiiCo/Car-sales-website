@@ -9,7 +9,7 @@ if (!isset($_POST)) {
     leave(["error" => 1, "em" => "Erreur"]);
 }
 
-if (!isset($_FILES['car_img']) || $_FILES['car_img']['name'] === "") {
+if (!isset($_FILES['car_img_1']) || $_FILES['car_img_1']['name'] === "") {
     leave(["error" => 1, "em" => "Veuillez ajouter au moins une image"]);
 }
 
@@ -53,33 +53,6 @@ if (!is_int($car['car_kilometer']) ||  $car['car_kilometer'] === 0) {
     leave(["error" => 1, "em" => "kilométrage incorrect"]);
 }
 
-$img_name = $_FILES['car_img']['name'];
-$img_size = $_FILES['car_img']['size'];
-$tmp_name = $_FILES['car_img']['tmp_name'];
-$error = $_FILES['car_img']['error'];
-
-if ($error !== 0) {
-    leave(["error" => 1, "em" => "Erreur inconue"]);
-}
-
-// Check image size
-if ($img_size > 1000000) {
-    leave(["error" => 1, "em" => "Désolé, votre image est trop grande"]);
-}
-
-// Check the extension
-$allowed_exs = array("jpg", "jpeg", "png");
-$img_ex = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
-
-if (!in_array($img_ex, $allowed_exs)) {
-    leave(["error" => 1, "em" => "Ce format de fichier n'est pas accepté"]);
-}
-
-//Move the img
-$new_img_name = uniqid("IMG-", true) . "." . $img_ex;
-$img_upload_path = "../../public/assets/img/car_on_sale/" . $new_img_name;
-
-move_uploaded_file($tmp_name, $img_upload_path);
 
 // Added the car in the db
 require_once "../../src/util/db.php";
@@ -101,16 +74,59 @@ $stmt->execute($car);
 
 $lastInsert = $db->lastInsertId();
 
-$sql = "insert ignore into car_picture
-(picture_name, picture_order, id_sale)
-values
-(:img_name, 1, :id)";
+for ($i = 1; $i <= 7; $i++) {
 
-$stmt = $db->prepare($sql);
-$stmt->execute([
-    "img_name" => $new_img_name,
-    "id" => $lastInsert
-]);
+    if (!isset($_FILES['car_img_' . $i]) || $_FILES['car_img_' . $i]['name'] === "") {
+        break;
+    }
+
+    $img_name = $_FILES['car_img_' . $i]['name'];
+    $img_size = $_FILES['car_img_' . $i]['size'];
+    $tmp_name = $_FILES['car_img_' . $i]['tmp_name'];
+    $error = $_FILES['car_img_' . $i]['error'];
+
+
+    if ($error !== 0) {
+        $db->rollback();
+        leave(["error" => 1, "em" => "Erreur inconue pour l'image n°" . $i]);
+    }
+
+    // Check image size
+    if ($img_size > 10000000) {
+        $db->rollback();
+        leave(["error" => 1, "em" => "Désolé, votre image n°" . $i . " est trop grande"]);
+    }
+
+    // Check the extension
+    $allowed_exs = array("jpg", "jpeg", "png");
+    $img_ex = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
+
+    if (!in_array($img_ex, $allowed_exs)) {
+        $db->rollback();
+        leave(["error" => 1, "em" => "Ce format de fichier n'est pas accepté pour l'image n°" . $i]);
+    }
+
+    //Move the img
+    $new_img_name = uniqid("IMG-", true) . "." . $img_ex;
+    $img_upload_path = "../../public/assets/img/car_on_sale/" . $new_img_name;
+
+    move_uploaded_file($tmp_name, $img_upload_path);
+    $sql = "insert ignore into car_picture
+    (picture_name, picture_order, id_sale)
+    values
+    (:img_name, :order, :id)";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        "img_name" => $new_img_name,
+        "id" => $lastInsert,
+        "order" => $i
+    ]);
+}
+
+
+
+
 
 $db->commit();
 

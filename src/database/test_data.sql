@@ -623,31 +623,24 @@ insert ignore into  car_model value
 ("Autres","Audi") ;
 
 
-insert ignore into  user (user_mail, username, user_password, isAdmin, isSeller, date_registration)
-values 
-("seller@seller.be", "Seller", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 0, 1, now()),
-("admin@admin.be", "Admin", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 1, 0, now()),
-("user@user.be", "User", "$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G", 0, 0, now()) ;
+INSERT INTO `user` (`user_mail`, `username`, `user_password`, `isAdmin`, `isSeller`, `date_registration`) VALUES
+('admin@admin.be', 'Admin', '$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G', 1, 0, '2022-04-05'),
+('davidleclercq2002@gmail.com', 'David', '$2y$10$Ou7ZmBOd6li4EaLWUxCr4.8t8Eef.b01f84iob3/helHFlQ68Wm3y', 0, 1, '2022-04-05'),
+('user@user.be', 'User', '$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G', 0, 0, '2022-04-05');
 
-insert ignore into  sale (price, publication_date, sale_description, car_kilometer, car_year, car_power,
-car_fuel, car_color, car_state,additional_info, model_name, brand_name, user_mail)
-values
-(180000, date(now()), 'Elle est bien jte jure', 0, "2010", 417, "Essence", "Noir", "Neuve", "", "G 63 AMG", "Mercedes-Benz", "seller@seller.be"),
-(100000, date(now()), 'Trop belle <3', 75000, "1994", 238, "Essence", "Bleu", "Occasion", "3.0 Turbo", "Supra", "Toyota", "seller@seller.be"),
-(1500000, date(now()), 'Elle est bien jte jure', 23932, "1992", 350, "Essence", "Rouge", "Occasion", "", "F40", "Ferrari", "seller@seller.be") ;
+INSERT INTO `sale` (`id_sale`, `price`, `publication_date`, `sale_description`, `car_kilometer`, `car_year`, `car_power`, `car_fuel`, `car_color`, `car_state`, `additional_info`, `model_name`, `brand_name`, `user_mail`) VALUES
+(2, 204950, '2022-04-05', 'La Mercedes-AMG G 63 signifie une puissance exceptionnelle au premier regard : la calandre spécifique AMG, les jantes 55,9 cm (22\") en option et le système d\'échappement Performance AMG marquant avec deux sorties chromées de part et d\'autre confèrent au modèle culte son allure expressive.\r\n', 9350, 2021, 585, 'Essence', 'Blanc', 'Occasion', 'Toit ouvrant', 'G 63 AMG', 'Mercedes-Benz', 'davidleclercq2002@gmail.com'),
+(3, 1350000, '2022-04-05', 'La Ferrari F40 est une supercar GT et de compétition, du constructeur automobile italien Ferrari. Produite entre 1987 et 1992, pour fêter les quarante ans de la marque, elle succède à la Ferrari 288 GTO. Ultime création du vivant du Commendatore Enzo Ferrari (1898-1988), elle est au moment de sa sortie, la voiture la plus rapide, la plus puissante et la plus chère de l\'histoire de l\'automobile', 29000, 1992, 479, 'Essence', 'Rouge', 'Occasion', 'LM PACK', 'F40', 'Ferrari', 'davidleclercq2002@gmail.com');
 
 
-insert ignore into  car_picture
-(picture_name, picture_order, id_sale)
-values
-("1.jpeg", 1, 1),
-("2.jpeg", 2, 1),
-("3.jpeg", 3, 1),
-("4.jpeg", 4, 1),
-("5.jpeg", 5, 1),
-("7.jpg", 1, 2),
-("8.jpg", 2, 2),
-("9.jpg", 3, 2),
-("10.jpg", 4, 2),
-("11.jpg", 5, 2),
-("6.jpg", 1, 3) ;
+INSERT INTO `car_picture` (`picture_name`, `picture_order`, `id_sale`) VALUES
+('IMG-624c88bd49d567.17362199.jpeg', 1, 2),
+('IMG-624c88bd4a0e17.44879132.jpeg', 2, 2),
+('IMG-624c88bd4a4082.15694066.jpeg', 3, 2),
+('IMG-624c88bd4aa702.59323255.jpeg', 4, 2),
+('IMG-624c88bd4ad2d1.16054655.jpeg', 5, 2),
+('IMG-624c88fa5f3ae5.08531974.jpg', 1, 3),
+('IMG-624c88fa6018c5.54744100.jpg', 2, 3),
+('IMG-624c88fa604b06.72479659.jpg', 3, 3),
+('IMG-624c88fa60de73.05636001.jpg', 4, 3),
+('IMG-624c88fa610ee5.61115008.jpg', 5, 3);

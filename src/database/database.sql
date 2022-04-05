@@ -95,7 +95,7 @@ create table if not exists car_picture
 alter table car_picture
 add constraint fk_car_pictureid_sale
 foreign key (id_sale)
-references sale (id_sale), 
+references sale(id_sale)
 ON DELETE CASCADE;
 
 create table if not exists message_sale

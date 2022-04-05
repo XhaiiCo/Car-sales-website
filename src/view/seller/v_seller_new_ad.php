@@ -88,10 +88,23 @@
         </div>
 
         <div class="form-group">
-            <div class="mb-3">
-                <label for="formFileMultiple" class="form-label">Entrez les images de votre voiture (max: 7 images)</label>
-                <input class="form-control" type="file" id="formFileMultiple" name="car_img">
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Entrez les images de votre voiture (au moins une image)
+                        <th>
+                    </tr>
+                </thead>
+                <tbody id="img_form_container">
+                    <tr id="img-input-1">
+                        <th>Image 1</th>
+                        <td>
+                            <input number="1" class='form-control' type='file' name='car_img_1'>
+                        </td>
+                    <tr>
+                </tbody>
+            </table>
         </div>
         <input type="submit" value="Ajouter" class="btn btn-primary">
     </form>
@@ -136,9 +149,31 @@
 <script>
     $(document).ready(function() {
         // put all the brand in the select
+        setImgForm();
         setBrand();
         $("#model_select").html("<option value='%'>veuillez sélectionner une marque</option>");
     });
+
+    function setImgForm() {
+        for (i = 2; i <= 7; i++) {
+            html =
+                " <tr id='img-input-" + i + "'  style='display: none;'> \
+                    <th>Image " + i + "</th> \
+                    <td> \
+                        <input number='" + i + "' class='form-control' type='file' name='car_img_" + i + "'> \
+                    </td> \
+                <tr> \
+                ";
+            $("#img_form_container").append(html);
+        }
+
+        $("input[type='file']").change(function() {
+            const inputNumber = parseInt($(this).attr("number")) + 1;
+            if (inputNumber <= 7) {
+                $("#img-input-" + inputNumber).show();
+            }
+        });
+    }
 
     //When the user select a brand :
     // - it filters the ads
