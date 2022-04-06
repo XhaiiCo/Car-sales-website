@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../src/util/import.php" ?>
-    <title>Document</title>
+    <title>DLMotors</title>
 </head>
 
 <body>
@@ -61,9 +61,17 @@
                                 </div>
                             </li>
                         <?php else : ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?= $router->generate('connexion') ?>">Connexion/inscription</a>
+                            <li class="nav-item mx-3">
+                                <a class="btn btn-dark nav-link" href="<?= $router->generate('inscription') ?>">
+                                    Inscription
+                                </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="btn btn-secondary nav-link" href="<?= $router->generate('connexion') ?>">
+                                    <i class="bi bi-person"></i>Connexion
+                                </a>
+                            </li>
+
                         <?php endif; ?>
                     </ul>
                 </div>
