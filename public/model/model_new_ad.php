@@ -53,6 +53,36 @@ if (!is_int($car['car_kilometer']) ||  $car['car_kilometer'] === 0) {
     leave(["error" => 1, "em" => "kilométrage incorrect"]);
 }
 
+for ($i = 1; $i <= 7; $i++) {
+
+    if (!isset($_FILES['car_img_' . $i]) || $_FILES['car_img_' . $i]['name'] === "") {
+        break;
+    }
+
+    $img_name = $_FILES['car_img_' . $i]['name'];
+    $img_size = $_FILES['car_img_' . $i]['size'];
+    $tmp_name = $_FILES['car_img_' . $i]['tmp_name'];
+    $error = $_FILES['car_img_' . $i]['error'];
+
+
+    if ($error !== 0) {
+        leave(["error" => 1, "em" => "Erreur inconue pour l'image n°" . $i]);
+    }
+
+    // Check image size
+    if ($img_size > 10000000) {
+        leave(["error" => 1, "em" => "Désolé, votre image n°" . $i . " est trop grande"]);
+    }
+
+    // Check the extension
+    $allowed_exs = array("jpg", "jpeg", "png");
+    $img_ex = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
+
+    if (!in_array($img_ex, $allowed_exs)) {
+        leave(["error" => 1, "em" => "Ce format de fichier n'est pas accepté pour l'image n°" . $i]);
+    }
+}
+
 
 // Added the car in the db
 require_once "../../src/util/db.php";
@@ -85,26 +115,7 @@ for ($i = 1; $i <= 7; $i++) {
     $tmp_name = $_FILES['car_img_' . $i]['tmp_name'];
     $error = $_FILES['car_img_' . $i]['error'];
 
-
-    if ($error !== 0) {
-        $db->rollback();
-        leave(["error" => 1, "em" => "Erreur inconue pour l'image n°" . $i]);
-    }
-
-    // Check image size
-    if ($img_size > 10000000) {
-        $db->rollback();
-        leave(["error" => 1, "em" => "Désolé, votre image n°" . $i . " est trop grande"]);
-    }
-
-    // Check the extension
-    $allowed_exs = array("jpg", "jpeg", "png");
     $img_ex = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
-
-    if (!in_array($img_ex, $allowed_exs)) {
-        $db->rollback();
-        leave(["error" => 1, "em" => "Ce format de fichier n'est pas accepté pour l'image n°" . $i]);
-    }
 
     //Move the img
     $new_img_name = uniqid("IMG-", true) . "." . $img_ex;
@@ -123,10 +134,6 @@ for ($i = 1; $i <= 7; $i++) {
         "order" => $i
     ]);
 }
-
-
-
-
 
 $db->commit();
 

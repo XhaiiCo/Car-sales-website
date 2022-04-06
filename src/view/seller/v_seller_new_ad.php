@@ -1,43 +1,70 @@
 <?php require_once "../src/view/seller/elements/v_seller_sidebar.php"; ?>
-<h3 class="text-center my-3">Nouvelle annonce</h3>
+<h1 class="mb-4">Nouvelle annonce</h1>
 
-<div class="container">
+<div class="container-fluid">
     <div id="feedback"></div>
     <form id="form">
-        <!-- List of brand -->
-        <div class="form-group">
-            <label for="brand_select">Marque</label>
-            <select class="form-select" id="brand_select" name="brand_select">
-                <option value="%">Marque</option>
-            </select>
-        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="text-center">Informations de base</h3>
+                <div class="row">
 
-        <!-- List of model -->
-        <div class="form-group">
-            <label for="model_select">Modèle</label>
-            <select class="form-select" id="model_select" name="model_select">
-            </select>
-        </div>
+                    <!-- List of brand -->
+                    <div class="col-md-6 form-group">
+                        <label for="brand_select">Marque</label>
+                        <select class="form-select" id="brand_select" name="brand_select">
+                            <option value="%">Marque</option>
+                        </select>
+                    </div>
+                    <!-- List of model -->
+                    <div class="col-md-6 form-group">
+                        <label for="model_select">Modèle</label>
+                        <select class="form-select" id="model_select" name="model_select">
+                        </select>
+                    </div>
+                </div>
 
-        <!-- additional info -->
-        <div class="form-group">
-            <label for="additional_info">information additionnelle</label>
-            <input class="form-control" type="text" id="additional_info" name="additional_info" placeholder="Ex: sièges sport, ABS...">
-        </div>
 
-        <!-- price -->
-        <div class="form-group">
-            <label for="price">Prix de vente</label>
-            <input class="form-control" type="text" id="price" name="price" min="0">
-        </div>
 
-        <!-- sale_description -->
-        <div class="form-group">
-            <label for="sale_description">Description</label>
-            <textarea class="form-control" name="sale_description" id="sale_description"></textarea>
-        </div>
 
-        <div class="form-group">
+                <!-- additional info -->
+                <div class="form-group">
+                    <label for="additional_info">information additionnelle</label>
+                    <input class="form-control" type="text" id="additional_info" name="additional_info" placeholder="Ex: sièges sport, ABS...">
+                </div>
+
+                <!-- price -->
+                <div class="form-group">
+                    <label for="price">Prix de vente</label>
+                    <input class="form-control" type="text" id="price" name="price" min="0">
+                </div>
+
+                <!-- sale_description -->
+                <div class="form-group">
+                    <label for="sale_description">Description</label>
+                    <textarea class="form-control" name="sale_description" id="sale_description"></textarea>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <h3 class="text-center">Images</h3>
+                    <ul class="list-group my-lg-4" id="img_form_container">
+                        <div class="row my-2" id="img-input-1">
+                            <div class="col-md-3 d-flex align-items-center">
+                                Image 1
+                            </div>
+                            <div class="col">
+                                <input number="1" class='form-control' type='file' name='car_img_1'>
+                            </div>
+                        </div>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row form-group">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -74,7 +101,10 @@
                     <tr>
                         <th scope="row">État</th>
                         <td>
-                            <input class="form-control" type="text" id="car_state" name="car_state">
+                            <select class="form-select" name="car_state" id="car_state">
+                                <option value="Neuve">Neuve</option>
+                                <option value="Occasion">Occasion</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -87,26 +117,9 @@
             </table>
         </div>
 
-        <div class="form-group">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            Entrez les images de votre voiture (au moins une image)
-                        <th>
-                    </tr>
-                </thead>
-                <tbody id="img_form_container">
-                    <tr id="img-input-1">
-                        <th>Image 1</th>
-                        <td>
-                            <input number="1" class='form-control' type='file' name='car_img_1'>
-                        </td>
-                    <tr>
-                </tbody>
-            </table>
-        </div>
-        <input type="submit" value="Ajouter" class="btn btn-primary">
+
+
+        <input type="submit" value="Ajouter l'annonce" class="btn btn-primary">
     </form>
 </div>
 
@@ -157,12 +170,12 @@
     function setImgForm() {
         for (i = 2; i <= 7; i++) {
             html =
-                " <tr id='img-input-" + i + "'  style='display: none;'> \
-                    <th>Image " + i + "</th> \
-                    <td> \
-                        <input number='" + i + "' class='form-control' type='file' name='car_img_" + i + "'> \
-                    </td> \
-                <tr> \
+                "<div class='row my-2' id='img-input-" + i + "' style='display: none;'> \
+                        <div class='col-md-3 d-flex align-items-center'>Image " + i + "</div> \
+                        <div class='col'> \
+                            <input number='" + i + "' class='form-control' type='file' name='car_img_" + i + "'> \
+                        </div> \
+                    </div> \
                 ";
             $("#img_form_container").append(html);
         }
