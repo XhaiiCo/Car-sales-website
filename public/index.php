@@ -84,5 +84,6 @@ if ($match !== false) {
     call_user_func_array($match['target'], $match['params']); //Passe les argument à la fonction
     require_once "../src/elements/footer.php";
 } else {
-    echo "404";
+    global $router;
+    require "../src/view/v_404.php";
 }
