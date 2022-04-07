@@ -13,31 +13,22 @@ require_once "../../src/util/db.php";
 if (!isset($_POST))
     exit();
 
-
 $sql = "
 select *
 from user where 
     (user.user_mail like :user)
 ";
 
-$stmt = getDB()->prepare($sql);
-
-$stmt->execute([
+$params = [
     "user" => $user
-]);
+];
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$user = prepare($sql, $params);
 
-var_dump($rs);
-
-if ($rs[0]['isAdmin'] === "1") {
+if ($user[0]['isAdmin'] === "1") {
     exit();
 }
 
 $sql = "delete from user where user_mail like :user";
 
-$stmt = getDB()->prepare($sql);
-
-$stmt->execute([
-    "user" => $user
-]);
+prepare($sql, $params);

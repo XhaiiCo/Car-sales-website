@@ -10,24 +10,24 @@ require_once "../../src/util/db.php";
 $mail = $_POST['mail'];
 $password = $_POST['password'];
 
-$stmt = getDB()->prepare("
+$sql = "
 SELECT * from user where (user.user_mail like :mail or user.username like :mail)
-");
+";
 
-$stmt->execute([
+$params = [
     "mail" => $mail
-]);
+];
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$user = prepare($sql, $params);
 
-if (empty($rs)) {
+if (empty($user)) {
     echo 0;
     exit();
 }
 
-if (password_verify($password, $rs[0]['user_password'])) {
+if (password_verify($password, $user[0]['user_password'])) {
     require_once "../../src/controller/authController.php";
-    login($rs[0]['username'], $rs[0]['user_mail'], $rs[0]['isAdmin'], $rs[0]['isSeller']);
+    login($user[0]['username'], $user[0]['user_mail'], $user[0]['isAdmin'], $user[0]['isSeller']);
     echo 1;
     exit();
 }

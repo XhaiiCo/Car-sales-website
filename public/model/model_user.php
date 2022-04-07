@@ -33,13 +33,6 @@ if ($role === 'admin') {
 } else if ($role === 'user') {
     $sql .= "and (isSeller = 0 and isAdmin = 0)";
 }
+$users = prepare($sql, ["q" => "%" . $q . "%"]);
 
-$stmt = getDB()->prepare($sql);
-
-$stmt->execute([
-    "q" => "%" . $q . "%"
-]);
-
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-echo utf8_encode(json_encode($rs));
+echo utf8_encode(json_encode($users));

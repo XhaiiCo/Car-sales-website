@@ -7,17 +7,16 @@ if (!isset($_POST['id']))
 
 $id = $_POST['id'];
 
-
-$stmt = getDB()->prepare("
+$sql = "
 select car_picture.picture_name from car_picture
 where id_sale = :id
 order by car_picture.picture_order
-");
+";
 
-$stmt->execute([
+$params = [
     "id" => $id
-]);
+];
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$car_pictures = prepare($sql, $params);
 
-echo utf8_encode(json_encode($rs));
+echo utf8_encode(json_encode($car_pictures));

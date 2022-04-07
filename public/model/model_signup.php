@@ -31,27 +31,21 @@ if (strlen($password) < $MINLENGHT_PASSWORD || !preg_match("/^(?=.*[A-Za-z])(?=.
 require_once "../../src/util/db.php";
 
 //Check if the username not already exists
-$stmt = getDB()->prepare("SELECT * FROM user where username like :username");
+$sql = "SELECT * FROM user where username like :username";
 
-$stmt->execute([
-    "username" => $username
-]);
+$user = prepare($sql, ["username" => $username]);
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-if (!empty($rs)) {
+if (!empty($user)) {
     echo "Ce nom d'utilisateur est déjà utilisé";
     exit();
 }
 
 //Check if the mail not already exists and correct
-$stmt = getDB()->prepare("SELECT * FROM user where user_mail like :mail");
+$sql = "SELECT * FROM user where user_mail like :mail";
 
-$stmt->execute([
-    "mail" => $mail
-]);
+$user = prepare($sql, ["mail" => $mail]);
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-if (!empty($rs) || filter_var($mail, FILTER_VALIDATE_EMAIL) == false) {
+if (!empty($user) || filter_var($mail, FILTER_VALIDATE_EMAIL) == false) {
     echo "Email incorrect ou déjà utilisé";
     exit();
 }
@@ -62,12 +56,12 @@ insert ignore into user
 values
 (:mail, :username, :password, 0, 0, now())";
 
-$stmt = getDB()->prepare($sql);
-
-$stmt->execute([
+$params = [
     "mail" => $mail,
     "username" => $username,
     "password" => password_hash($password, PASSWORD_DEFAULT)
-]);
+];
+
+prepare($sql, $params);
 
 echo "ok";

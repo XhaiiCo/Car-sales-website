@@ -2,9 +2,6 @@
 
 require_once "../../src/util/db.php";
 
-$stmt = getDB()->query("select brand_name from car_brand");
-$stmt->execute();
+$brands = query("select brand_name from car_brand");
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-echo utf8_encode(json_encode($rs));
+echo utf8_encode(json_encode($brands));

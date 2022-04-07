@@ -10,7 +10,7 @@ $model = "%";
 if (isset($_POST['model_select']))
 	$model = $_POST['model_select'];
 
-$stmt = getDB()->prepare("
+$sql = "
 select sale.*, 
 group_concat(case 
 	when car_picture.picture_order = 1 
@@ -22,12 +22,13 @@ from sale
 left join car_picture using(id_sale)
 where brand_name like :brand and model_name like :model
 group by id_sale
-");
-$stmt->execute([
+";
+
+$params = [
 	"brand" => $brand,
 	"model" => $model
-]);
+];
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$ads = prepare($sql, $params);
 
-echo utf8_encode(json_encode($rs));
+echo utf8_encode(json_encode($ads));

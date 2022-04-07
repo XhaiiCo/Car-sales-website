@@ -8,7 +8,6 @@ if (!isConnected()) {
 
 require_once "../../src/util/db.php";
 
-
 $sql = "
 select 
     user.user_mail,
@@ -20,10 +19,10 @@ from user where
 
 $stmt = getDB()->prepare($sql);
 
-$stmt->execute([
+$params = [
     "q" => getEmail()
-]);
+];
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$users = prepare($sql, $params);
 
-echo utf8_encode(json_encode($rs));
+echo utf8_encode(json_encode($users));

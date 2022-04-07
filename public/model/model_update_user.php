@@ -17,14 +17,16 @@ $user = $_POST['user'];
 $isAdmin = ($_POST['isAdmin'] === 'true' ? 1 : 0);
 $isSeller = ($_POST['isSeller'] === 'true' ? 1 : 0);
 
-$sql = "update user set 
+$sql = "
+    update user set 
     isAdmin = :isAdmin, isSeller = :isSeller 
-    where user_mail = :user";
+    where user_mail = :user
+";
 
-$stmt = getDB()->prepare($sql);
-
-$stmt->execute([
+$params = [
     "user" => $user,
     "isAdmin" => $isAdmin,
     "isSeller" => $isSeller
-]);
+];
+
+prepare($sql, $params);

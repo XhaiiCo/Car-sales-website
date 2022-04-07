@@ -8,7 +8,7 @@ if (!isset($_POST['id']))
 
 $id = $_POST['id'];
 
-$stmt = getDB()->prepare("
+$sql = "
 select 
     sale.brand_name, 
     sale.model_name,
@@ -26,12 +26,12 @@ select
 from sale
 inner join user using(user_mail)
 where sale.id_sale = :id
-");
+";
 
-$stmt->execute([
+$params = [
     'id' => $id
-]);
+];
 
-$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$ad = prepare($sql, $params);
 
-echo utf8_encode(json_encode($rs));
+echo utf8_encode(json_encode($ad));
