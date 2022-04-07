@@ -3,16 +3,18 @@
 if (!isset($_POST)) {
     exit();
 }
-$MINLENGHT_PASSWORD = 6;
 $MINLENGHT_USERNAME = 3;
+$MINLENGHT_PASSWORD = 6;
 
 $username = $_POST['username'];
 $mail = $_POST['email'];
 $password = $_POST['password'];
 $confirmPassword = $_POST['confirm-password'];
 
+require_once "../../src/util/user.php";
 
-if (strlen($username) < $MINLENGHT_USERNAME || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+
+if (!validUsername($username)) {
     echo "Nom d'utilisateur incorrect (min: " . $MINLENGHT_USERNAME . " caractères, sans espace, et sans caractères spéciaux)";
     exit();
 }
@@ -23,7 +25,7 @@ if ($password != $confirmPassword) {
     exit();
 }
 
-if (strlen($password) < $MINLENGHT_PASSWORD || !preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{" . $MINLENGHT_PASSWORD . ",}$/", $password)) {
+if (!validPassword($password)) {
     echo "Mot de passe incorrect (min: " . $MINLENGHT_PASSWORD . " caractères et au moins 1 lettre et 1 chiffre)";
     exit();
 }
@@ -45,7 +47,7 @@ $sql = "SELECT * FROM user where user_mail like :mail";
 
 $user = prepare($sql, ["mail" => $mail]);
 
-if (!empty($user) || filter_var($mail, FILTER_VALIDATE_EMAIL) == false) {
+if (!empty($user) || !validMail($mail)) {
     echo "Email incorrect ou déjà utilisé";
     exit();
 }

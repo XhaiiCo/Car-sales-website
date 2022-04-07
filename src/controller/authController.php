@@ -9,6 +9,13 @@ function login($username, $email, $isAdmin, $isSeller)
     $_SESSION['user']['isSeller'] = $isSeller;
 }
 
+function update($username, $email)
+{
+    startSession();
+    $_SESSION['user']['username'] = $username;
+    $_SESSION['user']['mail'] = $email;
+}
+
 function logout()
 {
     startSession();
