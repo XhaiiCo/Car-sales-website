@@ -18,6 +18,10 @@ if (!isAdmin()) {
                         <a href="<?= $router->generate('admin_ads') ?>" class="text-white nav-link px-0 align-middle">
                             <i class="fs-4 bi-cart"></i> <span class="ms-1 d-none d-sm-inline">Annonces</span> </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="<?= $router->generate('admin_ads') ?>" class="text-white nav-link px-0 align-middle">
+                            <i class="fs-4 bi-person-plus"></i> <span class="ms-1 d-none d-sm-inline">Candidatures</span> </a>
+                    </li>
                 </ul>
             </div>
         </div>
