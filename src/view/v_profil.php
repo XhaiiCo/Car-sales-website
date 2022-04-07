@@ -4,7 +4,30 @@ if (!isConnected()) {
 }
 ?>
 
-<div class="container">
+<!-- Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier votre mot de passe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="password_form">
+                <div class="modal-body">
+                    <input name="current_password" class="form-control my-2" type="password" placeholder="Mot de passe actuel">
+                    <input name="new_password" class="form-control my-2" type="password" placeholder="Votre nouveau mot de passe">
+                    <input name="confirme_new_password" class="form-control my-2" type="password" placeholder="Confirmez votre nouveau mot de passe">
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" container">
     <header class="my-3">
         <div id="feedback"></div>
         <h4>Paramètres du profil</h4>
@@ -25,7 +48,7 @@ if (!isConnected()) {
             <hr>
             <div class="form-group">
                 <h6>Mot de passe</h6>
-                <a href="#">Modifier mon mot de passe</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#passwordModal">Modifier mon mot de passe</a>
             </div>
             <hr>
             <input type="submit" value="Enregistrer les modifications" class="btn btn-primary my-2">
@@ -53,17 +76,23 @@ if (!isConnected()) {
                 dataType: "JSON",
                 url: "./model/model_update_current_user.php",
                 success: function(response) {
-                    if (response.error === 1) {
-                        divError = document.createElement("div");
-                        $(divError).addClass("alert alert-danger");
-                        $(divError).html(response.em)
-                        $("#feedback").html(divError);
-                    } else if (response.success === 1) {
-                        divSuccess = document.createElement("div");
-                        $(divSuccess).addClass("alert alert-success");
-                        $(divSuccess).html(response.sm)
-                        $("#feedback").html(divSuccess);
-                    }
+                    displayFeedback(response);
+                },
+                error: function() {
+                    console.log("Error");
+                }
+            });
+        });
+
+        $("#password_form").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "post",
+                data: $(this).serialize(),
+                dataType: "JSON",
+                url: "./model/model_update_user_password.php",
+                success: function(response) {
+                    displayFeedback(response);
                 },
                 error: function() {
                     console.log("Error");
@@ -87,5 +116,19 @@ if (!isConnected()) {
 
         $("#mail").val(user.user_mail);
         $("#username").val(user.username);
+    }
+
+    function displayFeedback(response) {
+        if (response.error === 1) {
+            divError = document.createElement("div");
+            $(divError).addClass("alert alert-danger");
+            $(divError).html(response.em)
+            $("#feedback").html(divError);
+        } else if (response.success === 1) {
+            divSuccess = document.createElement("div");
+            $(divSuccess).addClass("alert alert-success");
+            $(divSuccess).html(response.sm)
+            $("#feedback").html(divSuccess);
+        }
     }
 </script>
