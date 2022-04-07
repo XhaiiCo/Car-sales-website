@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<!-- Users table -->
+<!-- ads table -->
 <div class="container">
     <div class="row">
         <div class="main-box no-header clearfix">
@@ -42,8 +42,7 @@
                     <table class="table user-list">
                         <thead>
                             <tr>
-                                <th>Marque</th>
-                                <th>Modèle</th>
+                                <th>Véhicule</th>
                                 <th>Année</th>
                                 <th>Publication</th>
                                 <th>&nbsp;</th>
@@ -89,14 +88,14 @@
         for (var data of datas) {
             tr = document.createElement("tr");
 
-            tdBrand = document.createElement("td");
-            // $(tdBrand).html("<img src='./assets/img/car_on_sale/" + data.picture_name + "'>" + data.brand_name);
-            $(tdBrand).html(data.brand_name);
-            tr.append(tdBrand);
-
-            tdModel = document.createElement("td");
-            $(tdModel).html(data.model_name);
-            tr.append(tdModel);
+            tdCar = document.createElement("td");
+            // $(tdCar).html("<img src='./assets/img/car_on_sale/" + data.picture_name + "'>" + data.brand_name);
+            aCar = document.createElement("a");
+            $(aCar).attr("href", "annonce-" + data.id_sale);
+            $(aCar).attr("class", "link-dark");
+            $(aCar).html(data.brand_name + " " + data.model_name);
+            $(tdCar).append(aCar);
+            tr.append(tdCar);
 
             tdYear = document.createElement("td");
             $(tdYear).html(data.car_year);
@@ -109,14 +108,6 @@
             tdBtnContainer = document.createElement("td");
             $(tdBtnContainer).attr("style", "width:20%");
 
-            spanModif = document.createElement("span");
-            $(spanModif).attr("data-bs-toggle", "modal");
-            $(spanModif).attr("data-bs-target", "#updateModal");
-            $(spanModif).attr("class", "btn-modif table-link text-info fa-stack");
-            $(spanModif).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-pencil fa-stack-1x fa-inverse'></i> ");
-            $(spanModif).attr("id", data.id_sale);
-
-            tdBtnContainer.append(spanModif);
             spanDelete = document.createElement("span");
             $(spanDelete).attr("data-bs-toggle", "modal");
             $(spanDelete).attr("data-bs-target", "#validModal");
@@ -129,17 +120,11 @@
             $("#ads-container").append(tr);
         }
 
-        $(".btn-modif").click(function() {
-            console.log("modif : ", this.id);
-        });
-
         $(".btn-delete").click(function() {
             console.log("delete : ", this.id);
         });
 
         $("#btn-delete-modal").click(function() {});
-
-        $("#btn-confirm-update-modal").click(function() {});
 
         $("#form").submit(function(e) {
             e.preventDefault();
@@ -167,5 +152,9 @@
 
     span {
         cursor: pointer;
+    }
+
+    .table a:hover {
+        text-decoration: none;
     }
 </style>
