@@ -52,7 +52,7 @@
                                         <?= getUsername() ?>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Profil</a></li>
+                                        <li><a class="dropdown-item" href="<?= $router->generate('profil') ?>">Profil</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

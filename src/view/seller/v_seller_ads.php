@@ -1,3 +1,9 @@
+<?php
+if (!isSeller()) {
+    exit();
+}
+?>
+
 <?php require_once "../src/view/seller/elements/v_seller_sidebar.php"; ?>
 
 <!-- remove modal -->

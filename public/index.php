@@ -31,6 +31,15 @@ $router->map('GET', $racine . '/inscription', function () {
     require "../src/view/v_signup.php";
 }, 'inscription');
 
+$router->map('GET', $racine . '/mon-profil', function () {
+    global $router;
+    if (isConnected()) {
+        require "../src/view/v_profil.php";
+    } else {
+        header("Location: " . $router->generate('home'));
+    }
+}, 'profil');
+
 // ****************************************************************
 //                              SELLER
 // ****************************************************************
