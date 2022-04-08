@@ -7,7 +7,7 @@ if (!isSeller()) {
 <?php require_once "../src/view/seller/elements/v_seller_sidebar.php"; ?>
 
 <!-- remove modal -->
-<div class="modal fade" id="validModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -116,7 +116,7 @@ if (!isSeller()) {
 
             spanDelete = document.createElement("span");
             $(spanDelete).attr("data-bs-toggle", "modal");
-            $(spanDelete).attr("data-bs-target", "#validModal");
+            $(spanDelete).attr("data-bs-target", "#deleteModal");
             $(spanDelete).attr("class", "btn-delete table-link text-danger fa-stack");
             $(spanDelete).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-trash-o fa-stack-1x fa-inverse'></i> ");
             $(spanDelete).attr("id", data.id_sale);
@@ -125,18 +125,31 @@ if (!isSeller()) {
             tr.append(tdBtnContainer);
             $("#ads-container").append(tr);
         }
-
         $(".btn-delete").click(function() {
-            console.log("delete : ", this.id);
-        });
-
-        $("#btn-delete-modal").click(function() {});
-
-        $("#form").submit(function(e) {
-            e.preventDefault();
-            actuAds();
+            $("#modal-text").html("Êtes-vous sur de vouloir supprimer cette annonce ?");
+            $("#deleteModal").attr("ad", this.id);
         });
     }
+
+
+
+    $("#btn-delete-modal").click(function() {
+        $.ajax({
+            type: "POST",
+            url: "./model/model_remove_ad.php",
+            data: {
+                id: $("#deleteModal").attr("ad")
+            },
+            success: function() {
+                actuAds();
+            }
+        });
+    });
+
+    $("#form").submit(function(e) {
+        e.preventDefault();
+        actuAds();
+    });
 </script>
 
 <style>

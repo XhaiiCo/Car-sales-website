@@ -35,7 +35,9 @@ create table if not exists car_model
 alter table car_model
 add constraint fk_car_modelbrand_name 
 foreign key(brand_name) 
-references car_brand(brand_name) ;
+references car_brand(brand_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
 create table if not exists sale
 (
@@ -60,11 +62,14 @@ create table if not exists sale
 alter table sale
 add constraint fk_salemodel_name
 foreign key(model_name)
-references car_model(model_name),
+references car_model(model_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
 add constraint fk_saleuser_mail
 foreign key(user_mail)
 references user(user_mail) 
-ON DELETE CASCADE;
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
 create table if not exists sale_like
 (
@@ -78,10 +83,14 @@ create table if not exists sale_like
 alter table sale_like
 add constraint fk_sale_likeuser_mail
 foreign key (user_mail)
-references user (user_mail),
+references user (user_mail)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
 add constraint fk_sale_likeid_sale
 foreign key (id_sale)
-references sale (id_sale) ;
+references sale (id_sale)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
 create table if not exists car_picture
 (
@@ -96,7 +105,8 @@ alter table car_picture
 add constraint fk_car_pictureid_sale
 foreign key (id_sale)
 references sale(id_sale)
-ON DELETE CASCADE;
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
 create table if not exists message_sale
 (
@@ -112,7 +122,11 @@ create table if not exists message_sale
 alter table message_sale
 add constraint fk_message_saleuser_mail
 foreign key (user_mail)
-references user(user_mail),
+references user(user_mail)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
 add constraint fk_message_saleid_sale
 foreign key (id_sale)
-references sale(id_sale) ;
+references sale(id_sale)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
