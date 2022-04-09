@@ -1,21 +1,25 @@
 <?php
+
+
 require_once "../../src/controller/authController.php";
 
-if (!isSeller() || !isset($_POST)) {
+if (!isSeller() && !isAdmin() || !isset($_POST)) {
 	exit();
 }
-
 require_once "../../src/util/db.php";
 
 $q = $_POST['q'];
-$seller = $_POST['seller'];
+$seller = "%";
+if (isset($_POST['seller']))
+	$seller = $_POST['seller'];
 
 $sql = "
-select *
+select sale.*, user.username
 from sale
+inner join user using(user_mail)
 where 
 user_mail like :seller
-and (brand_name like :q or model_name like :q or car_year like :q or publication_date like :q)
+and (brand_name like :q or model_name like :q or car_year like :q or publication_date like :q or username like :q)
 ";
 
 $params = [

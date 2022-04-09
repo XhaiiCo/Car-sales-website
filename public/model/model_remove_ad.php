@@ -2,7 +2,7 @@
 
 require_once "../../src/controller/authController.php";
 
-if (!isSeller()) {
+if (!isSeller() && !isAdmin()) {
     exit();
 }
 
