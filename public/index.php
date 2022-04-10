@@ -83,6 +83,14 @@ $router->map('GET', $racine . '/admin-annonces', function () {
     }
 }, 'admin_ads');
 
+$router->map('GET', $racine . '/admin-vehicules', function () {
+    global $router;
+    if (isAdmin()) {
+        require "../src/view/admin/v_admin_cars.php";
+    } else {
+        header("Location: " . $router->generate('home'));
+    }
+}, 'admin_cars');
 
 
 
