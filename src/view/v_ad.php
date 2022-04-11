@@ -28,7 +28,8 @@
                 <h2 id="car_price" class="text-warning"></h2>
             </div>
             <div class="row">
-                <p id="sale_description"></p>
+                <p id="sale_description" class="description"></p>
+                <span class="showMore">Voir plus</span>
             </div>
 
             <div class="row">
@@ -95,9 +96,6 @@
 
 <script>
     const id = <?= $id ?>;
-    console.log(id);
-
-
     $(document).ready(function() {
         $.ajax({
             type: "POST",
@@ -168,4 +166,33 @@
         currency: 'EUR',
         minimumFractionDigits: 2
     });
+
+
+    $(".showMore").click(function() {
+        $("#sale_description").toggleClass('displayed');
+        if ($(".showMore").html() === "Voir plus") {
+            $(".showMore").html("Voir moins");
+        } else {
+            $(".showMore").html("Voir plus");
+        }
+
+    })
 </script>
+
+<style>
+    .description {
+        height: 70px;
+        overflow: hidden;
+        margin-bottom: 3px;
+        text-align: justify;
+    }
+
+    .displayed {
+        height: auto;
+    }
+
+    .showMore {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
