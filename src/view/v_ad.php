@@ -143,6 +143,10 @@
         $("#car_state").html(data.car_state);
         $("#car_color").html(data.car_color);
         $("#sale_description").html(data.sale_description);
+        if (data.sale_description.length <= 212) {
+            $("#sale_description").addClass("displayed");
+            $(".showMore").hide();
+        }
         $("#seller").html(data.username);
     }
 
