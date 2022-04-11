@@ -43,6 +43,25 @@ if (!isConnected()) {
     </div>
 </div>
 
+<!-- candidacy modal -->
+<div class="modal fade" id="candidacyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-xl modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Devenir vendeur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="candidacy" placeholder="Entrez votre candidature pour devenir vendeur"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="sendCandidacy" data-bs-dismiss="modal">Envoyer votre candidature</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class=" container">
     <header class="my-3">
         <div id="feedback"></div>
@@ -73,7 +92,7 @@ if (!isConnected()) {
     </div>
     <div class="">
         <?php if (!isSeller()) : ?>
-            <button class="btn btn-secondary">Devenir vendeur</button>
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#candidacyModal">Devenir vendeur</button>
         <?php endif ?>
         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeModal">Supprimer mon compte</button>
     </div>
@@ -124,6 +143,20 @@ if (!isConnected()) {
                 }
             });
         });
+
+        $("#sendCandidacy").click(function(e) {
+            $.ajax({
+                type: "POST",
+                url: "./model/model_new_candidacy.php",
+                dataType: "JSON",
+                success: function(response) {
+                    displayFeedback(response);
+                },
+                error: function() {
+                    console.log("Error");
+                }
+            });
+        });
     });
 
     function putUserData() {
@@ -157,3 +190,10 @@ if (!isConnected()) {
         }
     }
 </script>
+
+<style>
+    #candidacy {
+        width: 100%;
+        height: 75px;
+    }
+</style>
