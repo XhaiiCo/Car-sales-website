@@ -4,7 +4,7 @@ if (!isConnected()) {
 }
 ?>
 
-<!-- Modal -->
+<!-- Modal password -->
 <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
@@ -23,6 +23,22 @@ if (!isConnected()) {
                     <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Modifier</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal remove -->
+<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Voulez-vous vraiment supprimer votre compte?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="btn-remove" class="btn btn-danger" data-bs-dismiss="modal">Supprimer</button>
+            </div>
         </div>
     </div>
 </div>
@@ -59,7 +75,7 @@ if (!isConnected()) {
         <?php if (!isSeller()) : ?>
             <button class="btn btn-secondary">Devenir vendeur</button>
         <?php endif ?>
-        <button class="btn btn-danger">Supprimer mon compte</button>
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeModal">Supprimer mon compte</button>
     </div>
 </div>
 
@@ -96,6 +112,15 @@ if (!isConnected()) {
                 },
                 error: function() {
                     console.log("Error");
+                }
+            });
+        });
+
+        $("#btn-remove").click(function(e) {
+            $.ajax({
+                url: "./model/model_remove_current_user.php",
+                success: function() {
+                    window.location.reload();
                 }
             });
         });
