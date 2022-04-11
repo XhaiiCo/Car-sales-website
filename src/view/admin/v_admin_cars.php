@@ -23,6 +23,7 @@ if (!isAdmin()) {
     </div>
 </div>
 
+<div id="feedback"></div>
 <h3 class="text-center my-3">Gestion des véhicules</h3>
 
 <!-- Form -->
@@ -114,7 +115,8 @@ if (!isAdmin()) {
             $(spanDelete).attr("data-bs-target", "#deleteModal");
             $(spanDelete).attr("class", "btn-delete table-link text-danger fa-stack");
             $(spanDelete).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-trash-o fa-stack-1x fa-inverse'></i> ");
-            $(spanDelete).attr("id", data.id_sale);
+            $(spanDelete).attr("brand", data.brand_name);
+            $(spanDelete).attr("model", data.model_name);
 
             tdBtnContainer.append(spanDelete);
             tr.append(tdBtnContainer);
@@ -122,19 +124,34 @@ if (!isAdmin()) {
         }
 
         $(".btn-delete").click(function() {
-            $("#modal-text").html("Êtes-vous sur de vouloir supprimer cette annonce ?");
-            $("#deleteModal").attr("ad", this.id);
+            $("#modal-text").html("Êtes-vous sur de vouloir supprimer " + $(this).attr("brand") + " " + $(this).attr("model") + " ?");
+            $("#deleteModal").attr("brand", $(this).attr("brand"));
+            $("#deleteModal").attr("model", $(this).attr("model"));
         });
     }
 
     $("#btn-delete-modal").click(function() {
         $.ajax({
             type: "POST",
-            url: "./model/model_remove_ad.php",
+            url: "./model/model_remove_car.php",
+            dataType: "JSON",
             data: {
-                id: $("#deleteModal").attr("ad")
+                brand: $("#deleteModal").attr("brand"),
+                model: $("#deleteModal").attr("model")
             },
-            success: function() {
+            success: function(response) {
+                if (response.error === 1) {
+                    divError = document.createElement("div");
+                    $(divError).addClass("alert alert-danger");
+                    $(divError).html(response.em)
+                    $("#feedback").html(divError);
+                } else if (response.success === 1) {
+                    divSuccess = document.createElement("div");
+                    $(divSuccess).addClass("alert alert-success");
+                    $(divSuccess).html(response.sm)
+                    $("#feedback").html(divSuccess);
+                }
+
                 actuAds();
             }
         });
