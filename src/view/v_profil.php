@@ -149,6 +149,9 @@ if (!isConnected()) {
                 type: "POST",
                 url: "./model/model_new_candidacy.php",
                 dataType: "JSON",
+                data: {
+                    candidacy: $("#candidacy").val()
+                },
                 success: function(response) {
                     displayFeedback(response);
                 },
