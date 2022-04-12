@@ -112,7 +112,8 @@ create table if not exists message_sale
 (
     id_message int unsigned not null auto_increment,
     user_message text NOT NULL,
-    user_mail varchar(255) NOT NULL,
+    user_from varchar(255) NOT NULL,
+    user_to varchar(255) NOT NULL,
     id_sale int unsigned NOT NULL,
     
     primary key(id_message) 
@@ -121,7 +122,12 @@ create table if not exists message_sale
 
 alter table message_sale
 add constraint fk_message_saleuser_mail
-foreign key (user_mail)
+foreign key (user_from)
+references user(user_mail)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+add constraint fk_user_touser_mail
+foreign key (user_to)
 references user(user_mail)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
@@ -130,3 +136,19 @@ foreign key (id_sale)
 references sale(id_sale)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
+
+create table if not exists seller_candidacy
+(
+    id_candidacy int unsigned not null auto_increment,
+    user_message text NOT NULL,
+    user_from varchar(255) NOT NULL,
+
+    primary key(id_candidacy) 
+) engine = innodb ;
+
+alter table seller_candidacy
+add constraint fk_user_fromuser_mail
+foreign key (user_from)
+references user(user_mail)
+on delete cascade
+on UPDATE cascade;
