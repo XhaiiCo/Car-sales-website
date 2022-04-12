@@ -1,12 +1,12 @@
 <?php
 
 
-require_once "../../src/controller/authController.php";
+require_once "../../../src/controller/authController.php";
 
 if (!isSeller() && !isAdmin() || !isset($_POST)) {
 	exit();
 }
-require_once "../../src/util/db.php";
+require_once "../../../src/util/db.php";
 
 $q = $_POST['q'];
 $seller = "%";

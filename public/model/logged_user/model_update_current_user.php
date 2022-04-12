@@ -1,5 +1,5 @@
 <?php
-require_once "../../src/controller/authController.php";
+require_once "../../../src/controller/authController.php";
 
 if (!isConnected()) {
     exit();
@@ -13,8 +13,8 @@ $username = $_POST['username'];
 $mail = $_POST['mail'];
 $MINLENGHT_USERNAME = 3;
 
-require_once "../../src/util/user.php";
-require_once "../../src/util/db.php";
+require_once "../../../src/util/user.php";
+require_once "../../../src/util/db.php";
 
 
 //Check if the username not already exists

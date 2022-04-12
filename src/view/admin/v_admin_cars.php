@@ -133,7 +133,7 @@ if (!isAdmin()) {
     $("#btn-delete-modal").click(function() {
         $.ajax({
             type: "POST",
-            url: "./model/model_remove_car.php",
+            url: "./model/admin/model_remove_car.php",
             dataType: "JSON",
             data: {
                 brand: $("#deleteModal").attr("brand"),

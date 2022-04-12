@@ -84,7 +84,7 @@
     <script>
         $("#logout").click(function() {
             $.ajax({
-                url: "./model/model_logout.php",
+                url: "./model/logged_user/model_logout.php",
                 success: function() {
                     window.location.reload();
                 }

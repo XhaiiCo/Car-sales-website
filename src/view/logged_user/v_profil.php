@@ -109,7 +109,7 @@ if (!isConnected()) {
                 type: "post",
                 data: $(this).serialize(),
                 dataType: "JSON",
-                url: "./model/model_update_current_user.php",
+                url: "./model/logged_user/model_update_current_user.php",
                 success: function(response) {
                     displayFeedback(response);
                 },
@@ -125,7 +125,7 @@ if (!isConnected()) {
                 type: "post",
                 data: $(this).serialize(),
                 dataType: "JSON",
-                url: "./model/model_update_user_password.php",
+                url: "./model/logged_user/model_update_user_password.php",
                 success: function(response) {
                     displayFeedback(response);
                 },
@@ -137,7 +137,7 @@ if (!isConnected()) {
 
         $("#btn-remove").click(function(e) {
             $.ajax({
-                url: "./model/model_remove_current_user.php",
+                url: "./model/logged_user/model_remove_current_user.php",
                 success: function() {
                     window.location.reload();
                 }
@@ -147,7 +147,7 @@ if (!isConnected()) {
         $("#sendCandidacy").click(function(e) {
             $.ajax({
                 type: "POST",
-                url: "./model/model_new_candidacy.php",
+                url: "./model/logged_user/model_new_candidacy.php",
                 dataType: "JSON",
                 data: {
                     candidacy: $("#candidacy").val()
@@ -164,7 +164,7 @@ if (!isConnected()) {
 
     function putUserData() {
         $.ajax({
-            url: "./model/model_current_user.php",
+            url: "./model/logged_user/model_current_user.php",
             dataType: "JSON",
             success: function(datas) {
                 displayCurrentUser(datas);

@@ -114,7 +114,7 @@ if (!isAdmin()) {
 
         $.ajax({
             type: "POST",
-            url: "./model/model_user.php",
+            url: "./model/admin/model_user.php",
             dataType: "json",
             data: {
                 q: q,
@@ -208,7 +208,7 @@ if (!isAdmin()) {
         $("#btn-delete-modal").click(function() {
             $.ajax({
                 type: "POST",
-                url: "./model/model_remove_user.php",
+                url: "./model/admin/model_remove_user.php",
                 data: {
                     user: $("#validModal").attr("user")
                 },
@@ -221,7 +221,7 @@ if (!isAdmin()) {
         $("#btn-confirm-update-modal").click(function() {
             $.ajax({
                 type: "POST",
-                url: "./model/model_update_user.php",
+                url: "./model/admin/model_update_user.php",
                 data: {
                     user: $("#btn-confirm-update-modal").attr("user"),
                     isAdmin: $("#adminCheck").prop("checked"),

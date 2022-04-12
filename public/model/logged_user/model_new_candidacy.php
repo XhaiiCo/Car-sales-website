@@ -1,12 +1,12 @@
 <?php
 
-require_once "../../src/controller/authController.php";
+require_once "../../../src/controller/authController.php";
 
 if (!isConnected() || isSeller() || !isset($_POST)) {
     leave(["error" => 1, "em" => "Error"]);
 }
 
-require_once "../../src/util/db.php";
+require_once "../../../src/util/db.php";
 
 $user = getEmail();
 
@@ -20,7 +20,7 @@ if (!empty($exist)) {
 
 $candidacy = $_POST["candidacy"];
 
-$sql = "insert ignore into seller_candidacy (user_message, user_from) values (:user_message, :user)";
+$sql = "insert ignore into seller_candidacy (user_message, user_from, date_send) values (:user_message, :user, date(now()))";
 
 $params =  [
     "user_message" => $candidacy,

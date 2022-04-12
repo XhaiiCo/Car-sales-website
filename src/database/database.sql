@@ -142,6 +142,7 @@ create table if not exists seller_candidacy
     id_candidacy int unsigned not null auto_increment,
     user_message text NOT NULL,
     user_from varchar(255) NOT NULL,
+    date_send date not null,
 
     primary key(id_candidacy) 
 ) engine = innodb ;

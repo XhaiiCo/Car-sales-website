@@ -72,7 +72,7 @@ if (!isAdmin()) {
         const seller = "<?= getEmail() ?>";
         $.ajax({
             type: "POST",
-            url: "./model/model_seller_ads.php",
+            url: "./model/admin_seller/model_seller_ads.php",
             dataType: "json",
             data: {
                 q: q,
@@ -136,7 +136,7 @@ if (!isAdmin()) {
     $("#btn-delete-modal").click(function() {
         $.ajax({
             type: "POST",
-            url: "./model/model_remove_ad.php",
+            url: "./model/admin_seller/model_remove_ad.php",
             data: {
                 id: $("#deleteModal").attr("ad")
             },

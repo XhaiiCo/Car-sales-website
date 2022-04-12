@@ -1,5 +1,5 @@
 <?php
-require_once "../../src/controller/authController.php";
+require_once "../../../src/controller/authController.php";
 
 if (!isSeller()) {
     exit();
@@ -85,7 +85,7 @@ for ($i = 1; $i <= 7; $i++) {
 
 
 // Added the car in the db
-require_once "../../src/util/db.php";
+require_once "../../../src/util/db.php";
 
 $sql = "
 insert ignore into sale 

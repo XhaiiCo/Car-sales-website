@@ -23,7 +23,7 @@ if (!isAdmin()) {
                             <i class="fs-4 bi-speedometer"></i> <span class="ms-1 d-none d-sm-inline">Véhicules</span> </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= $router->generate('admin_ads') ?>" class="text-white nav-link px-0 align-middle">
+                        <a href="<?= $router->generate('admin_candidacy') ?>" class="text-white nav-link px-0 align-middle">
                             <i class="fs-4 bi-person-plus"></i> <span class="ms-1 d-none d-sm-inline">Candidatures</span> </a>
                     </li>
                 </ul>

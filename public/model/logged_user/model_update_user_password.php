@@ -1,5 +1,5 @@
 <?php
-require_once "../../src/controller/authController.php";
+require_once "../../../src/controller/authController.php";
 
 if (!isConnected()) {
     exit();
@@ -18,8 +18,8 @@ if ($password != $confirmPassword) {
     leave(["error" => 1, "em" => "Mot de passe pas équivalent"]);
 }
 
-require_once "../../src/util/user.php";
-require_once "../../src/util/db.php";
+require_once "../../../src/util/user.php";
+require_once "../../../src/util/db.php";
 
 $sql = "
 SELECT user_password from user where (user.user_mail like :mail)

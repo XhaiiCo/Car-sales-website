@@ -31,10 +31,14 @@ $router->map('GET', $racine . '/inscription', function () {
     require "../src/view/v_signup.php";
 }, 'inscription');
 
+
+// ****************************************************************
+//                             LOGGED USER
+// ****************************************************************
 $router->map('GET', $racine . '/mon-profil', function () {
     global $router;
     if (isConnected()) {
-        require "../src/view/v_profil.php";
+        require "../src/view/logged_user/v_profil.php";
     } else {
         header("Location: " . $router->generate('home'));
     }
@@ -91,6 +95,15 @@ $router->map('GET', $racine . '/admin-vehicules', function () {
         header("Location: " . $router->generate('home'));
     }
 }, 'admin_cars');
+
+$router->map('GET', $racine . '/admin-candidature', function () {
+    global $router;
+    if (isAdmin()) {
+        require "../src/view/admin/v_admin_candidacy.php";
+    } else {
+        header("Location: " . $router->generate('home'));
+    }
+}, 'admin_candidacy');
 
 
 

@@ -141,7 +141,7 @@ if (!isSeller()) {
             let form_data = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: "./model/model_new_ad.php",
+                url: "./model/seller/model_new_ad.php",
                 dataType: "JSON",
                 data: form_data,
                 contentType: false,
