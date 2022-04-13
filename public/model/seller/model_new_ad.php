@@ -119,7 +119,7 @@ for ($i = 1; $i <= 7; $i++) {
 
     //Move the img
     $new_img_name = uniqid("IMG-", true) . "." . $img_ex;
-    $img_upload_path = "../../public/assets/img/car_on_sale/" . $new_img_name;
+    $img_upload_path = "../../../public/assets/img/car_on_sale/" . $new_img_name;
 
     move_uploaded_file($tmp_name, $img_upload_path);
     $sql = "insert ignore into car_picture
