@@ -2,19 +2,18 @@
 
 require_once "../../../src/controller/authController.php";
 
-if (!isAdmin() || !isset($_POST["id"])) {
+if (!isAdmin()) {
     exit();
 }
 
-
 require_once "../../../src/util/db.php";
+
 
 $sql = "
 select seller_candidacy.*, user.username from seller_candidacy
-inner join user on user_from = user_mail
-where id_candidacy = :id
+inner join user on user_from = user_mail order by date_send desc
 ";
 
-$candidacies = prepare($sql, ["id" => $_POST["id"]]);
+$candidacies = query($sql);
 
 echo utf8_encode(json_encode($candidacies));
