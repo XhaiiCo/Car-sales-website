@@ -132,6 +132,8 @@ if (!isSeller()) {
 <?php require_once "../src/view/seller/elements/v_seller_ender.php"; ?>
 
 
+<script type="text/javascript" src="./js/app.js"></script>
+
 <!-- add the ad -->
 <script>
     $(document).ready(function() {
@@ -147,17 +149,7 @@ if (!isSeller()) {
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    if (response.error === 1) {
-                        divError = document.createElement("div");
-                        $(divError).addClass("alert alert-danger");
-                        $(divError).html(response.em)
-                        $("#feedback").html(divError);
-                    } else if (response.success === 1) {
-                        divSuccess = document.createElement("div");
-                        $(divSuccess).addClass("alert alert-success");
-                        $(divSuccess).html(response.sm)
-                        $("#feedback").html(divSuccess);
-                    }
+                    displayFeedback("feedback", response);
                 }
             });
         })

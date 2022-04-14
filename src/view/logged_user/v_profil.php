@@ -98,6 +98,7 @@ if (!isConnected()) {
     </div>
 </div>
 
+<script type="text/javascript" src="./js/app.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -111,7 +112,7 @@ if (!isConnected()) {
                 dataType: "JSON",
                 url: "./model/logged_user/model_update_current_user.php",
                 success: function(response) {
-                    displayFeedback(response);
+                    displayFeedback("feedback", response);
                 },
                 error: function() {
                     console.log("Error");
@@ -127,7 +128,7 @@ if (!isConnected()) {
                 dataType: "JSON",
                 url: "./model/logged_user/model_update_user_password.php",
                 success: function(response) {
-                    displayFeedback(response);
+                    displayFeedback("feedback", response);
                 },
                 error: function() {
                     console.log("Error");
@@ -153,7 +154,7 @@ if (!isConnected()) {
                     candidacy: $("#candidacy").val()
                 },
                 success: function(response) {
-                    displayFeedback(response);
+                    displayFeedback("feedback", response);
                 },
                 error: function() {
                     console.log("Error");
@@ -177,20 +178,6 @@ if (!isConnected()) {
 
         $("#mail").val(user.user_mail);
         $("#username").val(user.username);
-    }
-
-    function displayFeedback(response) {
-        if (response.error === 1) {
-            divError = document.createElement("div");
-            $(divError).addClass("alert alert-danger");
-            $(divError).html(response.em)
-            $("#feedback").html(divError);
-        } else if (response.success === 1) {
-            divSuccess = document.createElement("div");
-            $(divSuccess).addClass("alert alert-success");
-            $(divSuccess).html(response.sm)
-            $("#feedback").html(divSuccess);
-        }
     }
 </script>
 

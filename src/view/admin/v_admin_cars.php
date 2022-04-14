@@ -6,7 +6,7 @@ if (!isAdmin()) {
 
 <?php require_once "../src/view/admin/elements/v_admin_sidebar.php"; ?>
 <!-- remove modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -23,7 +23,29 @@ if (!isAdmin()) {
     </div>
 </div>
 
+<!-- new brand modal -->
+<div class="modal fade" id="newBrandModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajout d'une marque</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal-text" class="modal-body">
+                <input type="text" placeholder="Nom de la marque" class="form-control" name="newBrandName" id="newBrandName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="btn-add-brand" type="button" class="btn btn-success" data-bs-dismiss="modal">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="feedback"></div>
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
+<button type="button" class="btn btn-secondary">Ajouter un modèle</button>
+
 <h3 class="text-center my-3">Gestion des véhicules</h3>
 
 <!-- Form -->
@@ -67,6 +89,8 @@ if (!isAdmin()) {
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="./js/app.js"></script>
 <script>
     $(document).ready(function() {
         actuAds();
@@ -140,18 +164,7 @@ if (!isAdmin()) {
                 model: $("#deleteModal").attr("model")
             },
             success: function(response) {
-                if (response.error === 1) {
-                    divError = document.createElement("div");
-                    $(divError).addClass("alert alert-danger");
-                    $(divError).html(response.em)
-                    $("#feedback").html(divError);
-                } else if (response.success === 1) {
-                    divSuccess = document.createElement("div");
-                    $(divSuccess).addClass("alert alert-success");
-                    $(divSuccess).html(response.sm)
-                    $("#feedback").html(divSuccess);
-                }
-
+                displayFeedback("feedback", response);
                 actuAds();
             }
         });
@@ -207,10 +220,6 @@ if (!isAdmin()) {
 
     span {
         cursor: pointer;
-    }
-
-    .table a:hover {
-        text-decoration: none;
     }
 </style>
 <?php require_once "../src/view/admin/elements/v_admin_ender.php"; ?>
