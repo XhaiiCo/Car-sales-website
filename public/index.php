@@ -2,31 +2,35 @@
 require_once "../src/controller/authController.php";
 require '../vendor/autoload.php';
 
-$racine = "/Proj-tm-2022/public";
-
 $router = new AltoRouter();
+
+// The path to the public flocer (root)
+$basePath = "/Proj-tm-2022/public";
+
+$router->setBasePath($basePath);
+
 
 // ****************************************************************
 //                              USER
 // ****************************************************************
-$router->map('GET', $racine . "/", function () {
+$router->map('GET', "/", function () {
     require "../src/view/v_home.php";
 }, 'home');
 
-$router->map('GET', $racine . "/annonces", function () {
+$router->map('GET', "/annonces", function () {
     require "../src/view/v_ads.php";
 }, 'annonces');
 
-$router->map('GET', $racine . "/annonce-[i:id]", function ($id) {
+$router->map('GET', "/annonce-[i:id]", function ($id) {
     require "../src/view/v_ad.php";
 }, 'annonce');
 
-$router->map('GET', $racine . '/connexion', function () {
+$router->map('GET', '/connexion', function () {
     global $router;
     require "../src/view/v_login.php";
 }, 'connexion');
 
-$router->map('GET', $racine . '/inscription', function () {
+$router->map('GET', '/inscription', function () {
     global $router;
     require "../src/view/v_signup.php";
 }, 'inscription');
@@ -35,7 +39,7 @@ $router->map('GET', $racine . '/inscription', function () {
 // ****************************************************************
 //                             LOGGED USER
 // ****************************************************************
-$router->map('GET', $racine . '/mon-profil', function () {
+$router->map('GET', '/mon-profil', function () {
     global $router;
     if (isConnected()) {
         require "../src/view/logged_user/v_profil.php";
@@ -47,7 +51,7 @@ $router->map('GET', $racine . '/mon-profil', function () {
 // ****************************************************************
 //                              SELLER
 // ****************************************************************
-$router->map('GET', $racine . '/mes-annonces', function () {
+$router->map('GET', '/mes-annonces', function () {
     global $router;
     if (isSeller()) {
         require "../src/view/seller/v_seller_ads.php";
@@ -56,7 +60,7 @@ $router->map('GET', $racine . '/mes-annonces', function () {
     }
 }, 'seller_ads');
 
-$router->map('GET', $racine . '/nouvelle-annonce', function () {
+$router->map('GET', '/nouvelle-annonce', function () {
     global $router;
     if (isSeller()) {
         require "../src/view/seller/v_seller_new_ad.php";
@@ -69,7 +73,7 @@ $router->map('GET', $racine . '/nouvelle-annonce', function () {
 // ****************************************************************
 //                              ADMIN
 // ****************************************************************
-$router->map('GET', $racine . '/admin-utilisateurs', function () {
+$router->map('GET', '/admin-utilisateurs', function () {
     global $router;
     if (isAdmin()) {
         require "../src/view/admin/v_admin_user.php";
@@ -78,7 +82,7 @@ $router->map('GET', $racine . '/admin-utilisateurs', function () {
     }
 }, 'admin_user');
 
-$router->map('GET', $racine . '/admin-annonces', function () {
+$router->map('GET', '/admin-annonces', function () {
     global $router;
     if (isAdmin()) {
         require "../src/view/admin/v_admin_ads.php";
@@ -87,7 +91,7 @@ $router->map('GET', $racine . '/admin-annonces', function () {
     }
 }, 'admin_ads');
 
-$router->map('GET', $racine . '/admin-vehicules', function () {
+$router->map('GET', '/admin-vehicules', function () {
     global $router;
     if (isAdmin()) {
         require "../src/view/admin/v_admin_cars.php";
@@ -96,7 +100,7 @@ $router->map('GET', $racine . '/admin-vehicules', function () {
     }
 }, 'admin_cars');
 
-$router->map('GET', $racine . '/admin-candidature', function () {
+$router->map('GET', '/admin-candidature', function () {
     global $router;
     if (isAdmin()) {
         require "../src/view/admin/v_admin_candidacy.php";
