@@ -54,7 +54,7 @@ if (!isAdmin()) {
                 <!-- List of brand -->
                 <div class="form-group">
                     <label for="brand_select">Marque</label>
-                    <select class="form-select" id="brandRemoveBrand" name="brandRemoveBrand">
+                    <select class="form-select" id="brandNewModel" name="brandNewModel">
                     </select>
                 </div>
                 <div class="form-group my-2">
@@ -89,7 +89,7 @@ if (!isAdmin()) {
                 <!-- List of brand -->
                 <div class="form-group">
                     <label for="brand_select">Marque</label>
-                    <select class="form-select" id="brandNewModel" name="brandNewModel">
+                    <select class="form-select" id="brandRemoveBrand" name="brandRemoveBrand">
                     </select>
                 </div>
             </div>
@@ -312,7 +312,7 @@ if (!isAdmin()) {
             type: "POST",
             dataType: "JSON",
             data: {
-                brand: $("#brandNewModel").val(),
+                brand: $("#brandRemoveBrand").val(),
             },
             url: "./model/admin/model_remove_brand.php",
             success: function(response) {
