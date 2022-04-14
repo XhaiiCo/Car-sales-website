@@ -13,9 +13,9 @@ require_once "../../../src/util/db.php";
 
 $sql = "select brand_name from car_brand where brand_name like :brand";
 
-$exit = prepare($sql, ["brand" => $brand]);
+$exist = prepare($sql, ["brand" => $brand]);
 
-if (!empty($exit)) {
+if (!empty($exist)) {
     leave(["error" => 1, "em" => "Marque déjà présente"]);
 }
 

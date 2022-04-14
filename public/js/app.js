@@ -1,14 +1,12 @@
 
 function displayFeedback(idContainer, feedback) {
+    div = document.createElement('div');
     if (feedback.error === 1) {
-        divError = document.createElement("div");
-        $(divError).addClass("alert alert-danger");
-        $(divError).html(feedback.em)
-        $("#" + idContainer).html(divError);
+        $(div).addClass("alert alert-danger");
+        $(div).html(feedback.em)
     } else if (feedback.success === 1) {
-        divSuccess = document.createElement("div");
-        $(divSuccess).addClass("alert alert-success");
-        $(divSuccess).html(feedback.sm)
-        $("#" + idContainer).html(divSuccess);
+        $(div).addClass("alert alert-success");
+        $(div).html(feedback.sm)
     }
+    $("#" + idContainer).html(div);
 }

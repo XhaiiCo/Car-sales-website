@@ -42,9 +42,37 @@ if (!isAdmin()) {
     </div>
 </div>
 
+<!-- new model modal -->
+<div class="modal fade" id="newModelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajout d'un modèle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal-text" class="modal-body">
+                <!-- List of brand -->
+                <div class="form-group">
+                    <label for="brand_select">Marque</label>
+                    <select class="form-select" id="brandNewModel" name="brandNewModel">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Entrez le nom du modèle" class="form-control" name="newModelName" id="newModelName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="btn-add-model" type="button" class="btn btn-success" data-bs-dismiss="modal">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="feedback"></div>
 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
-<button type="button" class="btn btn-secondary">Ajouter un modèle</button>
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newModelModal">Ajouter un modèle</button>
 
 <h3 class="text-center my-3">Gestion des véhicules</h3>
 
@@ -57,7 +85,6 @@ if (!isAdmin()) {
                     <input id="q" type="text" class="form-control" name="q" placeholder="Rechercher...">
                     <div class="input-group-btn search-panel">
                         <select id="brand" name="brand" class="form-select" aria-label="Default select example">
-                            <option selected value="%">Toutes</option>
                         </select>
                     </div>
                     <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Rechercher</span></button>
@@ -99,7 +126,8 @@ if (!isAdmin()) {
 
     function actuAds() {
         const q = $("#q").val();
-        const brand = $("#brand").val();
+        const brand = $("#brand").val() === null ? "%" : $("#brand").val();
+        console.log(brand);
         const seller = "<?= getEmail() ?>";
         $.ajax({
             type: "POST",
@@ -110,13 +138,13 @@ if (!isAdmin()) {
                 brand: brand
             },
             success: function(datas) {
-                displayUser(datas);
+                displayCars(datas);
             }
         });
 
     }
 
-    function displayUser(datas) {
+    function displayCars(datas) {
         $("#ads-container").html("");
 
         for (var data of datas) {
@@ -192,11 +220,14 @@ if (!isAdmin()) {
 
     // Put brands in the select
     function putBrand(brands) {
+        $("#brand").html("<option selected value='%'>Toutes</option>");
         for (brand of brands) {
             opt = document.createElement('option');
             $(opt).html(brand.brand_name);
             $(opt).attr("value", brand.brand_name);
             $("#brand").append(opt);
+            opt2 = opt.cloneNode(true);
+            $("#brandNewModel").append(opt2);
         }
     }
 
@@ -210,6 +241,29 @@ if (!isAdmin()) {
             url: "./model/admin/model_new_brand.php",
             success: function(response) {
                 displayFeedback("feedback", response);
+                if (response.success === 1) {
+                    actuAds();
+                    setBrand();
+                }
+            }
+        });
+    });
+
+    $("#btn-add-model").click(function() {
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                brand: $("#brandNewModel").val(),
+                model: $("#newModelName").val()
+            },
+            url: "./model/admin/model_new_model.php",
+            success: function(response) {
+                displayFeedback("feedback", response);
+                if (response.success === 1) {
+                    actuAds();
+                    setBrand();
+                }
             }
         });
     });
