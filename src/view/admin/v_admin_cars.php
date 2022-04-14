@@ -54,10 +54,10 @@ if (!isAdmin()) {
                 <!-- List of brand -->
                 <div class="form-group">
                     <label for="brand_select">Marque</label>
-                    <select class="form-select" id="brandNewModel" name="brandNewModel">
+                    <select class="form-select" id="brandRemoveBrand" name="brandRemoveBrand">
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group my-2">
                     <input type="text" placeholder="Entrez le nom du modèle" class="form-control" name="newModelName" id="newModelName">
                 </div>
             </div>
@@ -70,11 +70,47 @@ if (!isAdmin()) {
 </div>
 
 
-<div id="feedback"></div>
-<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
-<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newModelModal">Ajouter un modèle</button>
+<!-- remove brand modal -->
+<div class="modal fade" id="removeBrandModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Supprimer une marque</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal-text" class="modal-body">
+
+                <!-- warning -->
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Attention !</strong> Supprimer une marque, supprimera tous les modèles qui lui sont associés
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <!-- List of brand -->
+                <div class="form-group">
+                    <label for="brand_select">Marque</label>
+                    <select class="form-select" id="brandNewModel" name="brandNewModel">
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="btn-remove-brand" type="button" class="btn btn-danger" data-bs-dismiss="modal">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <h3 class="text-center my-3">Gestion des véhicules</h3>
+
+<div id="feedback"></div>
+
+<!-- action button -->
+<div class="text-center my-3">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newModelModal">Ajouter un modèle</button>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeBrandModal">Supprimer une marque</button>
+</div>
 
 <!-- Form -->
 <div class="container my-4">
@@ -127,7 +163,6 @@ if (!isAdmin()) {
     function actuAds() {
         const q = $("#q").val();
         const brand = $("#brand").val() === null ? "%" : $("#brand").val();
-        console.log(brand);
         const seller = "<?= getEmail() ?>";
         $.ajax({
             type: "POST",
@@ -221,6 +256,8 @@ if (!isAdmin()) {
     // Put brands in the select
     function putBrand(brands) {
         $("#brand").html("<option selected value='%'>Toutes</option>");
+        $("#brandNewModel").html("");
+        $("#brandRemoveBrand").html("");
         for (brand of brands) {
             opt = document.createElement('option');
             $(opt).html(brand.brand_name);
@@ -228,6 +265,8 @@ if (!isAdmin()) {
             $("#brand").append(opt);
             opt2 = opt.cloneNode(true);
             $("#brandNewModel").append(opt2);
+            opt3 = opt.cloneNode(true);
+            $("#brandRemoveBrand").append(opt3);
         }
     }
 
@@ -258,6 +297,24 @@ if (!isAdmin()) {
                 model: $("#newModelName").val()
             },
             url: "./model/admin/model_new_model.php",
+            success: function(response) {
+                displayFeedback("feedback", response);
+                if (response.success === 1) {
+                    actuAds();
+                    setBrand();
+                }
+            }
+        });
+    });
+
+    $("#btn-remove-brand").click(function() {
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                brand: $("#brandNewModel").val(),
+            },
+            url: "./model/admin/model_remove_brand.php",
             success: function(response) {
                 displayFeedback("feedback", response);
                 if (response.success === 1) {
