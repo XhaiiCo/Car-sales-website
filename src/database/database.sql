@@ -18,7 +18,6 @@ create table if not exists user
 create table if not exists car_brand
 (
     brand_name varchar(100) NOT NULL,
-    logo_path varchar(255),
 
     primary key(brand_name)
 ) engine = innodb ;

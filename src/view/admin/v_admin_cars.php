@@ -32,7 +32,7 @@ if (!isAdmin()) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div id="modal-text" class="modal-body">
-                <input type="text" placeholder="Nom de la marque" class="form-control" name="newBrandName" id="newBrandName">
+                <input type="text" placeholder="Entrez le nom de la marque" class="form-control" name="newBrandName" id="newBrandName">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -199,6 +199,20 @@ if (!isAdmin()) {
             $("#brand").append(opt);
         }
     }
+
+    $("#btn-add-brand").click(function() {
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                brand: $("#newBrandName").val()
+            },
+            url: "./model/admin/model_new_brand.php",
+            success: function(response) {
+                displayFeedback("feedback", response);
+            }
+        });
+    });
 </script>
 
 <style>

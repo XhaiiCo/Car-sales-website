@@ -1,11 +1,11 @@
 insert ignore into car_brand value 
-("BMW", "bmw.png"),
-("Mercedes-Benz", "mercedes.png"),
-("Porsche", "Porsche.png"),
-("Ferrari", "ferrari.png"),
-("Lamborghini", "lamborghini.png"),
-("Audi", "audi.png"),
-("Toyota", "toyota.png") ;
+("BMW"),
+("Mercedes-Benz"),
+("Porsche"),
+("Ferrari"),
+("Lamborghini"),
+("Audi"),
+("Toyota") ;
 
 insert ignore into  car_model value 
 ("2002","BMW"),
