@@ -14,6 +14,7 @@ $router->setBasePath($basePath);
 //                              USER
 // ****************************************************************
 $router->map('GET', "/", function () {
+    global $router;
     require "../src/view/v_home.php";
 }, 'home');
 
