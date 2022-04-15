@@ -6,7 +6,7 @@ if (!isAdmin()) {
     exit();
 }
 
-$user = $_POST['user'];
+$userMail = $_POST['user'];
 
 require_once "../../../src/util/db.php";
 
@@ -20,13 +20,28 @@ from user where
 ";
 
 $params = [
-    "user" => $user
+    "user" => $userMail
 ];
 
 $user = prepare($sql, $params);
 
 if ($user[0]['isAdmin'] === "1") {
     exit();
+}
+
+if ($user[0]['isSeller'] === "1") {
+    $sql = "
+        select picture_name from car_picture 
+        inner join sale using(id_sale)
+        where user_mail like :mail
+    ";
+
+    $car_pictures = prepare($sql, ["mail" => $userMail]);
+
+    $basePath = "./../../assets/img/car_on_sale/";
+    foreach ($car_pictures as $car_picture) {
+        unlink($basePath . $car_picture["picture_name"]);
+    }
 }
 
 $sql = "delete from user where user_mail like :user";

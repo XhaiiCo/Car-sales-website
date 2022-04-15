@@ -629,18 +629,18 @@ INSERT INTO `user` (`user_mail`, `username`, `user_password`, `isAdmin`, `isSell
 ('user@user.be', 'User', '$2y$10$0lDB6Wk0pusaz22.xGi4au33EX/kkKXzxKZO1weI0S4D5DmYwQN1G', 0, 0, '2022-04-05');
 
 INSERT INTO `sale` (`id_sale`, `price`, `publication_date`, `sale_description`, `car_kilometer`, `car_year`, `car_power`, `car_fuel`, `car_color`, `car_state`, `additional_info`, `model_name`, `brand_name`, `user_mail`) VALUES
-(2, 204950, '2022-04-05', 'La Mercedes-AMG G 63 signifie une puissance exceptionnelle au premier regard : la calandre spécifique AMG, les jantes 55,9 cm (22\") en option et le système d\'échappement Performance AMG marquant avec deux sorties chromées de part et d\'autre confèrent au modèle culte son allure expressive.\r\n', 9350, 2021, 585, 'Essence', 'Blanc', 'Occasion', 'Toit ouvrant', 'G 63 AMG', 'Mercedes-Benz', 'davidleclercq2002@gmail.com'),
-(3, 1350000, '2022-04-05', 'La Ferrari F40 est une supercar GT et de compétition, du constructeur automobile italien Ferrari. Produite entre 1987 et 1992, pour fêter les quarante ans de la marque, elle succède à la Ferrari 288 GTO. Ultime création du vivant du Commendatore Enzo Ferrari (1898-1988), elle est au moment de sa sortie, la voiture la plus rapide, la plus puissante et la plus chère de l\'histoire de l\'automobile', 29000, 1992, 479, 'Essence', 'Rouge', 'Occasion', 'LM PACK', 'F40', 'Ferrari', 'davidleclercq2002@gmail.com');
+(4, 204950, '2022-04-15', 'La Mercedes-AMG G 63 signifie une puissance exceptionnelle au premier regard : la calandre spécifique AMG, les jantes 55,9 cm (22\") en option et le système d\'échappement Performance AMG marquant avec deux sorties chromées de part et d\'autre confèrent au modèle culte son allure expressive.', 9350, 2021, 585, 'Essence', 'Blanc', 'Occasion', 'Toit ouvrant', 'G 63 AMG', 'Mercedes-Benz', 'davidleclercq2002@gmail.com'),
+(5, 1350000, '2022-04-15', 'La Ferrari F40 est une supercar GT et de compétition, du constructeur automobile italien Ferrari. Produite entre 1987 et 1992, pour fêter les quarante ans de la marque, elle succède à la Ferrari 288 GTO. Ultime création du vivant du Commendatore Enzo Ferrari (1898-1988), elle est au moment de sa sortie, la voiture la plus rapide, la plus puissante et la plus chère de l\'histoire de l\'automobile \r\n', 29000, 1992, 479, 'Essence', 'Rouge', 'Occasion', 'LM PACK', 'F40', 'Ferrari', 'davidleclercq2002@gmail.com');
 
 
 INSERT INTO `car_picture` (`picture_name`, `picture_order`, `id_sale`) VALUES
-('IMG-624c88bd49d567.17362199.jpeg', 1, 2),
-('IMG-624c88bd4a0e17.44879132.jpeg', 2, 2),
-('IMG-624c88bd4a4082.15694066.jpeg', 3, 2),
-('IMG-624c88bd4aa702.59323255.jpeg', 4, 2),
-('IMG-624c88bd4ad2d1.16054655.jpeg', 5, 2),
-('IMG-624c88fa5f3ae5.08531974.jpg', 1, 3),
-('IMG-624c88fa6018c5.54744100.jpg', 2, 3),
-('IMG-624c88fa604b06.72479659.jpg', 3, 3),
-('IMG-624c88fa60de73.05636001.jpg', 4, 3),
-('IMG-624c88fa610ee5.61115008.jpg', 5, 3);
+('IMG-62593c82437031.92041351.jpeg', 1, 4),
+('IMG-62593c82439ec7.71982750.jpeg', 2, 4),
+('IMG-62593c82442ac8.75555219.jpeg', 3, 4),
+('IMG-62593c8244b516.62044117.jpeg', 4, 4),
+('IMG-62593c8244eb63.56362289.jpeg', 5, 4),
+('IMG-62593cb541e973.80027209.jpg', 1, 5),
+('IMG-62593cb542f3e1.48433722.jpg', 2, 5),
+('IMG-62593cb5433878.92196831.jpg', 3, 5),
+('IMG-62593cb54361a5.45716109.jpg', 4, 5),
+('IMG-62593cb5438f97.66424261.jpg', 5, 5);

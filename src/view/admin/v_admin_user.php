@@ -33,6 +33,11 @@ if (!isAdmin()) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div id="modal-text" class="modal-body">
+                <!-- warning -->
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Attention !</strong> Enlever le rôle vendeur à un utilisateur, supprimera toutes ses annonces.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <div class="form-check form-switch">
                     <input id="sellerCheck" class="form-check-input" type="checkbox">
                     <label class="form-check-label" for="sellerCheck">Vendeur</label>

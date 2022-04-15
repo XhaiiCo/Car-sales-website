@@ -26,6 +26,16 @@ if (isSeller()) {
 if (!isset($_POST))
     exit();
 
+
+$sql = "select picture_name from car_picture where id_sale = :id";
+
+$car_pictures = prepare($sql, ["id" => $id]);
+
+$basePath = "./../../assets/img/car_on_sale/";
+foreach ($car_pictures as $car_picture) {
+    unlink($basePath . $car_picture["picture_name"]);
+}
+
 $sql = "delete from sale where id_sale = :id";
 
 prepare($sql, ["id" => $id]);
