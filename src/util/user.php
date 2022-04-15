@@ -2,12 +2,14 @@
 
 $MINLENGHT_USERNAME = 3;
 $MINLENGHT_PASSWORD = 6;
+$MAXLENGHT_USERNAME = 100;
 
 function validUsername($username)
 {
     global $MINLENGHT_USERNAME;
+    global $MAXLENGHT_USERNAME;
 
-    if (strlen($username) < $MINLENGHT_USERNAME || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+    if (strlen($username) < $MINLENGHT_USERNAME || strlen($username) > $MAXLENGHT_USERNAME || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
         return false;
     }
     return true;

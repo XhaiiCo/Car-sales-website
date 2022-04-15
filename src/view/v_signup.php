@@ -35,24 +35,17 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="./js/app.js"></script>
 <script>
     $("#form").submit(function(e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
             url: "./model/model_signup.php",
-            dataType: "text",
+            dataType: "JSON",
             data: $(this).serialize(),
             success: function(response) {
-                feedback = document.createElement("div");
-                if (response === "ok") {
-                    $(feedback).html("Votre compte a été créé avec succès");
-                    $(feedback).addClass("alert alert-success");
-                } else {
-                    $(feedback).html(response);
-                    $(feedback).addClass("alert alert-danger");
-                }
-                $("#feedback").html(feedback);
+                displayFeedback("feedback", response);
             },
             error: function() {
                 console.log("Error");

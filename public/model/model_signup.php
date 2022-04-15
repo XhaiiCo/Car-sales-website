@@ -15,19 +15,16 @@ require_once "../../src/util/user.php";
 
 
 if (!validUsername($username)) {
-    echo "Nom d'utilisateur incorrect (min: " . $MINLENGHT_USERNAME . " caractères, sans espace, et sans caractères spéciaux)";
-    exit();
+    leave(["error" => 1, "em" => "Nom d'utilisateur incorrect (min: " . $MINLENGHT_USERNAME . " caractères, sans espace, et sans caractères spéciaux)"]);
 }
 
 // Check if the password is equals
 if ($password != $confirmPassword) {
-    echo "Mot de passe pas équivalent";
-    exit();
+    leave(["error" => 1, "em" => "Mot de passe pas équivalent"]);
 }
 
 if (!validPassword($password)) {
-    echo "Mot de passe incorrect (min: " . $MINLENGHT_PASSWORD . " caractères et au moins 1 lettre et 1 chiffre)";
-    exit();
+    leave(["error" => 1, "em" => "Mot de passe incorrect (min: " . $MINLENGHT_PASSWORD . " caractères et au moins 1 lettre et 1 chiffre)"]);
 }
 
 require_once "../../src/util/db.php";
@@ -38,8 +35,7 @@ $sql = "SELECT * FROM user where username like :username";
 $user = prepare($sql, ["username" => $username]);
 
 if (!empty($user)) {
-    echo "Ce nom d'utilisateur est déjà utilisé";
-    exit();
+    leave(["error" => 1, "em" => "Ce nom d'utilisateur est déjà utilisé"]);
 }
 
 //Check if the mail not already exists and correct
@@ -48,8 +44,7 @@ $sql = "SELECT * FROM user where user_mail like :mail";
 $user = prepare($sql, ["mail" => $mail]);
 
 if (!empty($user) || !validMail($mail)) {
-    echo "Email incorrect ou déjà utilisé";
-    exit();
+    leave(["error" => 1, "em" => "Email incorrect ou déjà utilisé"]);
 }
 
 $sql = "
@@ -66,4 +61,10 @@ $params = [
 
 prepare($sql, $params);
 
-echo "ok";
+leave(["success" => 1, "sm" => "Votre compte a été créé avec succès"]);
+
+function leave($response)
+{
+    echo utf8_encode(json_encode($response));
+    exit();
+}
