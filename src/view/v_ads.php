@@ -21,9 +21,18 @@
                 </div>
 
                 <!-- List of model -->
-                <div class="form-group">
+                <div class="form-group my-3">
                     <label for="model_select">Modèle</label>
                     <select class="form-select" id="model_select" name="model_select" disabled>
+                    </select>
+                </div>
+
+                <!-- price order -->
+                <div class="border-top form-group">
+                    <label for="price-order">Ordre des prix</label>
+                    <select class="form-select" name="price_order" id="price_order">
+                        <option value="asc">Croissant</option>
+                        <option value="desc">Décroissant</option>
                     </select>
                 </div>
 
@@ -64,17 +73,23 @@
         setAd();
     });
 
+    $("#price_order").change(function() {
+        setAd();
+    });
+
     // Get ads from the db
     function setAd() {
         const brand = $("#brand_select").val();
         const model = $("#model_select").val() === null ? '%' : $("#model_select").val();
+        const price_order = $("#price_order").val();
         $.ajax({
             type: "POST",
             url: "./model/model_ads.php",
             dataType: "JSON",
             data: {
                 brand_select: brand,
-                model_select: model
+                model_select: model,
+                price_order: price_order
             },
             success: function(data) {
                 displayAd(data);

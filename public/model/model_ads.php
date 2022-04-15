@@ -10,6 +10,13 @@ $model = "%";
 if (isset($_POST['model_select']))
 	$model = $_POST['model_select'];
 
+$order = "asc";
+if (isset($_POST['price_order'])) {
+	if ($_POST['price_order'] === "desc") {
+		$order = "desc";
+	}
+}
+
 $sql = "
 select sale.*, 
 group_concat(case 
@@ -24,6 +31,7 @@ where brand_name like :brand and model_name like :model
 group by id_sale
 ";
 
+$sql .= " order by price " . $order;
 $params = [
 	"brand" => $brand,
 	"model" => $model
