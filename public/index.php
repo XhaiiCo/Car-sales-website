@@ -23,6 +23,7 @@ $router->map('GET', "/annonces", function () {
 }, 'annonces');
 
 $router->map('GET', "/annonce-[i:id]", function ($id) {
+    global $router;
     require "../src/view/v_ad.php";
 }, 'annonce');
 

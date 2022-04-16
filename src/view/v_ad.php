@@ -1,3 +1,43 @@
+<?php if (isConnected()) : ?>
+    <!-- candidacy modal -->
+    <div class="modal fade" id="contactModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-xl modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Contacter le vendeur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="candidacy" placeholder="Entrez votre message"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" id="sendMessage" data-bs-dismiss="modal">Envoyer votre message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <!-- Connexion modal -->
+    <div class="modal fade" id="connexionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Contacter le vendeur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Vous devez être connecté pour pouvoir contacter des vendeurs
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <a href="<?= $router->generate("connexion") ?>" type="button" class="btn btn-primary">Se connecter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
+
 <div class="p-2 container">
     <div class="row">
         <div class="col-md-7">
@@ -40,7 +80,11 @@
             </div>
 
             <div>
-                <input class="btn btn-secondary" type="button" value="Contacter le vendeur">
+                <?php if (isConnected()) : ?>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">Contacter le vendeur</button>
+                <?php else : ?>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#connexionModal">Contacter le vendeur</button>
+                <?php endif ?>
             </div>
         </div>
     </div>
@@ -198,5 +242,11 @@
     .showMore {
         cursor: pointer;
         text-decoration: underline;
+    }
+
+    textarea {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid grey;
     }
 </style>
