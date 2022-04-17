@@ -50,6 +50,15 @@ $router->map('GET', '/mon-profil', function () {
     }
 }, 'profil');
 
+$router->map('GET', '/messages', function () {
+    global $router;
+    if (isConnected()) {
+        require "../src/view/logged_user/v_messages.php";
+    } else {
+        header("Location: " . $router->generate('home'));
+    }
+}, 'messages');
+
 // ****************************************************************
 //                              SELLER
 // ****************************************************************
