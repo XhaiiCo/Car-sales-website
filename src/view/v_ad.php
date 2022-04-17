@@ -8,7 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="candidacy" placeholder="Entrez votre message"></textarea>
+                    <textarea id="message" placeholder="Entrez votre message"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -39,6 +39,7 @@
 <?php endif ?>
 
 <div class="p-2 container">
+    <div id="feedback"></div>
     <div class="row">
         <div class="col-md-7">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -138,6 +139,7 @@
 
 </div>
 
+<script type="text/javascript" src="./js/app.js"></script>
 <script>
     const id = <?= $id ?>;
     $(document).ready(function() {
@@ -226,6 +228,27 @@
 
     })
 </script>
+
+<?php if (isConnected()) : ?>
+    <script>
+        $("#sendMessage").click(function() {
+            console.log(<?= $id ?> + " " + $("#message").val());
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: {
+                    id: <?= $id ?>,
+                    message: $("#message").val()
+                },
+                url: "./model/logged_user/model_send_message.php",
+                success: function(response) {
+                    displayFeedback("feedback", response);
+                }
+            });
+        });
+    </script>
+<?php endif; ?>
 
 <style>
     .description {
