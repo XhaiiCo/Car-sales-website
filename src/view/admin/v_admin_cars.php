@@ -112,6 +112,20 @@ if (!isAdmin()) {
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeBrandModal">Supprimer une marque</button>
 </div>
 
+<script type="text/javascript" src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<table id="user-table" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Marque</th>
+            <th>Modèle</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
 <!-- Form -->
 <div class="container my-4">
     <div class="row">
@@ -174,9 +188,49 @@ if (!isAdmin()) {
             },
             success: function(datas) {
                 displayCars(datas);
+                displayCars2(datas);
             }
         });
 
+    }
+
+    function displayCars2(datas) {
+        $("#user-table > tbody").html("");
+
+        for (var data of datas) {
+            tr = document.createElement("tr");
+
+            tdBrand = document.createElement("td");
+            $(tdBrand).html(data.brand_name);
+            tr.append(tdBrand);
+
+            tdModel = document.createElement("td");
+            $(tdModel).html(data.model_name);
+            tr.append(tdModel);
+
+
+            tdBtnContainer = document.createElement("td");
+            $(tdBtnContainer).attr("style", "width:20%");
+
+            spanDelete = document.createElement("span");
+            $(spanDelete).attr("data-bs-toggle", "modal");
+            $(spanDelete).attr("data-bs-target", "#deleteModal");
+            $(spanDelete).attr("class", "btn-delete table-link text-danger fa-stack");
+            $(spanDelete).html("<i class='fa fa-square fa-stack-2x'></i><i class='fa fa-trash-o fa-stack-1x fa-inverse'></i> ");
+            $(spanDelete).attr("brand", data.brand_name);
+            $(spanDelete).attr("model", data.model_name);
+
+            tdBtnContainer.append(spanDelete);
+            tr.append(tdBtnContainer);
+            $("#user-table > tbody").append(tr);
+        }
+
+        $(".btn-delete").click(function() {
+            $("#modal-text").html("Êtes-vous sur de vouloir supprimer " + $(this).attr("brand") + " " + $(this).attr("model") + " ?");
+            $("#deleteModal").attr("brand", $(this).attr("brand"));
+            $("#deleteModal").attr("model", $(this).attr("model"));
+        });
+        $("#user-table").DataTable();
     }
 
     function displayCars(datas) {
