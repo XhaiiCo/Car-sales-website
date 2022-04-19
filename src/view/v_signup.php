@@ -23,7 +23,7 @@
                                 <input name="confirm-password" type="password" id="confirm-password" class="form-control form-control-lg" />
                                 <label class="form-label" for="confirm-password">Confirmez votre mot de passe</label>
                             </div>
-                            <input class="btn btn-outline-light btn-lg px-5" type="submit" value="Se connecter">
+                            <input class="btn btn-outline-light btn-lg px-5" type="submit" value="S'inscrire">
                         </form>
                     </div>
                     <div>
