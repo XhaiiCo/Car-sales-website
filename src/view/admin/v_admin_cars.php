@@ -106,10 +106,16 @@ if (!isAdmin()) {
 <div id="feedback"></div>
 
 <!-- action button -->
-<div class="text-center my-3">
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newModelModal">Ajouter un modèle</button>
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeBrandModal">Supprimer une marque</button>
+<div class="text-center my-3 row">
+    <div class="col-lg">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
+    </div>
+    <div class="col-lg">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newModelModal">Ajouter un modèle</button>
+    </div>
+    <div class="col-lg">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeBrandModal">Supprimer une marque</button>
+    </div>
 </div>
 
 <!-- Form -->
@@ -345,6 +351,11 @@ if (!isAdmin()) {
 
     span {
         cursor: pointer;
+    }
+
+    button {
+        width: 200px;
+        margin-bottom: 5px;
     }
 </style>
 <?php require_once "../src/view/admin/elements/v_admin_ender.php"; ?>
