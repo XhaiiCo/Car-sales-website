@@ -11,31 +11,8 @@ if (!isConnected()) {
                     <div class="clearfix"></div>
                 </div><!-- /.panel-heading -->
                 <div class="panel-body no-padding">
-                    <div class="list-group no-margin list-message">
-                        <div class="list-group-item">
-                            <h4 class="list-group-item-heading">Jeck Joko <small>Yesterday at 15:45</small></h4>
-                            <a href="annonce-4" class="list-group-item-text">
-                                <strong>Mercedes AMG G63</strong>
-                            </a>
-                        </div>
-                        <div class="list-group-item">
-                            <h4 class="list-group-item-heading">Toni Miring <small>Sunday at 12:33</small></h4>
-                            <a href="annonce-4" class="list-group-item-text">
-                                <strong>Mercedes AMG G63</strong>
-                            </a>
-                        </div>
-                        <div class="list-group-item">
-                            <h4 class="list-group-item-heading">Bella Negoro <small>Sunday at 12:33</small></h4>
-                            <a href="annonce-4" class="list-group-item-text">
-                                <strong>Mercedes AMG G63</strong>
-                            </a>
-                        </div>
-                        <div class="list-group-item">
-                            <h4 class="list-group-item-heading">Daddy Botak <small>Sunday at 12:33</small></h4>
-                            <a href="annonce-4" class="list-group-item-text">
-                                <strong>Mercedes AMG G63</strong>
-                            </a>
-                        </div>
+                    <div id="list-message" class="list-group no-margin list-message">
+
                     </div><!-- /.list-group -->
                 </div><!-- /.panel-body -->
             </div><!-- /.panel -->
@@ -100,16 +77,40 @@ if (!isConnected()) {
             $("#foo").show();
         });
 
+        setListMessage();
+    });
+
+    function setListMessage() {
         $.ajax({
             type: "post",
             dataType: "json",
             url: "./model/logged_user/model_list_message.php",
             success: function(datas) {
-                console.log(datas);
+                putListMessage(datas);
             }
         });
+    }
 
-    });
+    function putListMessage(datas) {
+        const list_message = $("#list-message");
+
+        $(list_message).html("");
+        for (data of datas) {
+            var html = "";
+
+            html += "<div id_conversation='" + data.id_conversation + "'class='list-group-item'>"
+            html += "<h4 class='list-group-item-heading'>" + data.user + "</h4>"
+            html += "<a href='annonce-" + data.id_sale + "'class='list-group-item-text'>"
+            html += "<strong>" + data.brand_name + " " + data.model_name + "</strong>"
+            html += "</a>"
+            html += "</div>"
+
+            $(list_message).append(html);
+        }
+        $(".list-group-item").click(function() {
+            const id_conversation = $(this).attr("id_conversation");
+        })
+    }
 </script>
 <style>
     .message form {
