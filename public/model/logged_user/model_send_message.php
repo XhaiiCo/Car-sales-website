@@ -21,7 +21,7 @@ if (empty($user_to)) {
 }
 
 $sql = "
-    INSERT IGNORE INTO message_sale VALUES (NULL, :message, :user_from, :user_to, :id_sale)
+    INSERT IGNORE INTO message_sale VALUES (NULL, :message, :user_from, :user_to, :id_sale, now())
 ";
 $params = [
     "message" => $message,

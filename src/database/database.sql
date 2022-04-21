@@ -114,6 +114,7 @@ create table if not exists message_sale
     user_from varchar(255) NOT NULL,
     user_to varchar(255) NOT NULL,
     id_sale int unsigned NOT NULL,
+    date_send datetime not null,
     
     primary key(id_message) 
 
