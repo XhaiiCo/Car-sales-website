@@ -21,13 +21,49 @@ if (empty($user_to)) {
 }
 
 $sql = "
-    INSERT IGNORE INTO message_sale VALUES (NULL, :message, :user_from, :user_to, :id_sale, now())
+    select id_conversation 
+    from conversation
+    where 
+        (id_sale = :id)
+        &&
+        (
+            (user1 like :user1 || user2 like :user1) ||
+            (user1 like :user2 || user2 like :user2)
+        )
 ";
+
+$params = [
+    "id" => $id,
+    "user1" => $user_to,
+    "user2" => $user_from
+];
+
+$conversation = prepare($sql, $params);
+
+if (empty($conversation)) {
+    $sql = "
+        INSERT INTO `conversation` 
+            (`user1`, `user2`, `id_sale`) 
+        VALUES 
+            (:user1, :user2, :id)
+    ";
+
+    prepare($sql, $params);
+    $idConversation = getDB()->lastInsertId();
+} else {
+    $idConversation = $conversation[0]['id_conversation'];
+}
+
+$sql = "
+    INSERT IGNORE INTO message
+    VALUES 
+    (NULL, :user_from, :message, now(), :id_conversation) ;
+";
+
 $params = [
     "message" => $message,
     "user_from" => $user_from,
-    "user_to" => $user_to,
-    "id_sale" => $id
+    "id_conversation" => $idConversation
 ];
 
 prepare($sql, $params);
