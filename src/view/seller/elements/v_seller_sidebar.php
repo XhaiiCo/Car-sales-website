@@ -5,6 +5,10 @@ if (!isSeller()) {
 ?>
 
 <style>
+    #content {
+        margin-left: 18%;
+    }
+
     @media screen and (max-width: 1400px) {
 
         #content {
@@ -16,6 +20,7 @@ if (!isSeller()) {
 
         #content {
             margin-left: 15%;
+
         }
     }
 
@@ -23,13 +28,14 @@ if (!isSeller()) {
 
         #content {
             margin-left: 25%;
+
         }
     }
 
     @media screen and (max-width: 768px) {
 
         #content {
-            margin-left: 25%;
+            margin-left: 31%;
         }
     }
 
