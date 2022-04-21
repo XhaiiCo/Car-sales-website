@@ -107,35 +107,50 @@ references sale(id_sale)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 
+create table if not exists conversation(
+    id_conversation int unsigned NOT NULL auto_increment,
+    user1 varchar(255) NOT NULL,
+    user2 varchar(255) NOT NULL,
+    id_sale int unsigned NOT NULL,
+
+    primary key (id_conversation)
+) engin = innodb ;
+
+alter table conversation
+add constraint conversation_user1
+foreign key (user1)
+references user(user_mail)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+add constraint conversation_user2
+foreign key (user2)
+references user(user_mail)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+add constraint conversationid_sale
+foreign key (id_sale)
+references sale(id_sale)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
 create table if not exists message_sale
 (
     id_message int unsigned not null auto_increment,
     user_message text NOT NULL,
-    user_from varchar(255) NOT NULL,
-    user_to varchar(255) NOT NULL,
-    id_sale int unsigned NOT NULL,
     date_send datetime not null,
+
+    id_conversation int unsigned NOT NULL auto_increment,
     
     primary key(id_message) 
 
 ) engine = innodb ;
 
 alter table message_sale
-add constraint fk_message_saleuser_mail
-foreign key (user_from)
-references user(user_mail)
+add constraint fk_message_sale_id_conversation
+foreign key (id_conversation)
+references conversation(id_conversation)
 ON DELETE CASCADE
-ON UPDATE CASCADE,
-add constraint fk_user_touser_mail
-foreign key (user_to)
-references user(user_mail)
-ON DELETE CASCADE
-ON UPDATE CASCADE,
-add constraint fk_message_saleid_sale
-foreign key (id_sale)
-references sale(id_sale)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
+ON UPDATE CASCADE ;
 
 create table if not exists seller_candidacy
 (
