@@ -102,7 +102,7 @@ create table if not exists car_picture
 
 alter table car_picture
 add constraint fk_car_pictureid_sale
-foreign key (id_sale)
+foreign key (id_sale)&
 references sale(id_sale)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
@@ -114,7 +114,7 @@ create table if not exists conversation(
     id_sale int unsigned NOT NULL,
 
     primary key (id_conversation)
-) engin = innodb ;
+) engine = innodb ;
 
 alter table conversation
 add constraint conversation_user1
@@ -133,24 +133,30 @@ references sale(id_sale)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 
-create table if not exists message_sale
+create table if not exists message
 (
     id_message int unsigned not null auto_increment,
-    user_message text NOT NULL,
+    user_send  varchar(255) NOT NULL,
+    message text NOT NULL,
     date_send datetime not null,
 
-    id_conversation int unsigned NOT NULL auto_increment,
+    id_conversation int unsigned NOT NULL,
     
     primary key(id_message) 
 
 ) engine = innodb ;
 
-alter table message_sale
+alter table message
 add constraint fk_message_sale_id_conversation
 foreign key (id_conversation)
 references conversation(id_conversation)
 ON DELETE CASCADE
-ON UPDATE CASCADE ;
+ON UPDATE CASCADE,
+add constraint message_user_send
+foreign key (user_send)
+references user(user_mail)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
 create table if not exists seller_candidacy
 (
