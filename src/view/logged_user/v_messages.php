@@ -18,65 +18,15 @@ if (!isConnected()) {
             </div><!-- /.panel -->
         </div><!-- /.message-sideleft -->
         <div class="col-md-8 message-sideright">
-            <div class="header">
-                <input id="btn-new-message" type="button" class="btn btn-primary" value="Nouveau message"></input>
-                <form id="foo">
-                    <input class="form-control mb-2" type=" text" placeholder="Objet...">
-                    <textarea class="form-control mb-2" placeholder="Réponse..."></textarea>
-                    <input class="btn btn-primary" type="submit" value="Envoyer">
-                </form>
+            <div id="messages">
 
             </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="media">
-                        <div class="media-body">
-                            <h4 class="media-heading">Rebecca Cabean</h4>
-                            <small>Thursday 5th July 2014</small>
-                        </div>
-                    </div>
-                </div><!-- /.panel-heading -->
-                <div class="panel-body">
-                    <p class="lead">
-                        RE : Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </p>
-                    <hr>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div><!-- /.panel-body -->
-            </div><!-- /.panel -->
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="media">
-                        <div class="media-body">
-                            <h4 class="media-heading">Sarah Tingting</h4>
-                            <small>Thursday 5th July 2014</small>
-                        </div>
-                    </div>
-                </div><!-- /.panel-heading -->
-                <div class="panel-body">
-                    <p class="lead">
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </p>
-                    <hr>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div><!-- /.panel-body -->
-            </div><!-- /.panel -->
         </div><!-- /.message-sideright -->
     </div>
 </div>
 
 <script>
     $(document).ready(function() {
-        $("#foo").hide();
-        $("#btn-new-message").click(function() {
-            $(this).hide();
-            $("#foo").show();
-        });
-
         setListMessage();
     });
 
@@ -107,20 +57,87 @@ if (!isConnected()) {
 
             $(list_message).append(html);
         }
+
         $(".list-group-item").click(function() {
             const id_conversation = $(this).attr("id_conversation");
+            setMessage(id_conversation);
+        })
+    }
+
+    function setMessage(id) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                id_conversation: id
+            },
+            url: "./model/logged_user/model_messages.php",
+            success: function(datas) {
+                putMessage(datas);
+            }
+        });
+    }
+
+    function putMessage(datas) {
+        const message = $("#messages");
+
+        $(message).html(
+            "<div class='header'> \
+                <input id='btn-new-message' type='button' class='btn btn-primary' value='Nouveau message'></input> \
+                <form id='foo'> \
+                    <textarea class='form-control mb-2'id='reponse-message' placeholder='Réponse...'></textarea> \
+                    <input class='btn btn-primary' type='submit' value='Envoyer'> \
+                </form> \
+            </div> \
+        ");
+
+        $("#foo").hide();
+        $("#btn-new-message").click(function() {
+            $(this).hide();
+            $("#foo").show();
+        });
+
+        $("#foo").submit(function(e) {
+            e.preventDefault();
+
+            const id_conversation = datas[0].id_conversation;
             $.ajax({
-                type: "POST",
-                dataType: "json",
+                type: "post",
                 data: {
-                    id_conversation: id_conversation
+                    message: $("#reponse-message").val(),
+                    id: id_conversation
                 },
-                url: "./model/logged_user/model_messages.php",
-                success: function(datas) {
-                    console.log(datas);
+                url: "./model/logged_user/model_send_message_byid.php",
+                success: function() {
+                    setMessage(id_conversation);
                 }
+
             });
         })
+
+        for (data of datas) {
+            html = "";
+
+            html += "<div class='panel'>"
+            html += "<div class='panel-heading'>"
+            html += "<div class='media'>"
+            html += "<div class='media-body'>"
+            html += "<h4 class='media-heading'>" + data.user_send + "</h4>"
+            html += "<small>" + data.date_send + "</small>"
+            html += "</div>"
+            html += "</div>"
+            html += "</div>"
+            html += "<div class='panel-body'>"
+            html += "<p class='lead'>"
+            html += data.message
+            html += "</p>"
+            html += "</div>"
+            html += "</div>"
+            html += "<hr>"
+
+            $(message).append(html);
+        }
+
     }
 </script>
 <style>

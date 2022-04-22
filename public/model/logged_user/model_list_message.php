@@ -28,10 +28,12 @@ $sql =
 
 $datas = prepare($sql, ["user" => $user]);
 
-$sql = "select username from user where user_mail like :user";
+for ($i = 0; $i < count($datas); $i++) {
+    $sql = "select username from user where user_mail like :user";
 
-$username = prepare($sql, ["user" => $datas[0]['user_mail']]);
+    $username = prepare($sql, ["user" => $datas[$i]['user_mail']]);
 
-$datas[0]["username"] = $username[0]["username"];
+    $datas[$i]["username"] = $username[0]["username"];
+}
 
 echo utf8_encode(json_encode($datas));
