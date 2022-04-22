@@ -13,14 +13,25 @@ $user = getEmail();
 $sql =
     "
     SELECT 
-    case when conversation.user1 like :user then conversation.user2 else user1 end as user,
-    conversation.id_sale,
-    conversation.id_conversation
-    , sale.brand_name, sale.model_name FROM conversation
+        case 
+            when conversation.user1 like :user 
+            then conversation.user2 else user1 
+        end as user_mail,
+        conversation.id_sale,
+        conversation.id_conversation, 
+        sale.brand_name, 
+        sale.model_name 
+    FROM conversation
     inner join sale using(id_sale)
     where user1 like :user or user2 like :user 
 ";
 
 $datas = prepare($sql, ["user" => $user]);
+
+$sql = "select username from user where user_mail like :user";
+
+$username = prepare($sql, ["user" => $datas[0]['user_mail']]);
+
+$datas[0]["username"] = $username[0]["username"];
 
 echo utf8_encode(json_encode($datas));

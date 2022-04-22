@@ -99,7 +99,7 @@ if (!isConnected()) {
             var html = "";
 
             html += "<div id_conversation='" + data.id_conversation + "'class='list-group-item'>"
-            html += "<h4 class='list-group-item-heading'>" + data.user + "</h4>"
+            html += "<h4 class='list-group-item-heading'>" + data.username + "<small> (" + data.user_mail + ")</small></h4>"
             html += "<a href='annonce-" + data.id_sale + "'class='list-group-item-text'>"
             html += "<strong>" + data.brand_name + " " + data.model_name + "</strong>"
             html += "</a>"
@@ -109,6 +109,17 @@ if (!isConnected()) {
         }
         $(".list-group-item").click(function() {
             const id_conversation = $(this).attr("id_conversation");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id_conversation: id_conversation
+                },
+                url: "./model/logged_user/model_messages.php",
+                success: function(datas) {
+                    console.log(datas);
+                }
+            });
         })
     }
 </script>
