@@ -27,7 +27,7 @@ $sql = "
         (id_sale = :id)
         &&
         (
-            (user1 like :user1 || user2 like :user1) ||
+            (user1 like :user1 || user2 like :user1) &&
             (user1 like :user2 || user2 like :user2)
         )
 ";
