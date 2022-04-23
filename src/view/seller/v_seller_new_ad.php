@@ -30,9 +30,6 @@ if (!isSeller()) {
                     </div>
                 </div>
 
-
-
-
                 <!-- additional info -->
                 <div class="form-group">
                     <label for="additional_info">information additionnelle</label>
@@ -41,7 +38,7 @@ if (!isSeller()) {
 
                 <!-- price -->
                 <div class="form-group">
-                    <label for="price">Prix de vente</label>
+                    <label for="price">Prix de vente (€)</label>
                     <input class="form-control" type="text" id="price" name="price" min="0">
                 </div>
 
@@ -81,7 +78,7 @@ if (!isSeller()) {
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">Kilométrage</th>
+                        <th scope="row">Kilométrage (km/h)</th>
                         <td>
                             <input class="form-control" type="number" id="car_kilometer" name="car_kilometer" min="0">
                         </td>
@@ -93,7 +90,7 @@ if (!isSeller()) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Puissance</th>
+                        <th scope="row">Puissance (CH)</th>
                         <td>
                             <input class="form-control" type="number" id="car_power" name="car_power" min="0">
                         </td>
@@ -122,8 +119,6 @@ if (!isSeller()) {
                 </tbody>
             </table>
         </div>
-
-
 
         <input type="submit" value="Ajouter l'annonce" class="btn btn-primary">
     </form>

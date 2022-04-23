@@ -61,10 +61,6 @@ if (!isSeller()) {
                         <a href="<?= $router->generate('seller_ads') ?>" class="text-white nav-link px-0 align-middle">
                             <i class="fs-4 bi-cart"></i> <span class="ms-1 d-none d-sm-inline">Mes annonces</span> </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= $router->generate('seller_ads') ?>" class="text-white nav-link px-0 align-middle">
-                            <i class="fs-4 bi-chat-left"></i> <span class="ms-1 d-none d-sm-inline">Message</span> </a>
-                    </li>
                 </ul>
             </div>
         </div>

@@ -122,7 +122,7 @@ if (!isConnected()) {
             html += "<div class='panel-heading'>"
             html += "<div class='media'>"
             html += "<div class='media-body'>"
-            html += "<h4 class='media-heading'>" + data.user_send + "</h4>"
+            html += "<h4 class='media-heading'>" + data.username + "</h4>"
             html += "<small>" + data.date_send + "</small>"
             html += "</div>"
             html += "</div>"

@@ -61,6 +61,10 @@ $params = [
 
 prepare($sql, $params);
 
+require_once "../../src/controller/authController.php";
+
+login($username, $mail, 0, 0);
+
 leave(["success" => 1, "sm" => "Votre compte a été créé avec succès"]);
 
 function leave($response)

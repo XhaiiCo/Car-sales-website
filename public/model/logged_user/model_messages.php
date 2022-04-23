@@ -19,7 +19,12 @@ if (empty($exits)) {
     exit();
 }
 
-$sql  = "SELECT * from message where id_conversation = :id order by date_send desc";
+$sql  = "
+SELECT message.*, user.username
+from message 
+inner join user on user_send like user_mail
+where id_conversation = :id order by date_send desc
+";
 
 $datas = prepare($sql, ["id" => $id_conversation]);
 
