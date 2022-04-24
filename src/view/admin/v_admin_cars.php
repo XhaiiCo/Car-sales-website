@@ -287,6 +287,7 @@ if (!isAdmin()) {
             success: function(response) {
                 displayFeedback("feedback", response);
                 if (response.success === 1) {
+                    $("#newBrandName").val("")
                     actuAds();
                     setBrand();
                 }
@@ -306,6 +307,7 @@ if (!isAdmin()) {
             success: function(response) {
                 displayFeedback("feedback", response);
                 if (response.success === 1) {
+                    model: $("#newModelName").val("")
                     actuAds();
                     setBrand();
                 }

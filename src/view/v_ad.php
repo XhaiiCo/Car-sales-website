@@ -40,6 +40,11 @@
 
 <div class="p-2 container">
     <div id="feedback"></div>
+
+    <a class="nav-link link-dark" href="<?= $router->generate("annonces") ?>">
+        <i class="bi bi-arrow-left"></i> Revenir aux annonces
+    </a>
+
     <div class="row">
         <div class="col-md-7">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
