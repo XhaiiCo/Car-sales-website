@@ -79,7 +79,7 @@
 
     // Get ads from the db
     function setAd() {
-        const brand = $("#brand_select").val();
+        const brand = $("#brand_select").val() === null ? '%' : $("#brand_select").val();
         const model = $("#model_select").val() === null ? '%' : $("#model_select").val();
         const price_order = $("#price_order").val();
         $.ajax({
