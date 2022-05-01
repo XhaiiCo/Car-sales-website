@@ -54,7 +54,7 @@ if (!isSeller()) {
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
-                        <tbody id="ads-container">
+                        <tbody id="car-container">
                         </tbody>
                     </table>
                 </div>
@@ -89,7 +89,7 @@ if (!isSeller()) {
     }
 
     function displayUser(datas) {
-        $("#ads-container").html("");
+        $("#car-container").html("");
 
         for (var data of datas) {
             tr = document.createElement("tr");
@@ -123,7 +123,7 @@ if (!isSeller()) {
 
             tdBtnContainer.append(spanDelete);
             tr.append(tdBtnContainer);
-            $("#ads-container").append(tr);
+            $("#car-container").append(tr);
         }
         $(".btn-delete").click(function() {
             $("#modal-text").html("Êtes-vous sur de vouloir supprimer cette annonce ?");

@@ -106,7 +106,7 @@ if (!isAdmin()) {
 <div id="feedback"></div>
 
 <!-- action button -->
-<div class="text-center my-3 row">
+<div class="text-center my-3 row action-button">
     <div class="col-lg">
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newBrandModal">Ajouter une marque</button>
     </div>
@@ -150,7 +150,7 @@ if (!isAdmin()) {
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
-                        <tbody id="ads-container">
+                        <tbody id="cars-container">
                         </tbody>
                     </table>
                 </div>
@@ -186,7 +186,7 @@ if (!isAdmin()) {
     }
 
     function displayCars(datas) {
-        $("#ads-container").html("");
+        $("#cars-container").html("");
 
         for (var data of datas) {
             tr = document.createElement("tr");
@@ -213,7 +213,7 @@ if (!isAdmin()) {
 
             tdBtnContainer.append(spanDelete);
             tr.append(tdBtnContainer);
-            $("#ads-container").append(tr);
+            $("#cars-container").append(tr);
         }
 
         $(".btn-delete").click(function() {
@@ -355,7 +355,7 @@ if (!isAdmin()) {
         cursor: pointer;
     }
 
-    button {
+    .action-button button {
         width: 200px;
         margin-bottom: 5px;
     }

@@ -40,7 +40,7 @@
         </div>
         <!-- List of sales -->
         <div class="col-md-9 ">
-            <ul class="list-group list-group-flush" id="ads-container">
+            <ul class="list-group list-group-flush" id="car-container">
             </ul>
         </div>
     </div>
@@ -98,20 +98,20 @@
                 console.log("Error");
             },
             beforeSend: function() { //Loader
-                $("#ads-container").html(" <div class = 'd-flex justify-content-center' ><div class = 'spinner-border' role = 'status' ><span class = 'visually-hidden'>Loading...< /span></div></div>");
+                $("#car-container").html(" <div class = 'd-flex justify-content-center' ><div class = 'spinner-border' role = 'status' ><span class = 'visually-hidden'>Loading...< /span></div></div>");
             }
         });
     }
 
     //Display the ads past in argument
     function displayAd(data) {
-        $("#ads-container").html("");
+        $("#car-container").html("");
 
         if (data.length === 0) {
             divError = document.createElement("div");
             $(divError).addClass("alert alert-danger");
             $(divError).html("Il n'y a pas de voiture")
-            $("#ads-container").append(divError);
+            $("#car-container").append(divError);
 
         }
 
@@ -159,7 +159,7 @@
             $(pPrice).html(euro.format(ad.price));
             $(divPriceContainer).append(pPrice);
 
-            $("#ads-container").append(li);
+            $("#car-container").append(li);
         }
 
         $(".item").click(function() {

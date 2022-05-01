@@ -17,7 +17,7 @@ $sql = "select brand_name from car_model where brand_name like :brand and model_
 $exist = prepare($sql, ["brand" => $brand, "model" => $model]);
 
 if (!empty($exist)) {
-    leave(["error" => 1, "em" => "Modèle déjà présente"]);
+    leave(["error" => 1, "em" => "Modèle déjà présent"]);
 }
 
 $sql = "insert ignore into car_model value (:model, :brand)";
