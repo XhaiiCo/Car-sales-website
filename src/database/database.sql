@@ -70,27 +70,6 @@ references user(user_mail)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 
-create table if not exists sale_like
-(
-    user_mail varchar(255) NOT NULL,
-    id_sale int unsigned NOT NULL,
-
-    primary key (user_mail, id_sale),
-    key (id_sale)
-) engine = innodb ;
-
-alter table sale_like
-add constraint fk_sale_likeuser_mail
-foreign key (user_mail)
-references user (user_mail)
-ON DELETE CASCADE
-ON UPDATE CASCADE,
-add constraint fk_sale_likeid_sale
-foreign key (id_sale)
-references sale (id_sale)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
-
 create table if not exists car_picture
 (
     picture_name varchar(255) NOT NULL,
