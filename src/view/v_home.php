@@ -10,10 +10,12 @@
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold lh-1 mb-3">DLMotors</h1>
                 <p class="lead">Si vous souhaitez acheter, revendre ou simplement explorer les véhicules vous êtes au bon endroit.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="<?= $router->generate('connexion') ?>" class=" btn btn-secondary btn-lg px-4 me-md-2">Connexion</a>
-                    <a href="<?= $router->generate('inscription') ?>" class=" btn btn-outline-secondary btn-lg px-4">Inscription</a>
-                </div>
+                <?php if (!isConnected()) : ?>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="<?= $router->generate('connexion') ?>" class=" btn btn-secondary btn-lg px-4 me-md-2">Connexion</a>
+                        <a href="<?= $router->generate('inscription') ?>" class=" btn btn-outline-secondary btn-lg px-4">Inscription</a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
